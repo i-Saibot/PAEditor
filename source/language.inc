@@ -13,6 +13,7 @@ static enum
 	LANGUAGE_UA,
 	LANGUAGE_RU,
 	LANGUAGE_EN,
+	LANGUAGE_BY,
 }
 
 enum
@@ -150,6 +151,21 @@ public OnGameModeInit()
 		}
 		JSON_Cleanup(obj);
 		JSON_Cleanup(array);
+
+//////////////////////////////////////BY////////////////////////////////////////
+
+		JSON_GetArray(node, "BY", array);
+		JSON_ArrayLength(array, length);
+
+		for (new i; i < length; i++)
+		{
+			JSON_ArrayObject(array, i, obj);
+			JSON_GetString(obj, "message", message, sizeof(message));
+
+			strcat(language_message[LANGUAGE_BY][i], message);
+		}
+		JSON_Cleanup(obj);
+		JSON_Cleanup(array);
 	}
 	JSON_Cleanup(node);
 
@@ -204,6 +220,21 @@ public OnGameModeInit()
 			JSON_GetString(obj, "string", string, sizeof(string));
 
 			strcat(language_dialog[LANGUAGE_EN][i], string);
+		}
+		JSON_Cleanup(obj);
+		JSON_Cleanup(array);
+
+//////////////////////////////////////BY////////////////////////////////////////
+
+		JSON_GetArray(node, "BY", array);
+		JSON_ArrayLength(array, length);
+
+		for (new i; i < length; i++)
+		{
+			JSON_ArrayObject(array, i, obj);
+			JSON_GetString(obj, "string", string, sizeof(string));
+
+			strcat(language_dialog[LANGUAGE_BY][i], string);
 		}
 		JSON_Cleanup(obj);
 		JSON_Cleanup(array);
@@ -302,6 +333,32 @@ public OnGameModeInit()
 		JSON_Cleanup(array);
 		JSON_Cleanup(item);
 		JSON_Cleanup(element);
+
+//////////////////////////////////////////BY////////////////////////////////////
+
+		JSON_GetArray(node, "BY", array);
+		JSON_ArrayLength(array, length);
+
+		for (new i; i < length; i++)
+		{
+			JSON_ArrayObject(array, i, obj);
+
+			JSON_GetArray(obj, "array", item);
+
+			JSON_ArrayLength(item, length_arr);
+
+			for (new j; j < length_arr; j++)
+			{
+				JSON_ArrayObject(item, j, element);
+				JSON_GetNodeString(element, string, sizeof(string));
+
+				attachmain_SetBoneName(LANGUAGE_BY, j, string);
+			}
+		}
+		JSON_Cleanup(obj);
+		JSON_Cleanup(array);
+		JSON_Cleanup(item);
+		JSON_Cleanup(element);
 	}
 	JSON_Cleanup(node);
 #if defined core_OnGameModeInit
@@ -327,10 +384,10 @@ DialogCreate:dLanguageChoose(playerid)
 		Dialog:dLanguageChoose,
 		DIALOG_STYLE_LIST,
 		!""cMain"PAEditor",
-		!"Українська мова\n\
-		Русский язык\n\
+		!"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ\n\
+		пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ\n\
 		English",
-		!"»",
+		!"пїЅ",
 		!""
 	);
 	return 1;
@@ -356,7 +413,7 @@ stock language_MessageInfo(playerid, code)
 	new string[MAX_CHATBUBBLE_LENGTH + 1];
 	new language = language_GetLanguage(playerid);
 
-	strcat(string, "» "cWhite"");
+	strcat(string, "пїЅ "cWhite"");
 	strcat(string, language_message[language][code]);
 
 	SendClientMessage(playerid, COLOR_SERVER_MAIN, string);
@@ -368,7 +425,7 @@ stock language_MessageError(playerid, code)
 	new string[MAX_CHATBUBBLE_LENGTH + 1];
 	new language = language_GetLanguage(playerid);
 
-	strcat(string, "» "cWhite"");
+	strcat(string, "пїЅ "cWhite"");
 	strcat(string, language_message[language][code]);
 
 	SendClientMessage(playerid, COLOR_RED, string);
@@ -381,7 +438,7 @@ stock language_MessageInit(playerid, color, code, value)
 	new language = language_GetLanguage(playerid);
 
 	format(string, sizeof(string),
-		"» "cWhite"%s",
+		"пїЅ "cWhite"%s",
 		language_message[language][code],
 		value
 	);
