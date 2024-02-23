@@ -7,7 +7,6 @@ samp-server.exe
 *.txt
 *.dll
 *.cfg
-*.inc
 *.ico
 *.pdb
 *.exe

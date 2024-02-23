@@ -60,7 +60,7 @@ DialogCreate:dAttachMenuManage(playerid)
 
 		if (modelid == CORE_INVALID_OBJECT_MODEL)
 		{
-			str_obj = "Не выбран";
+			str_obj = "-";
 		}
 		else
 		{
