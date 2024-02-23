@@ -1,0 +1,548 @@
+{
+	"UA": [
+		{
+			"code": "MSG_START_ROBOT_PRESS_MAIN_END",
+			"message": "Для початку роботи натиснiть клавiшу {38A584}Y"
+		},
+		{
+			"code": "MSG_ANIM_APPLIED_TO_CHARACTER",
+			"message": "Анiмацiя застосована до персонажу"
+		},
+		{
+			"code": "MSG_ANIM_REMOVED_SUCCESS",
+			"message": "Анiмацiю успiшно видалено."
+		},
+		{
+			"code": "MSG_ANIM_EXISTS_WITH_INDEX",
+			"message": "Анiмацiя з таким iндексом вже додана"
+		},
+		{
+			"code": "MSG_PROCESS_START_PRESS_NEW",
+			"message": "Для початку створiть процес, натиснiть {38A584}NEW"
+		},
+		{
+			"code": "MSG_START_SELECT_OBJ_PRESS_OBJ",
+			"message": "Для початку виберiть предмет, натиснiть {38A584}Objects"
+		},
+		{
+			"code": "MSG_COLOR_HEX_REMOVED_SUCCESS",
+			"message": "HEX-код кольору успiшно видалено з предмета"
+		},
+		{
+			"code": "MSG_INVALID_COLOR_HEX_CODE",
+			"message": "Некоректний HEX-код кольору"
+		},
+		{
+			"code": "MSG_COLOR_HEX_APPLIED_SUCCESS",
+			"message": "HEX-код кольору успiшно застосований до предмета"
+		},
+		{
+			"code": "MSG_COLOR_REMOVED_SUCCESS",
+			"message": "Колiр успiшно видалено"
+		},
+		{
+			"code": "MSG_COLOR_EXISTS_WITH_HEX_CODE",
+			"message": "Колiр з таким HEX-кодом вже додано"
+		},
+		{
+			"code": "MSG_NEW_COLOR_ADDED_TO_LIST",
+			"message": "Новий колiр успiшно доданий до списку"
+		},
+		{
+			"code": "MSG_NO_CREATED_PROCESS_FOUND",
+			"message": "Створений процес вiдсутнiй"
+		},
+		{
+			"code": "MSG_MAX_COMMENT_LENGTH_IS_CHARS",
+			"message": "Максимальна довжина коментаря - %d символiв"
+		},
+		{
+			"code": "MSG_OBJECT_DUPLICATED_SUCCESS",
+			"message": "Предмет успiшно продубльовано"
+		},
+		{
+			"code": "MSG_FREE_LOOK_HOLD_SPRINT_KEY",
+			"message": "Для вiльного перегляду тримайте клавiшу бiгу ({38A584}Shift{FFFFFF}/{38A584}Space{FFFFFF})"
+		},
+		{
+			"code": "MSG_SAVE_PRESS_ICON_CNL_USE_ESC",
+			"message": "Для збереження змiн натиснiть на iконку {38A584}Зберегти{FFFFFF} для скасування використовуйте клавiшу ESC"
+		},
+		{
+			"code": "MSG_NOT_SAVED_EDITING_CANCELLED",
+			"message": "Змiни не були збереженi, оскiльки редагування було скасовано"
+		},
+		{
+			"code": "MSG_CHANGES_SAVED_AFTER_EDIT",
+			"message": "Змiни пiсля редагування успiшно збереженi"
+		},
+		{
+			"code": "MSG_LIST_ATTACHED_OBJECTS_EMPTY",
+			"message": "Список прикрiплених предметiв порожнiй"
+		},
+		{
+			"code": "MSG_NO_AVAILABLE_ATTACH_SLOTS",
+			"message": "Немає доступних слотiв для прикрiплення"
+		},
+		{
+			"code": "MSG_TO_SET_OBJECT_PRESS_OBJECTS",
+			"message": "Щоб встановити предмета, натиснiть {38A584}Objects"
+		},
+		{
+			"code": "MSG_TO_MNG_ATTAC_PRESS_MANAGE",
+			"message": "Для управлiння прикрiпленими предметами натиснiть {38A584}Manage"
+		},
+		{
+			"code": "MSG_PRTCT_FRM_ACCIDENTAL_CLICK",
+			"message": "Захист вiд випадкового клiка"
+		},
+		{
+			"code": "MSG_INVALID_OBJECT_MODEL",
+			"message": "Неприпустима модель предмета"
+		},
+		{
+			"code": "MSG_PRESS_TO_EDIT_START_EDITING",
+			"message": "Для початку редагування натиснiть Edit"
+		},
+		{
+			"code": "MSG_OBJECT_REMOVED_SUCCESS",
+			"message": "Предмет успiшно видалено"
+		},
+		{
+			"code": "MSG_OBJECT_MODEL_EXISTS_WITH_ID",
+			"message": "Модель предмета з таким iD вже додана"
+		},
+		{
+			"code": "MSG_OBJECT_MODEL_ADDED_SUCCESS",
+			"message": "Модель предмета успiшно додана до списку"
+		},
+		{
+			"code": "MSG_SPECIFY_SKIN_ID_IN_RANGE",
+			"message": "Вкажiть iD скина вiд 1 до 311"
+		},
+		{
+			"code": "MSG_SKIN_SET_SUCCESS",
+			"message": "Скин успiшно встановлено"
+		},
+		{
+			"code": "MSG_CLOSE_CURRENT_PROJECT_FIRST",
+			"message": "Для початку закрийте поточний проект"
+		},
+		{
+			"code": "MSG_MAX_PROJECT_LENGTH_IS_CHARS",
+			"message": "Максимальна назва проекту - %d символiв"
+		},
+		{
+			"code": "MSG_ONLY_LATIN_LETTERS_DIGITS",
+			"message": "Для введення дозволенi тiльки латинськi лiтери i цифри без вiдступiв"
+		},
+		{
+			"code": "MSG_PROJECT_WITH_NAME_EXISTS",
+			"message": "Проект з такою назвою вже доданий"
+		},
+		{
+			"code": "MSG_PRJCT_NAME_SUCCESS_CREATED",
+			"message": "Проект успiшно створено"
+		},
+		{
+			"code": "MSG_FREE_LK_MODE_ACTIV_PRS_ESC",
+			"message": "Для активацii режиму вiльного перегляду, натиснiть клавiшу {38A584}ESC"
+		},
+		{
+			"code": "MSG_CURSOR_ACTIVATION_PRESS_N",
+			"message": "Для активацii курсора, натиснiть клавiшу {38A584}N"
+		},
+		{
+			"code": "MSG_PROCESS_SRT_SLCT_OPTION_NEW",
+			"message": "Для початку процесу виберiть опцiю {38A584}NEW"
+		},
+		{
+			"code": "MSG_PROJECTS_LIST_EMPTY",
+			"message": "Список проектiв вiдсутнiй"
+		},
+		{
+			"code": "MSG_PRJCT_FILE_NO_FOUND_WH_NAME",
+			"message": "Файл проекту з вказаною назвою не знайдено"
+		},
+		{
+			"code": "MSG_PROJECT_LOADED_SUCCESS",
+			"message": "Проект успiшно завантажено"
+		},
+		{
+			"code": "MSG_PRJCT_RMOVD_FRM_LT_SUCCESS",
+			"message": "Проект успiшно видалено зi списку"
+		},
+		{
+			"code": "MSG_NO_ACTIVE_PROJECT_FOUND",
+			"message": "У вас вiдсутнiй активний проект"
+		},
+		{
+			"code": "MSG_CURRENT_PRJCT_CLSD_SUCCESS",
+			"message": "Поточний проект успiшно закрито"
+		}
+	],
+	"RU": [
+		{
+			"code": "MSG_START_ROBOT_PRESS_MAIN_END",
+			"message": "Для начала роботы нажмите клавишу {38A584}Y"
+		},
+		{
+			"code": "MSG_ANIM_APPLIED_TO_CHARACTER",
+			"message": "Анимация применена к персонажу"
+		},
+		{
+			"code": "MSG_ANIM_REMOVED_SUCCESS",
+			"message": "Анимация успешно удалена"
+		},
+		{
+			"code": "MSG_ANIM_EXISTS_WITH_INDEX",
+			"message": "Анимация с таким индексом уже существует"
+		},
+		{
+			"code": "MSG_PROCESS_START_PRESS_NEW",
+			"message": "Для начала создайте процесс, нажмите {38A584}NEW"
+		},
+		{
+			"code": "MSG_START_SELECT_OBJ_PRESS_OBJ",
+			"message": "Для начала выберите объект, нажмите {38A584}Objects"
+		},
+		{
+			"code": "MSG_COLOR_HEX_REMOVED_SUCCESS",
+			"message": "HEX-код цвета успешно удален с объекта"
+		},
+		{
+			"code": "MSG_INVALID_COLOR_HEX_CODE",
+			"message": "Некорректный HEX-код цвета"
+		},
+		{
+			"code": "MSG_COLOR_HEX_APPLIED_SUCCESS",
+			"message": "HEX-код цвета успешно применен к объекту"
+		},
+		{
+			"code": "MSG_COLOR_REMOVED_SUCCESS",
+			"message": "Цвет успешно удален"
+		},
+		{
+			"code": "MSG_COLOR_EXISTS_WITH_HEX_CODE",
+			"message": "Цвет с таким hex кодом уже существует"
+		},
+		{
+			"code": "MSG_NEW_COLOR_ADDED_TO_LIST",
+			"message": "Новый цвет успешно добавлен в список"
+		},
+		{
+			"code": "MSG_NO_CREATED_PROCESS_FOUND",
+			"message": "Созданный процесс отсутствует"
+		},
+		{
+			"code": "MSG_MAX_COMMENT_LENGTH_IS_CHARS",
+			"message": "Максимальная длина комментария - %d символ"
+		},
+		{
+			"code": "MSG_OBJECT_DUPLICATED_SUCCESS",
+			"message": "Объект успешно продублирован"
+		},
+		{
+			"code": "MSG_FREE_LOOK_HOLD_SPRINT_KEY",
+			"message": "Для свободного обзора удерживайте клавишу бега ({38A584}Shift{FFFFFF}/{38A584}Space{FFFFFF})"
+		},
+		{
+			"code": "MSG_SAVE_PRESS_ICON_CNL_USE_ESC",
+			"message": "Чтобы сохранить изменения, нажмите на иконку {38A584}Сохранить{FFFFFF}, для отмены используйте клавишу {38A584}ESC"
+		},
+		{
+			"code": "MSG_NOT_SAVED_EDITING_CANCELLED",
+			"message": "Изменения не были сохранены, так как редактирование было отменено"
+		},
+		{
+			"code": "MSG_CHANGES_SAVED_AFTER_EDIT",
+			"message": "Изменения после редактирования успешно сохранены"
+		},
+		{
+			"code": "MSG_LIST_ATTACHED_OBJECTS_EMPTY",
+			"message": "Список прикрепленных объектов пуст"
+		},
+		{
+			"code": "MSG_NO_AVAILABLE_ATTACH_SLOTS",
+			"message": "Нет доступных слотов для аттача"
+		},
+		{
+			"code": "MSG_TO_SET_OBJECT_PRESS_OBJECTS",
+			"message": "Чтобы установить объект, нажмите {38A584}Objects"
+		},
+		{
+			"code": "MSG_TO_MNG_ATTAC_PRESS_MANAGE",
+			"message": "Для управления прикрепленными объектами нажмите {38A584}Manage"
+		},
+		{
+			"code": "MSG_PRTCT_FRM_ACCIDENTAL_CLICK",
+			"message": "Защита от случайного клика"
+		},
+		{
+			"code": "MSG_INVALID_OBJECT_MODEL",
+			"message": "Модель объекта недопустима"
+		},
+		{
+			"code": "MSG_PRESS_TO_EDIT_START_EDITING",
+			"message": "Для начала редактирования нажмите {38A584}Edit"
+		},
+		{
+			"code": "MSG_OBJECT_REMOVED_SUCCESS",
+			"message": "Объект успешно удален"
+		},
+		{
+			"code": "MSG_OBJECT_MODEL_EXISTS_WITH_ID",
+			"message": "Модель объекта с таким iD уже существует"
+		},
+		{
+			"code": "MSG_OBJECT_MODEL_ADDED_SUCCESS",
+			"message": "Модель объекта успешно добавлена в список"
+		},
+		{
+			"code": "MSG_SPECIFY_SKIN_ID_IN_RANGE",
+			"message": "Укажите iD скина от 1 до 311"
+		},
+		{
+			"code": "MSG_SKIN_SET_SUCCESS",
+			"message": "Скин успешно установлен"
+		},
+		{
+			"code": "MSG_CLOSE_CURRENT_PROJECT_FIRST",
+			"message": "Для начала закройте текущий проект"
+		},
+		{
+			"code": "MSG_MAX_PROJECT_LENGTH_IS_CHARS",
+			"message": "Максимальная назва проекта - %d символ"
+		},
+		{
+			"code": "MSG_ONLY_LATIN_LETTERS_DIGITS",
+			"message": "Для ввода разрешены только латинские буквы и цифры без пробелов"
+		},
+		{
+			"code": "MSG_PROJECT_WITH_NAME_EXISTS",
+			"message": "Проект с таким названием уже существует"
+		},
+		{
+			"code": "MSG_PRJCT_NAME_SUCCESS_CREATED",
+			"message": "Проект успешно создан"
+		},
+		{
+			"code": "MSG_FREE_LK_MODE_ACTIV_PRS_ESC",
+			"message": "Для активации режима свободного просмотра, нажмите клавишу {38A584}ESC"
+		},
+		{
+			"code": "MSG_CURSOR_ACTIVATION_PRESS_N",
+			"message": "Для активации курсора, нажмите клавишу {38A584}N"
+		},
+		{
+			"code": "MSG_PROCESS_SRT_SLCT_OPTION_NEW",
+			"message": "Для начала процесса, выберите опцию {38A584}NEW"
+		},
+		{
+			"code": "MSG_PROJECTS_LIST_EMPTY",
+			"message": "Список проектов пуст"
+		},
+		{
+			"code": "MSG_PRJCT_FILE_NO_FOUND_WH_NAME",
+			"message": "Файл проекта с указанным названием не найден"
+		},
+		{
+			"code": "MSG_PROJECT_LOADED_SUCCESS",
+			"message": "Проект успешно загружен"
+		},
+		{
+			"code": "MSG_PRJCT_RMOVD_FRM_LT_SUCCESS",
+			"message": "Проект успешно удален из списка"
+		},
+		{
+			"code": "MSG_NO_ACTIVE_PROJECT_FOUND",
+			"message": "У вас нет активного проекта"
+		},
+		{
+			"code": "MSG_CURRENT_PRJCT_CLSD_SUCCESS",
+			"message": "Текущий проект успешно закрыт"
+		}
+	],
+	"EN": [
+		{
+			"code": "MSG_START_ROBOT_PRESS_MAIN_END",
+			"message": "To start the robot, press the {38A584}Y {FFFFFF}key"
+		},
+		{
+			"code": "MSG_ANIM_APPLIED_TO_CHARACTER",
+			"message": "Animation applied to the character in"
+		},
+		{
+			"code": "MSG_ANIM_REMOVED_SUCCESS",
+			"message": "The animation has been successfully removed"
+		},
+		{
+			"code": "MSG_ANIM_EXISTS_WITH_INDEX",
+			"message": "Animation with this index already exists"
+		},
+		{
+			"code": "MSG_PROCESS_START_PRESS_NEW",
+			"message": "For the start, create a process, press {38A584}NEW"
+		},
+		{
+			"code": "MSG_START_SELECT_OBJ_PRESS_OBJ",
+			"message": "For the start, select an object, press {38A584}Objects"
+		},
+		{
+			"code": "MSG_COLOR_HEX_REMOVED_SUCCESS",
+			"message": "HEX color code successfully removed from the object"
+		},
+		{
+			"code": "MSG_INVALID_COLOR_HEX_CODE",
+			"message": "invalid HEX color code"
+		},
+		{
+			"code": "MSG_COLOR_HEX_APPLIED_SUCCESS",
+			"message": "HEX color code successfully applied to the object"
+		},
+		{
+			"code": "MSG_COLOR_REMOVED_SUCCESS",
+			"message": "Color successfully removed"
+		},
+		{
+			"code": "MSG_COLOR_EXISTS_WITH_HEX_CODE",
+			"message": "Color with this HEX code already exists"
+		},
+		{
+			"code": "MSG_NEW_COLOR_ADDED_TO_LIST",
+			"message": "New color successfully added to the list"
+		},
+		{
+			"code": "MSG_NO_CREATED_PROCESS_FOUND",
+			"message": "The created process is not present"
+		},
+		{
+			"code": "MSG_MAX_COMMENT_LENGTH_IS_CHARS",
+			"message": "Maximum comment length is %d characters"
+		},
+		{
+			"code": "MSG_OBJECT_DUPLICATED_SUCCESS",
+			"message": "Object successfully duplicated"
+		},
+		{
+			"code": "MSG_FREE_LOOK_HOLD_SPRINT_KEY",
+			"message": "To freely look around, hold down the sprint key ({38A584}Shift{FFFFFF}/{38A584}Space{FFFFFF})"
+		},
+		{
+			"code": "MSG_SAVE_PRESS_ICON_CNL_USE_ESC",
+			"message": "To save changes, click on the {38A584}Save icon{FFFFFF} to cancel, use the {38A584}ESC {FFFFFF}key"
+		},
+		{
+			"code": "MSG_NOT_SAVED_EDITING_CANCELLED",
+			"message": "Changes were not saved as editing was canceled"
+		},
+		{
+			"code": "MSG_CHANGES_SAVED_AFTER_EDIT",
+			"message": "Changes after editing have been successfully saved"
+		},
+		{
+			"code": "MSG_LIST_ATTACHED_OBJECTS_EMPTY",
+			"message": "The list attached objects is empty"
+		},
+		{
+			"code": "MSG_NO_AVAILABLE_ATTACH_SLOTS",
+			"message": "No available slots for attachment"
+		},
+		{
+			"code": "MSG_TO_SET_OBJECT_PRESS_OBJECTS",
+			"message": "To install the object, press {38A584}Objects"
+		},
+		{
+			"code": "MSG_TO_MNG_ATTAC_PRESS_MANAGE",
+			"message": "To manage attached objects, press {38A584}Manage"
+		},
+		{
+			"code": "MSG_PRTCT_FRM_ACCIDENTAL_CLICK",
+			"message": "Protection against accidental clicks"
+		},
+		{
+			"code": "MSG_INVALID_OBJECT_MODEL",
+			"message": "invalid object model"
+		},
+		{
+			"code": "MSG_PRESS_TO_EDIT_START_EDITING",
+			"message": "To start editing the attachment, press {38A584}Edit"
+		},
+		{
+			"code": "MSG_OBJECT_REMOVED_SUCCESS",
+			"message": "Object successfully deleted"
+		},
+		{
+			"code": "MSG_OBJECT_MODEL_EXISTS_WITH_ID",
+			"message": "An object model with this iD already exists"
+		},
+		{
+			"code": "MSG_OBJECT_MODEL_ADDED_SUCCESS",
+			"message": "Object model successfully added to the list"
+		},
+		{
+			"code": "MSG_SPECIFY_SKIN_ID_IN_RANGE",
+			"message": "Specify the skin iD from 1 to 311"
+		},
+		{
+			"code": "MSG_SKIN_SET_SUCCESS",
+			"message": "Skin successfully set"
+		},
+		{
+			"code": "MSG_CLOSE_CURRENT_PROJECT_FIRST",
+			"message": "To start, close the current project"
+		},
+		{
+			"code": "MSG_MAX_PROJECT_LENGTH_IS_CHARS",
+			"message": "Maximum project name is %d characters"
+		},
+		{
+			"code": "MSG_ONLY_LATIN_LETTERS_DIGITS",
+			"message": "Only Latin letters and numbers without spaces are allowed for input"
+		},
+		{
+			"code": "MSG_PROJECT_WITH_NAME_EXISTS",
+			"message": "A project with this name already exists"
+		},
+		{
+			"code": "MSG_PRJCT_NAME_SUCCESS_CREATED",
+			"message": "Project successfully created"
+		},
+		{
+			"code": "MSG_FREE_LK_MODE_ACTIV_PRS_ESC",
+			"message": "To activate free-look mode, press the {38A584}ESC {FFFFFF}key"
+		},
+		{
+			"code": "MSG_CURSOR_ACTIVATION_PRESS_N",
+			"message": "To activate the cursor, press the {38A584}N {FFFFFF}key"
+		},
+		{
+			"code": "MSG_PROCESS_SRT_SLCT_OPTION_NEW",
+			"message": "To start the process, choose the option {38A584}NEW"
+		},
+		{
+			"code": "MSG_PROJECTS_LIST_EMPTY",
+			"message": "The list of projects is empty"
+		},
+		{
+			"code": "MSG_PRJCT_FILE_NO_FOUND_WH_NAME",
+			"message": "Project file with the specified name not found"
+		},
+		{
+			"code": "MSG_PROJECT_LOADED_SUCCESS",
+			"message": "Project successfully loaded"
+		},
+		{
+			"code": "MSG_PRJCT_RMOVD_FRM_LT_SUCCESS",
+			"message": "Project successfully removed from the list"
+		},
+		{
+			"code": "MSG_NO_ACTIVE_PROJECT_FOUND",
+			"message": "You don't have an active project"
+		},
+		{
+			"code": "MSG_CURRENT_PRJCT_CLSD_SUCCESS",
+			"message": "Current project successfully closed"
+		}
+	]
+}

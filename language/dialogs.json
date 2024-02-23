@@ -1,0 +1,260 @@
+{
+	"UA": [
+		{
+			"code": "DG_ADD_ANIMATION",
+			"string": "Додати анiмацiю\n\t \n"
+		},
+		{
+			"code": "DG_APPLY_ANIM_REMOVE_FROM_LIST",
+			"string": "Застосувати анiмацiю\nВидалити анiмацiю зi списку"
+		},
+		{
+			"code": "DG_ADD_ANIM_ENTER_TITLE_INDEX",
+			"string": "Для додавання анiмацii введiть назву та iндекс, роздiленi комою.\nПримiтка: Не використовуйте коми/точки мiж словами"
+		},
+		{
+			"code": "DG_ENTER_HEX_SLCT_REMOVE_COLOR",
+			"string": "Застосувати HEX-код кольору\nВиберiть колiр зi списку\n\t\nВидалити колiр з предмета"
+		},
+		{
+			"code": "DG_ENTER_HEX_COLOR",
+			"string": "Введiть колiр у форматi HEX, наприклад, FF0000\n\nЩоб знайти колiр, можете скористатися веб-сайтом: htmlcolorcodes.com\nПримiтка: Деякi кольори можуть вiдображатися некоректно на предметах"
+		},
+		{
+			"code": "DG_APPLY_RMV_COLOR_FROM_LIST",
+			"string": "Застосувати колiр\nВидалити колiр зi списку"
+		},
+		{
+			"code": "DG_CONFIRM_DELETE_PROCESS",
+			"string": "Ви впевненi, що хочете видалити цей процес?"
+		},
+		{
+			"code": "DG_CONFIRM_DUPLICATE_PROCESS",
+			"string": "Ви впевненi, що хочете продублювати цей процес?"
+		},
+		{
+			"code": "DG_ENTER_COMMENT",
+			"string": "Введiть коментар\nЯкщо коментар не потрiбен, залиште поле порожнiм i натиснiть »"
+		},
+		{
+			"code": "DG_DATA_EXPORT_SUCCESS",
+			"string": "Данi успiшно експортованi. Шлях: scriptfiles/project/export/iм'я_проекту"
+		},
+		{
+			"code": "DG_NUM_NAME_OBJECT_COMMENT",
+			"string": "#\tНазва\tПредмет\tКоментар\n"
+		},
+		{
+			"code": "DG_SET_MODEL_ADD_SELECT_OBJECT",
+			"string": "Встановити модель предмет\n\t\nДодати предмет до списку\nВибрати предмет iз списку"
+		},
+		{
+			"code": "DG_ENTER_ATTACHMENT_OBJ_MODEL",
+			"string": "Введiть модель предмета для прикрiплення"
+		},
+		{
+			"code": "DG_SET_OBJECT_REMOVE_FROM_LIST",
+			"string": "Встановити предмет\nВидалити предмет iз списку"
+		},
+		{
+			"code": "DG_ENTER_OBJECT_MODEL_TO_ADD",
+			"string": "Щоб додати предмет до списку, введiть модель предмета\nЩоб дiзнатися ID моделi, ви можете скористатися веб-сайтом: dev.prineside.com"
+		},
+		{
+			"code": "DG_ENTER_SKIN_ID_TO_SET",
+			"string": "Щоб встановити скiн, введiть ID"
+		},
+		{
+			"code": "DG_ENTER_PROJECT_NAME",
+			"string": "Введiть назву для проекту"
+		},
+		{
+			"code": "DG_LOAD_PRJCT_REMOVE_FROM_LIST",
+			"string": "Завантажити проект\nВидалити проект iз списку"
+		},
+		{
+			"code": "DG_CREATE_LOAD_CLS_HELP_PROJECT",
+			"string": "Створити проект\nЗавантажити проект\nЗакрити проект\n\t\nДовiдка"
+		},
+		{
+			"code": "DG_ADD_COLOR_HEX_CODE",
+			"string": "Додати HEX-код кольору\n\t\n"
+		},
+		{
+			"code": "DC_MAIN_MENU_HELP",
+			"string": "Manage - Управлiння прикрiпленими предметами\nExport - Експорт проекту\nNew - Створити новий процес\nDelete - Видалити процес\nDuplicate - Продублювати процес\nObjects - Встановити предмет\nEdit - Редагування предмета\nColor - Встановити колiр\nSkin - Встановити скин\nAnimation - Встановити анiмацiю\nClear Anim - Очистити анiмацiю\n\n/setweather - Встановити погоду\n/settime - Встановити час"
+		}
+	],
+	"RU": [
+		{
+			"code": "DG_ADD_ANIMATION",
+			"string": "Добавить анимацию\n\t \n"
+		},
+		{
+			"code": "DG_APPLY_ANIM_REMOVE_FROM_LIST",
+			"string": "Применить анимацию\nУдалить анимацию из списка"
+		},
+		{
+			"code": "DG_ADD_ANIM_ENTER_TITLE_INDEX",
+			"string": "Чтобы добавить анимацию введите название и Index, через запятую.\nПримечание: Не используйте запятые/точки между словами"
+		},
+		{
+			"code": "DG_ENTER_HEX_SLCT_REMOVE_COLOR",
+			"string": "Установить HEX-код цвета\nВыберите цвет из списка\n\t\nУдалить цвет с объекта"
+		},
+		{
+			"code": "DG_ENTER_HEX_COLOR",
+			"string": "Введите цвет в формате HEX, например, FF0000.\n\nЧтобы узнать цвет, вы можете воспользоваться сайтом: htmlcolorcodes.com\nПримечание: Некоторые цвета могут отображаться некорректно на объектах"
+		},
+		{
+			"code": "DG_APPLY_RMV_COLOR_FROM_LIST",
+			"string": "Применить цвет\nУдалить цвет из списка"
+		},
+		{
+			"code": "DG_CONFIRM_DELETE_PROCESS",
+			"string": "Вы уверены, что хотите удалить данный процесс?"
+		},
+		{
+			"code": "DG_CONFIRM_DUPLICATE_PROCESS",
+			"string": "Вы уверены, что хотите продублировать данный процесс?"
+		},
+		{
+			"code": "DG_ENTER_COMMENT",
+			"string": "Введите комментарий\nЕсли комментарий не требуется, оставьте поле пустым и нажмите »"
+		},
+		{
+			"code": "DG_DATA_EXPORT_SUCCESS",
+			"string": "Данные успешно экспортированы. Путь: scriptfiles/project/export/название_проекта"
+		},
+		{
+			"code": "DG_NUM_NAME_OBJECT_COMMENT",
+			"string": "#\tНазвание\tОбъект\tКомментарий\n"
+		},
+		{
+			"code": "DG_SET_MODEL_ADD_SELECT_OBJECT",
+			"string": "Установить модель объекта\n\t\nДобавить объект в список\nВыбрать объект из списка"
+		},
+		{
+			"code": "DG_ENTER_ATTACHMENT_OBJ_MODEL",
+			"string": "Введите модель объекта для аттача"
+		},
+		{
+			"code": "DG_SET_OBJECT_REMOVE_FROM_LIST",
+			"string": "Установить объект\nУдалить объект из списка"
+		},
+		{
+			"code": "DG_ENTER_OBJECT_MODEL_TO_ADD",
+			"string": "Чтобы добавить объект в список, введите модель объекта.\nЧтобы узнать ID модели, вы можете воспользоваться сайтом: dev.prineside.com"
+		},
+		{
+			"code": "DG_ENTER_SKIN_ID_TO_SET",
+			"string": "Чтобы установить скин, введите ID"
+		},
+		{
+			"code": "DG_ENTER_PROJECT_NAME",
+			"string": "Введите название для проекта"
+		},
+		{
+			"code": "DG_LOAD_PRJCT_REMOVE_FROM_LIST",
+			"string": "Загрузить проект\nУдалить проект из списка"
+		},
+		{
+			"code": "DG_CREATE_LOAD_CLS_HELP_PROJECT",
+			"string": "Создать проект\nЗагрузить проект\nЗакрыть проект\n\t\nПомощь"
+		},
+		{
+			"code": "DG_ADD_COLOR_HEX_CODE",
+			"string": "Добавить HEX-код цвета\n\t \n"
+		},
+		{
+			"code": "DC_MAIN_MENU_HELP",
+			"string": "Manage - Управления прикрепленными объектами\nExport - Экспортировать проект\nNew - Создать новый процесс\nDelete - Удалить процесс\nDublicate - Продублировать процесс\nObjects - Установить объект\nEdit - Редактирование объекта\nColor - Установить цвет\nSkin - Установить skin\nAnimation - Установить анимацию\nClear Anim - Очистить анимацию\n\n/setweather - Установить погоду\n/settime - Установить время"
+		}
+	],
+	"EN": [
+		{
+			"code": "DG_ADD_ANIMATION",
+			"string": "Add animation\n\t \n"
+		},
+		{
+			"code": "DG_APPLY_ANIM_REMOVE_FROM_LIST",
+			"string": "Apply animation\nRemove animation from the list"
+		},
+		{
+			"code": "DG_ADD_ANIM_ENTER_TITLE_INDEX",
+			"string": "To add an animation, enter the name and Index separated by a comma\nNote: Do not use commas/dots between words"
+		},
+		{
+			"code": "DG_ENTER_HEX_SLCT_REMOVE_COLOR",
+			"string": "Enter HEX color cod\nChoose a color from the list\n\t\nRemove color from the object"
+		},
+		{
+			"code": "DG_ENTER_HEX_COLOR",
+			"string": "Enter the color in HEX format, for example, FF0000\n\nTo find a color, you can use the website: htmlcolorcodes.com\nNote: Some colors may display incorrectly on objects"
+		},
+		{
+			"code": "DG_APPLY_RMV_COLOR_FROM_LIST",
+			"string": "Apply color\nRemove color from the list"
+		},
+		{
+			"code": "DG_CONFIRM_DELETE_PROCESS",
+			"string": "Are you sure you want to delete this process?"
+		},
+		{
+			"code": "DG_CONFIRM_DUPLICATE_PROCESS",
+			"string": "Are you sure you want to duplicate this process?"
+		},
+		{
+			"code": "DG_ENTER_COMMENT",
+			"string": "Enter a comment\nIf no comment is needed, leave the field empty and press »"
+		},
+		{
+			"code": "DG_DATA_EXPORT_SUCCESS",
+			"string": "Data successfully exported. Path: scriptfiles/project/export/project_name"
+		},
+		{
+			"code": "DG_NUM_NAME_OBJECT_COMMENT",
+			"string": "#\tTitle\tObject\tComment\n"
+		},
+		{
+			"code": "DG_SET_MODEL_ADD_SELECT_OBJECT",
+			"string": "Set object model\n\t\nAdd object to the list\nSelect object from the list"
+		},
+		{
+			"code": "DG_ENTER_ATTACHMENT_OBJ_MODEL",
+			"string": "Enter object model for attachment"
+		},
+		{
+			"code": "DG_SET_OBJECT_REMOVE_FROM_LIST",
+			"string": "Set object\nRemove object from the list"
+		},
+		{
+			"code": "DG_ENTER_OBJECT_MODEL_TO_ADD",
+			"string": "To add an object to the list, enter the object model\nTo find the model ID, you can use the website: dev.prineside.com"
+		},
+		{
+			"code": "DG_ENTER_SKIN_ID_TO_SET",
+			"string": "To set the skin, enter the ID"
+		},
+		{
+			"code": "DG_ENTER_PROJECT_NAME",
+			"string": "Enter a name for the project"
+		},
+		{
+			"code": "DG_LOAD_PRJCT_REMOVE_FROM_LIST",
+			"string": "Load project\nRemove project from the list"
+		},
+		{
+			"code": "DG_CREATE_LOAD_CLS_HELP_PROJECT",
+			"string": "Create project\nLoad project\nClose project\n\t\nHelp"
+		},
+		{
+			"code": "DG_ADD_COLOR_HEX_CODE",
+			"string": "Add HEX color code\n\t\n"
+		},
+		{
+			"code": "DC_MAIN_MENU_HELP",
+			"string": "Manage - Manage attached objects\nExport - Export project\nNew - Create a new process\nDelete - Delete process\nDuplicate - Duplicate process\nObjects - Set object\nEdit - Edit object\nColor - Set color\nSkin - Set skin\nAnimation - Set animation\nClear Anim - Clear animation\n\n/setweather - Set weather\n/settime - Set time"
+		}
+	]
+}

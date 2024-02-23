@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+	{
+		"label": "build-normal",
+		"args": ["${workspaceRoot}\\gamemodes\\new.pwn", "--%", "-Dgamemodes", "-;+", "-(+", "-d3"],
+		"type": "shell",
+		"command": "${workspaceRoot}/pawno/pawncc.exe",
+		"group": {
+		"kind": "build",
+		"isDefault": true
+		},
+		"isBackground": false,
+		"presentation": {
+		"reveal": "silent",
+		"panel": "dedicated"
+		},
+		"problemMatcher": "$pawncc"
+	}
+	]
+}
