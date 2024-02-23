@@ -1,0 +1,14 @@
+*.amx
+announce
+samp03svr
+*.log
+LICENSE
+samp-server.exe
+*.txt
+*.dll
+*.cfg
+*.inc
+*.ico
+*.pdb
+*.exe
+*.ini
