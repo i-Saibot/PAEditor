@@ -256,5 +256,91 @@
 			"code": "DC_MAIN_MENU_HELP",
 			"string": "Manage - Manage attached objects\nExport - Export project\nNew - Create a new process\nDelete - Delete process\nDuplicate - Duplicate process\nObjects - Set object\nEdit - Edit object\nColor - Set color\nSkin - Set skin\nAnimation - Set animation\nClear Anim - Clear animation\n\n/setweather - Set weather\n/settime - Set time"
 		}
+	],
+	"BY": [
+		{
+			"code": "DG_ADD_ANIMATION",
+			"string": "Дадаць анімацыю\n\t \n"
+		},
+		{
+			"code": "DG_APPLY_ANIM_REMOVE_FROM_LIST",
+			"string": "Прымяніць анімацыю\nВыдаліць анімацыю з спіску"
+		},
+		{
+			"code": "DG_ADD_ANIM_ENTER_TITLE_INDEX",
+			"string": "Каб дадаць анімацыю, увядзіце назву і індэкс, падзеленыя коскі\nЗаўвага: Не выкарыстоўвайце коскі/кропкі паміж словамі"
+		},
+		{
+			"code": "DG_ENTER_HEX_SLCT_REMOVE_COLOR",
+			"string": "Увядзіце HEX колер cod\nВыбярыце колер з спіску\n\t\nУдаліць колер з праэкту"
+		},
+		{
+			"code": "DG_ENTER_HEX_COLOR",
+			"string": "Увядзіце колер у HEX фармаце, на прыклад, FF0000\n\nКаб знайсці, вы можаце іспользваць сайт: htmlcolorcodes.com\nУвага: Некалькі колераў могуць быць нявернымі на аб’ектах"
+		},
+		{
+			"code": "DG_APPLY_RMV_COLOR_FROM_LIST",
+			"string": "Прымяніць колер\nВыдаліць колер з спіску"
+		},
+		{
+			"code": "DG_CONFIRM_DELETE_PROCESS",
+			"string": "Хочаце выдаліць гэты працэс?"
+		},
+		{
+			"code": "DG_CONFIRM_DUPLICATE_PROCESS",
+			"string": "Хочаце паўтарыць гэты працэс?"
+		},
+		{
+			"code": "DG_ENTER_COMMENT",
+			"string": "Увядзіце заўвагу\nКалі заўвага не патрабуецца, пакіньце поле пустым і націсніце»"
+		},
+		{
+			"code": "DG_DATA_EXPORT_SUCCESS",
+			"string": "Дадзеныя паспяхова экспартаваныя. Шлях: scriptfiles/project/export/назва праэкту"
+		},
+		{
+			"code": "DG_NUM_NAME_OBJECT_COMMENT",
+			"string": "#\tНазва\tАб’ект\tЗаўвага\n"
+		},
+		{
+			"code": "DG_SET_MODEL_ADD_SELECT_OBJECT",
+			"string": "Стварыць мадэль да аб'екту\n\t\nСтварыць абъект да спіску\nВыбярыце аб’ект з спіску"
+		},
+		{
+			"code": "DG_ENTER_ATTACHMENT_OBJ_MODEL",
+			"string": "Увядзіце мадэль да аб'екту для ўкладання"
+		},
+		{
+			"code": "DG_SET_OBJECT_REMOVE_FROM_LIST",
+			"string": "Паставіць аб’ект\nВыдзяліць аб’ект з спіску"
+		},
+		{
+			"code": "DG_ENTER_OBJECT_MODEL_TO_ADD",
+			"string": "Каб add an object to the list, enter the object model\nTo find the model ID, you can use the website: dev.prineside.com"
+		},
+		{
+			"code": "DG_ENTER_SKIN_ID_TO_SET",
+			"string": "Каб set the skin, enter the ID"
+		},
+		{
+			"code": "DG_ENTER_PROJECT_NAME",
+			"string": "Увядзіце назву да праэкта"
+		},
+		{
+			"code": "DG_LOAD_PRJCT_REMOVE_FROM_LIST",
+			"string": "Загрузіць праэкт\nВыціснуць праэкт з списку"
+		},
+		{
+			"code": "DG_CREATE_LOAD_CLS_HELP_PROJECT",
+			"string": "Стварыць праэкт\nЗагрузіць праэкт\nЗакрыць праэкт\n\t\nДапамога"
+		},
+		{
+			"code": "DG_ADD_COLOR_HEX_CODE",
+			"string": "Дадаць HEX каляровай код\n\t\n"
+		},
+		{
+			"code": "DC_MAIN_MENU_HELP",
+			"string": "Manage - Кіраванне прымацаванымі аб'ектамі\nExport - Экспарт праэкту\nNew - Стварыць праэкт\nDelete - Працэс выдалення\nDuplicate - Працэс дублірвання\nObjects - Зуставіць аб’ект\nEdit - Рэдактаваць аб’ект\nColor - Зуставіць колер\nSkin - Зуставіць адзенне skin\nAnimation - Зуставіць анімацыю\nClear Anim - Абнуліць анімацыю\n\n/setweather - Памяняць надвор’е\n/settime - Памяняць час"
+		}
 	]
 }
