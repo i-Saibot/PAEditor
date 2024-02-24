@@ -548,31 +548,31 @@
 	"BY": [
 		{
 			"code": "MSG_START_ROBOT_PRESS_MAIN_END",
-			"message": "Для пачатку работы, націсніце клавішу {38a584}Y {FFFFFF}"
+			"message": "Для пачатку работы, нацiснiце клавiшу {38a584}Y{FFFFFF}"
 		},
 		{
 			"code": "MSG_ANIM_APPLIED_TO_CHARACTER",
-			"message": "Анімацыя, ужытая да персанажа"
+			"message": "Анiмацыя, ужытая да персанажа"
 		},
 		{
 			"code": "MSG_ANIM_REMOVED_SUCCESS",
-			"message": "Анімацыя была паспяхова удалена"
+			"message": "Анiмацыя была паспяхова удалена"
 		},
 		{
 			"code": "MSG_ANIM_EXISTS_WITH_INDEX",
-			"message": "Анімацыя з гэтым індыксам ужо ёсць у праэкце"
+			"message": "Анiмацыя з гэтым iндыксам ужо ёсць у праэкце"
 		},
 		{
 			"code": "MSG_PROCESS_START_PRESS_NEW",
-			"message": "Для пачатка, стварыцце працэс, націсніце {38A584}NEW"
+			"message": "Для пачатка, стварыцце працэс, нацiснiце {38A584}NEW"
 		},
 		{
 			"code": "MSG_START_SELECT_OBJ_PRESS_OBJ",
-			"message": "Для пачатка, выдзяліце аб’ект, націсніце {38A584}Objects"
+			"message": "Для пачатка, выдзялiце аб`ект, нацiснiце {38A584}Objects"
 		},
 		{
 			"code": "MSG_COLOR_HEX_REMOVED_SUCCESS",
-			"message": "HEX color code паспяхова знішчэнны з аб’екта"
+			"message": "HEX color code паспяхова знiшчэнны з аб`екта"
 		},
 		{
 			"code": "MSG_INVALID_COLOR_HEX_CODE",
@@ -580,11 +580,11 @@
 		},
 		{
 			"code": "MSG_COLOR_HEX_APPLIED_SUCCESS",
-			"message": "HEX color code паспяхова прымянены да аб’екту"
+			"message": "HEX color code паспяхова прымянены да аб`екту"
 		},
 		{
 			"code": "MSG_COLOR_REMOVED_SUCCESS",
-			"message": "Колер паспяхова знішчэнны"
+			"message": "Колер паспяхова знiшчэнны"
 		},
 		{
 			"code": "MSG_COLOR_EXISTS_WITH_HEX_CODE",
@@ -592,51 +592,51 @@
 		},
 		{
 			"code": "MSG_NEW_COLOR_ADDED_TO_LIST",
-			"message": "Новы колер паспяхова быў створан у спіску"
+			"message": "Новы колер паспяхова быy створан у спiску"
 		},
 		{
 			"code": "MSG_NO_CREATED_PROCESS_FOUND",
-			"message": "Створаны працэс адсутнічае"
+			"message": "Створаны працэс адсутнiчае"
 		},
 		{
 			"code": "MSG_MAX_COMMENT_LENGTH_IS_CHARS",
-			"message": "Максімальная даўжыня апісання is %d сімвалаў"
+			"message": "Максiмальная даyжыня апiсання is %d сiмвалаy"
 		},
 		{
 			"code": "MSG_OBJECT_DUPLICATED_SUCCESS",
-			"message": "Аб’ект паспяхова дубліраван"
+			"message": "Аб`ект паспяхова дублiраван"
 		},
 		{
 			"code": "MSG_FREE_LOOK_HOLD_SPRINT_KEY",
-			"message": "Каб свабодна агледзецца, ўтрымлівайце націснутай клавішу спрынт({38A584}Shift{FFFFFF}/{38A584}Space{FFFFFF})"
+			"message": "Каб свабодна агледзецца, yтрымлiвайце нацiснутай клавiшу спрынт({38A584}Shift{FFFFFF}/{38A584}Space{FFFFFF})"
 		},
 		{
 			"code": "MSG_SAVE_PRESS_ICON_CNL_USE_ESC",
-			"message": "Каб захаваць змены, націсніце на {38A584}Значок захавання{FFFFFF} каб адмяніць, націснице клавішу {38A584}ESC {FFFFFF}"
+			"message": "Каб захаваць змены, нацiснiце на {38A584}Значок захавання{FFFFFF} каб адмянiць, нацiснице клавiшу {38A584}ESC {FFFFFF}"
 		},
 		{
 			"code": "MSG_NOT_SAVED_EDITING_CANCELLED",
-			"message": "Змены не былі захаваныя, так як рэдагаванне было адменена"
+			"message": "Змены не былi захаваныя, так як рэдагаванне было адменена"
 		},
 		{
 			"code": "MSG_CHANGES_SAVED_AFTER_EDIT",
-			"message": "Змены пасля рэдагавання былі паспяхова захаваны"
+			"message": "Змены пасля рэдагавання былi паспяхова захаваны"
 		},
 		{
 			"code": "MSG_LIST_ATTACHED_OBJECTS_EMPTY",
-			"message": "Ліст аб’ектаў пусты"
+			"message": "Лiст аб`ектаy пусты"
 		},
 		{
 			"code": "MSG_NO_AVAILABLE_ATTACH_SLOTS",
-			"message": "Няма свабодных слатоў для рэдакцірвання"
+			"message": "Няма свабодных слатоy для рэдакцiрвання"
 		},
 		{
 			"code": "MSG_TO_SET_OBJECT_PRESS_OBJECTS",
-			"message": "Каб усталяваць аб'ект, націсніце {38a584}Objects"
+			"message": "Каб усталяваць аб'ект, нацiснiце {38a584}Objects"
 		},
 		{
 			"code": "MSG_TO_MNG_ATTAC_PRESS_MANAGE",
-			"message": "Каб кіраваць прымацаванымі аб'ектамі, націсніце {38a584}Manage"
+			"message": "Каб кiраваць прымацаванымi аб'ектамi, нацiснiце {38a584}Manage"
 		},
 		{
 			"code": "MSG_PRTCT_FRM_ACCIDENTAL_CLICK",
@@ -644,27 +644,27 @@
 		},
 		{
 			"code": "MSG_INVALID_OBJECT_MODEL",
-			"message": "Няверная мадэль аб’екта"
+			"message": "Няверная мадэль аб`екта"
 		},
 		{
 			"code": "MSG_PRESS_TO_EDIT_START_EDITING",
-			"message": "Для пачатка рэдакціравання прыкладанная, націсніце клавішу {38A584}Edit"
+			"message": "Для пачатка рэдакцiравання прыкладанная, нацiснiце клавiшу {38A584}Edit"
 		},
 		{
 			"code": "MSG_OBJECT_REMOVED_SUCCESS",
-			"message": "Аб’ект паспяхова знішчан"
+			"message": "Аб`ект паспяхова знiшчан"
 		},
 		{
 			"code": "MSG_OBJECT_MODEL_EXISTS_WITH_ID",
-			"message": "Аб'ектная мадэль з гэтым ідэнтыфікатарам ўжо існуе"
+			"message": "Аб'ектная мадэль з гэтым iдэнтыфiкатарам yжо iснуе"
 		},
 		{
 			"code": "MSG_OBJECT_MODEL_ADDED_SUCCESS",
-			"message": "Мадэль аб’екта была паспяхова створанна у спісак"
+			"message": "Мадэль аб`екта была паспяхова створанна у спiсак"
 		},
 		{
 			"code": "MSG_SPECIFY_SKIN_ID_IN_RANGE",
-			"message": "Укажыце ідэнтыфікатар скіна ў дыяпазоне ад 1 да 311"
+			"message": "Укажыце iдэнтыфiкатар скiна y дыяпазоне ад 1 да 311"
 		},
 		{
 			"code": "MSG_SKIN_SET_SUCCESS",
@@ -676,15 +676,15 @@
 		},
 		{
 			"code": "MSG_MAX_PROJECT_LENGTH_IS_CHARS",
-			"message": "Максымальная назва праэкта %d сімвалоў"
+			"message": "Максымальная назва праэкта %d сiмвалоy"
 		},
 		{
 			"code": "MSG_ONLY_LATIN_LETTERS_DIGITS",
-			"message": "Толькі Лацінскія літары і чысла без прабелаў разрашаны для ўводу"
+			"message": "Толькi Лацiнскiя лiтары i чысла без прабелаy разрашаны для yводу"
 		},
 		{
 			"code": "MSG_PROJECT_WITH_NAME_EXISTS",
-			"message": "Праэкт з гэтым імянем ужо ёсц"
+			"message": "Праэкт з гэтым iмянем ужо ёсц"
 		},
 		{
 			"code": "MSG_PRJCT_NAME_SUCCESS_CREATED",
@@ -692,11 +692,11 @@
 		},
 		{
 			"code": "MSG_FREE_LK_MODE_ACTIV_PRS_ESC",
-			"message": "Каб актываваць рэжым вольнага прагляду, націсніце клавішу {38a584}ESC {FFFFFF}"
+			"message": "Каб актываваць рэжым вольнага прагляду, нацiснiце клавiшу {38a584}ESC {FFFFFF}"
 		},
 		{
 			"code": "MSG_CURSOR_ACTIVATION_PRESS_N",
-			"message": "Для акцявацыі, націснице клавішу {38A584}N{FFFFFF}"
+			"message": "Для акцявацыi, нацiснице клавiшу {38A584}N{FFFFFF}"
 		},
 		{
 			"code": "MSG_PROCESS_SRT_SLCT_OPTION_NEW",
@@ -704,11 +704,11 @@
 		},
 		{
 			"code": "MSG_PROJECTS_LIST_EMPTY",
-			"message": "Ліст праэктаў пусты"
+			"message": "Лiст праэктаy пусты"
 		},
 		{
 			"code": "MSG_PRJCT_FILE_NO_FOUND_WH_NAME",
-			"message": "Файл праекта з названым імем не знойдзены"
+			"message": "Файл праекта з названым iмем не знойдзены"
 		},
 		{
 			"code": "MSG_PROJECT_LOADED_SUCCESS",
@@ -716,11 +716,11 @@
 		},
 		{
 			"code": "MSG_PRJCT_RMOVD_FRM_LT_SUCCESS",
-			"message": "Праэкт паспяхова знішчэнне з спіску"
+			"message": "Праэкт паспяхова знiшчэнне з спiску"
 		},
 		{
 			"code": "MSG_NO_ACTIVE_PROJECT_FOUND",
-			"message": "У вас няма актыўных праэктаў"
+			"message": "У вас няма актыyных праэктаy"
 		},
 		{
 			"code": "MSG_CURRENT_PRJCT_CLSD_SUCCESS",

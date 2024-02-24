@@ -3,18 +3,22 @@
 #endif
 #define _language_inc
 
-const LANGUAGE_MAX_COUNT								= 3;
+
 const LANGUAGE_MAX_CODE_MESSAGE							= 45;
 const LANGUAGE_MAX_CODE_DIALOG							= 21;
 const LANGUAGE_MAX_LENGHT_STRING_DL						= 415;
 
+////////////////////////////////////////
 static enum
 {
+	LANGUAGE_EN,
 	LANGUAGE_UA,
 	LANGUAGE_RU,
-	LANGUAGE_EN,
-	LANGUAGE_BY,
+	LANGUAGE_BY
 }
+
+const LANGUAGE_MAX_COUNT								= 4;
+////////////////////////////////////////
 
 enum
 {
@@ -384,10 +388,11 @@ DialogCreate:dLanguageChoose(playerid)
 		Dialog:dLanguageChoose,
 		DIALOG_STYLE_LIST,
 		!""cMain"PAEditor",
-		!"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ\n\
-		пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ\n\
-		English",
-		!"пїЅ",
+		!"English\n\
+		Українська мова\n\
+		Русский язык\n\
+		Беларуская мова",
+		!"»",
 		!""
 	);
 	return 1;
@@ -413,7 +418,7 @@ stock language_MessageInfo(playerid, code)
 	new string[MAX_CHATBUBBLE_LENGTH + 1];
 	new language = language_GetLanguage(playerid);
 
-	strcat(string, "пїЅ "cWhite"");
+	strcat(string, "[!] "cWhite"");
 	strcat(string, language_message[language][code]);
 
 	SendClientMessage(playerid, COLOR_SERVER_MAIN, string);
@@ -425,7 +430,7 @@ stock language_MessageError(playerid, code)
 	new string[MAX_CHATBUBBLE_LENGTH + 1];
 	new language = language_GetLanguage(playerid);
 
-	strcat(string, "пїЅ "cWhite"");
+	strcat(string, "[x] "cWhite"");
 	strcat(string, language_message[language][code]);
 
 	SendClientMessage(playerid, COLOR_RED, string);
@@ -438,7 +443,7 @@ stock language_MessageInit(playerid, color, code, value)
 	new language = language_GetLanguage(playerid);
 
 	format(string, sizeof(string),
-		"пїЅ "cWhite"%s",
+		"[x] "cWhite"%s",
 		language_message[language][code],
 		value
 	);

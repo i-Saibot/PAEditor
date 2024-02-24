@@ -260,39 +260,39 @@
 	"BY": [
 		{
 			"code": "DG_ADD_ANIMATION",
-			"string": "Дадаць анімацыю\n\t \n"
+			"string": "Дадаць анiмацыю\n\t \n"
 		},
 		{
 			"code": "DG_APPLY_ANIM_REMOVE_FROM_LIST",
-			"string": "Прымяніць анімацыю\nВыдаліць анімацыю з спіску"
+			"string": "Прымянiць анiмацыю\nВыдалiць анiмацыю з спiску"
 		},
 		{
 			"code": "DG_ADD_ANIM_ENTER_TITLE_INDEX",
-			"string": "Каб дадаць анімацыю, увядзіце назву і індэкс, падзеленыя коскі\nЗаўвага: Не выкарыстоўвайце коскі/кропкі паміж словамі"
+			"string": "Каб дадаць анiмацыю, увядзiце назву i iндэкс, падзеленыя коскi\nЗаyвага: Не выкарыстоyвайце коскi/кропкi памiж словамi"
 		},
 		{
 			"code": "DG_ENTER_HEX_SLCT_REMOVE_COLOR",
-			"string": "Увядзіце HEX колер cod\nВыбярыце колер з спіску\n\t\nУдаліць колер з праэкту"
+			"string": "Увядзiце HEX колер cod\nВыбярыце колер з спiску\n\t\nУдалiць колер з праэкту"
 		},
 		{
 			"code": "DG_ENTER_HEX_COLOR",
-			"string": "Увядзіце колер у HEX фармаце, на прыклад, FF0000\n\nКаб знайсці, вы можаце іспользваць сайт: htmlcolorcodes.com\nУвага: Некалькі колераў могуць быць нявернымі на аб’ектах"
+			"string": "Увядзiце колер у HEX фармаце, на прыклад, FF0000\n\nКаб знайсцi, вы можаце iспользваць сайт: htmlcolorcodes.com\nУвага: Некалькi колераy могуць быць нявернымi на аб`ектах"
 		},
 		{
 			"code": "DG_APPLY_RMV_COLOR_FROM_LIST",
-			"string": "Прымяніць колер\nВыдаліць колер з спіску"
+			"string": "Прымянiць колер\nВыдалiць колер з спiску"
 		},
 		{
 			"code": "DG_CONFIRM_DELETE_PROCESS",
-			"string": "Хочаце выдаліць гэты працэс?"
+			"string": "Хочаце выдалiць гэты працэс?"
 		},
 		{
 			"code": "DG_CONFIRM_DUPLICATE_PROCESS",
-			"string": "Хочаце паўтарыць гэты працэс?"
+			"string": "Хочаце паyтарыць гэты працэс?"
 		},
 		{
 			"code": "DG_ENTER_COMMENT",
-			"string": "Увядзіце заўвагу\nКалі заўвага не патрабуецца, пакіньце поле пустым і націсніце»"
+			"string": "Увядзiце заyвагу\nКалi заyвага не патрабуецца, пакiньце поле пустым i нацiснiце»"
 		},
 		{
 			"code": "DG_DATA_EXPORT_SUCCESS",
@@ -300,19 +300,19 @@
 		},
 		{
 			"code": "DG_NUM_NAME_OBJECT_COMMENT",
-			"string": "#\tНазва\tАб’ект\tЗаўвага\n"
+			"string": "#\tНазва\tАб`ект\tЗаyвага\n"
 		},
 		{
 			"code": "DG_SET_MODEL_ADD_SELECT_OBJECT",
-			"string": "Стварыць мадэль да аб'екту\n\t\nСтварыць абъект да спіску\nВыбярыце аб’ект з спіску"
+			"string": "Стварыць мадэль да аб'екту\n\t\nСтварыць абъект да спiску\nВыбярыце аб`ект з спiску"
 		},
 		{
 			"code": "DG_ENTER_ATTACHMENT_OBJ_MODEL",
-			"string": "Увядзіце мадэль да аб'екту для ўкладання"
+			"string": "Увядзiце мадэль да аб'екту для yкладання"
 		},
 		{
 			"code": "DG_SET_OBJECT_REMOVE_FROM_LIST",
-			"string": "Паставіць аб’ект\nВыдзяліць аб’ект з спіску"
+			"string": "Паставiць аб`ект\nВыдзялiць аб`ект з спiску"
 		},
 		{
 			"code": "DG_ENTER_OBJECT_MODEL_TO_ADD",
@@ -324,15 +324,15 @@
 		},
 		{
 			"code": "DG_ENTER_PROJECT_NAME",
-			"string": "Увядзіце назву да праэкта"
+			"string": "Увядзiце назву да праэкта"
 		},
 		{
 			"code": "DG_LOAD_PRJCT_REMOVE_FROM_LIST",
-			"string": "Загрузіць праэкт\nВыціснуць праэкт з списку"
+			"string": "Загрузiць праэкт\nВыцiснуць праэкт з списку"
 		},
 		{
 			"code": "DG_CREATE_LOAD_CLS_HELP_PROJECT",
-			"string": "Стварыць праэкт\nЗагрузіць праэкт\nЗакрыць праэкт\n\t\nДапамога"
+			"string": "Стварыць праэкт\nЗагрузiць праэкт\nЗакрыць праэкт\n\t\nДапамога"
 		},
 		{
 			"code": "DG_ADD_COLOR_HEX_CODE",
@@ -340,7 +340,7 @@
 		},
 		{
 			"code": "DC_MAIN_MENU_HELP",
-			"string": "Manage - Кіраванне прымацаванымі аб'ектамі\nExport - Экспарт праэкту\nNew - Стварыць праэкт\nDelete - Працэс выдалення\nDuplicate - Працэс дублірвання\nObjects - Зуставіць аб’ект\nEdit - Рэдактаваць аб’ект\nColor - Зуставіць колер\nSkin - Зуставіць адзенне skin\nAnimation - Зуставіць анімацыю\nClear Anim - Абнуліць анімацыю\n\n/setweather - Памяняць надвор’е\n/settime - Памяняць час"
+			"string": "Manage - Кiраванне прымацаванымi аб'ектамi\nExport - Экспарт праэкту\nNew - Стварыць праэкт\nDelete - Працэс выдалення\nDuplicate - Працэс дублiрвання\nObjects - Зуставiць аб`ект\nEdit - Рэдактаваць аб`ект\nColor - Зуставiць колер\nSkin - Зуставiць адзенне skin\nAnimation - Зуставiць анiмацыю\nClear Anim - Абнулiць анiмацыю\n\n/setweather - Памяняць надвор`е\n/settime - Памяняць час"
 		}
 	]
 }
