@@ -4,16 +4,14 @@
 #define _language_inc
 
 
-const LANGUAGE_MAX_CODE_MESSAGE							= 45;
-const LANGUAGE_MAX_CODE_DIALOG							= 21;
-const LANGUAGE_MAX_LENGHT_STRING_DL						= 415;
+const LANGUAGE_MAX_LENGHT_STRING_DL						= 1450;
 
 ////////////////////////////////////////
 static enum
 {
 	LANGUAGE_EN,
-	LANGUAGE_UA,
 	LANGUAGE_RU,
+	LANGUAGE_UA,
 	LANGUAGE_BY
 }
 
@@ -66,7 +64,12 @@ enum
 	MSG_PROJECT_LOADED_SUCCESS,
 	MSG_PRJCT_RMOVD_FRM_LT_SUCCESS,
 	MSG_NO_ACTIVE_PROJECT_FOUND,
-	MSG_CURRENT_PRJCT_CLSD_SUCCESS
+	MSG_CURRENT_PRJCT_CLSD_SUCCESS,
+	MSG_SMTRY_NOT_FOUND_FREE_SLOT,
+	MSG_DUBLICT_NOT_FOUND_FREE_SLOT,
+	MSG_CHANGE_BONE,
+	MSG_MULTIOBJ_INVALID_MODELID,
+	MSG_NO_AVAILABLE_MULTIPLE_OBJ
 }
 
 enum
@@ -91,280 +94,23 @@ enum
 	DG_LOAD_PRJCT_REMOVE_FROM_LIST,
 	DG_CREATE_LOAD_CLS_HELP_PROJECT,
 	DG_ADD_COLOR_HEX_CODE,
-	DC_MAIN_MENU_HELP
+	DG_MAIN_MENU_HELP,
+	DG_ADD_COLOR_HEX_IN_LIST,
+	DG_CONFIRM_MULT_DELETE_PROCESS,
+	DG_MULTIOBJECT_LIST_MANAGE
 }
 
-
-static gConnectPlayerLanguage[MAX_PLAYERS];
-static language_message[LANGUAGE_MAX_COUNT][LANGUAGE_MAX_CODE_MESSAGE][MAX_CHATBUBBLE_LENGTH + 1];
-static language_dialog[LANGUAGE_MAX_COUNT][LANGUAGE_MAX_CODE_DIALOG][LANGUAGE_MAX_LENGHT_STRING_DL + 1];
+static gPlayerLanguage[MAX_PLAYERS];
 
 public OnGameModeInit()
 {
-	new JsonNode:node;
-	new JsonNode:obj;
-	new JsonNode:array;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_language_msg, node);
-
-	if (result == JSON_CALL_NO_ERR)
+	for (new i; i < sizeof(language_ArrayString); i++)
 	{
-		new length;
-		new message[MAX_CHATBUBBLE_LENGTH + 1];
-
-//////////////////////////////////////UA////////////////////////////////////////
-
-		JSON_GetArray(node, "UA", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
+		for (new j; j < sizeof(language_ArrayString[]); j++)
 		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "message", message, sizeof(message));
-
-			strcat(language_message[LANGUAGE_UA][i], message);
+			attachmain_SetBoneName(i, j, language_ArrayString[i][j]);
 		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-
-//////////////////////////////////////RU////////////////////////////////////////
-
-		JSON_GetArray(node, "RU", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "message", message, sizeof(message));
-
-			strcat(language_message[LANGUAGE_RU][i], message);
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-
-//////////////////////////////////////EN////////////////////////////////////////
-
-		JSON_GetArray(node, "EN", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "message", message, sizeof(message));
-
-			strcat(language_message[LANGUAGE_EN][i], message);
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-
-//////////////////////////////////////BY////////////////////////////////////////
-
-		JSON_GetArray(node, "BY", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "message", message, sizeof(message));
-
-			strcat(language_message[LANGUAGE_BY][i], message);
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
 	}
-	JSON_Cleanup(node);
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-	result = JSON_ParseFile(json_file_name_language_dialog, node);
-
-	if (result == JSON_CALL_NO_ERR)
-	{
-		new length;
-		new string[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-//////////////////////////////////////UA////////////////////////////////////////
-
-		JSON_GetArray(node, "UA", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "string", string, sizeof(string));
-
-			strcat(language_dialog[LANGUAGE_UA][i], string);
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-
-//////////////////////////////////////RU////////////////////////////////////////
-
-		JSON_GetArray(node, "RU", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "string", string, sizeof(string));
-
-			strcat(language_dialog[LANGUAGE_RU][i], string);
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-
-//////////////////////////////////////EN////////////////////////////////////////
-
-		JSON_GetArray(node, "EN", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "string", string, sizeof(string));
-
-			strcat(language_dialog[LANGUAGE_EN][i], string);
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-
-//////////////////////////////////////BY////////////////////////////////////////
-
-		JSON_GetArray(node, "BY", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-			JSON_GetString(obj, "string", string, sizeof(string));
-
-			strcat(language_dialog[LANGUAGE_BY][i], string);
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-	}
-	JSON_Cleanup(node);
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-	result = JSON_ParseFile(json_file_name_language_array, node);
-
-	if (result == JSON_CALL_NO_ERR)
-	{
-		new length;
-		new length_arr;
-
-//////////////////////////////////////UA////////////////////////////////////////
-
-		JSON_GetArray(node, "UA", array);
-		JSON_ArrayLength(array, length);
-
-		new JsonNode:item;
-		new JsonNode:element;
-
-		new string[100];
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-
-			JSON_GetArray(obj, "array", item);
-
-			JSON_ArrayLength(item, length_arr);
-
-			for (new j; j < length_arr; j++)
-			{
-				JSON_ArrayObject(item, j, element);
-				JSON_GetNodeString(element, string, sizeof(string));
-
-				attachmain_SetBoneName(LANGUAGE_UA, j, string);
-			}
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-		JSON_Cleanup(item);
-		JSON_Cleanup(element);
-
-	//////////////////////////////////////RU////////////////////////////////////
-
-		JSON_GetArray(node, "RU", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-
-			JSON_GetArray(obj, "array", item);
-
-			JSON_ArrayLength(item, length_arr);
-
-			for (new j; j < length_arr; j++)
-			{
-				JSON_ArrayObject(item, j, element);
-				JSON_GetNodeString(element, string, sizeof(string));
-
-				attachmain_SetBoneName(LANGUAGE_RU, j, string);
-			}
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-		JSON_Cleanup(item);
-		JSON_Cleanup(element);
-
-//////////////////////////////////////////EN////////////////////////////////////
-
-		JSON_GetArray(node, "EN", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-
-			JSON_GetArray(obj, "array", item);
-
-			JSON_ArrayLength(item, length_arr);
-
-			for (new j; j < length_arr; j++)
-			{
-				JSON_ArrayObject(item, j, element);
-				JSON_GetNodeString(element, string, sizeof(string));
-
-				attachmain_SetBoneName(LANGUAGE_EN, j, string);
-			}
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-		JSON_Cleanup(item);
-		JSON_Cleanup(element);
-
-//////////////////////////////////////////BY////////////////////////////////////
-
-		JSON_GetArray(node, "BY", array);
-		JSON_ArrayLength(array, length);
-
-		for (new i; i < length; i++)
-		{
-			JSON_ArrayObject(array, i, obj);
-
-			JSON_GetArray(obj, "array", item);
-
-			JSON_ArrayLength(item, length_arr);
-
-			for (new j; j < length_arr; j++)
-			{
-				JSON_ArrayObject(item, j, element);
-				JSON_GetNodeString(element, string, sizeof(string));
-
-				attachmain_SetBoneName(LANGUAGE_BY, j, string);
-			}
-		}
-		JSON_Cleanup(obj);
-		JSON_Cleanup(array);
-		JSON_Cleanup(item);
-		JSON_Cleanup(element);
-	}
-	JSON_Cleanup(node);
 #if defined core_OnGameModeInit
 	return core_OnGameModeInit();
 #else
@@ -387,24 +133,24 @@ DialogCreate:dLanguageChoose(playerid)
 		playerid,
 		Dialog:dLanguageChoose,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
-		!"English\n\
-		Українська мова\n\
+		name_dialog_header,
+		"English\n\
 		Русский язык\n\
+		Українська мова\n\
 		Беларуская мова",
-		!"»",
-		!""
+		"»",
+		""
 	);
 	return 1;
 }
 
 DialogResponse:dLanguageChoose(playerid, response, listitem, inputtext[])
 {
-	gConnectPlayerLanguage[playerid] = listitem;
+	gPlayerLanguage[playerid] = listitem;
 
 	language_MessageInfo(playerid, MSG_START_ROBOT_PRESS_MAIN_END);
 
-	SendClientMessage(playerid, COLOR_WHITE, !"");
+	SendClientMessage(playerid, COLOR_WHITE, "");
 	return 1;
 }
 
@@ -437,21 +183,6 @@ stock language_MessageError(playerid, code)
 	return 1;
 }
 
-stock language_MessageInit(playerid, color, code, value)
-{
-	new string[MAX_CHATBUBBLE_LENGTH + 1];
-	new language = language_GetLanguage(playerid);
-
-	format(string, sizeof(string),
-		"[x] "cWhite"%s",
-		language_message[language][code],
-		value
-	);
-	SendClientMessage(playerid, color, string);
-	return 1;
-}
-
-
 stock language_GetDialogString(playerid, code, string[], const size = sizeof(string))
 {
 	new language = language_GetLanguage(playerid);
@@ -461,8 +192,7 @@ stock language_GetDialogString(playerid, code, string[], const size = sizeof(str
 	return 1;
 }
 
-
 stock language_GetLanguage(playerid)
 {
-	return gConnectPlayerLanguage[playerid];
+	return gPlayerLanguage[playerid];
 }

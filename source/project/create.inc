@@ -24,10 +24,10 @@ DialogCreate:dAttachMainCreateProject(playerid)
 		playerid,
 		Dialog:dAttachMainCreateProject,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
 		"»",
-		!"«"
+		"«"
 	);
 	return 1;
 }
@@ -49,11 +49,9 @@ DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[
 	}
 	if (lenght > CORE_MAX_LENGHT_NAME_PROJECT)
 	{
-		language_MessageInit(
+		language_MessageError(
 			playerid,
-			COLOR_RED,
-			MSG_MAX_PROJECT_LENGTH_IS_CHARS,
-			CORE_MAX_LENGHT_NAME_PROJECT
+			MSG_MAX_PROJECT_LENGTH_IS_CHARS
 		);
 		Dialog_Show(playerid, "dAttachMainCreateProject");
 		return 0;
@@ -105,13 +103,14 @@ DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[
 	project_SetJsonName(playerid, inputtext);
 	project_SetFileName(playerid, inputtext);
 
-	SendClientMessage(playerid, COLOR_WHITE, !"");
+	SendClientMessage(playerid, COLOR_WHITE, "");
 
 	language_MessageInfo(playerid, MSG_PRJCT_NAME_SUCCESS_CREATED);
 
-	SendClientMessage(playerid, COLOR_WHITE, !"");
+	SendClientMessage(playerid, COLOR_WHITE, "");
 	
-	gui_ShowAttachMenu(playerid);
+	gui_atatch_menu_ShowMenu(playerid);
+	gui_camera_rot_ShowInfo(playerid);
 	gui_atatch_menu_ShowCursor(playerid);
 
 	language_MessageInfo(playerid, MSG_FREE_LK_MODE_ACTIV_PRS_ESC);

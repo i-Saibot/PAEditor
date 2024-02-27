@@ -35,9 +35,10 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 
 DialogCreate:dAttachMenuNew(playerid)
 {
-	new name_bone[CORE_MAX_LENGHT_NAME_BONE + 1];
-	new string[24 + (19 + (- 2 + sizeof(name_bone))) * CORE_MAX_COUNT_BONE];
-	new language = language_GetLanguage(playerid);
+	new
+		name_bone[CORE_MAX_LENGHT_NAME_BONE + 1],
+		string[24 + (19 + (- 2 + sizeof(name_bone))) * CORE_MAX_COUNT_BONE],
+		language = language_GetLanguage(playerid);
 
 	for (new i; i < CORE_MAX_COUNT_BONE; i++)
 	{
@@ -53,10 +54,10 @@ DialogCreate:dAttachMenuNew(playerid)
 		playerid,
 		Dialog:dAttachMenuNew,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		string,
 		"»",
-		!"X"
+		"X"
 	);
 	return 1;
 }
@@ -76,7 +77,7 @@ DialogResponse:dAttachMenuNew(playerid, response, listitem, inputtext[])
 
 	attachmain_JsonSaveAttach(playerid, slotid);
 
-	SendClientMessage(playerid, COLOR_WHITE, !"");
+	SendClientMessage(playerid, COLOR_WHITE, "");
 
 	language_MessageInfo(playerid, MSG_TO_SET_OBJECT_PRESS_OBJECTS);
 	language_MessageInfo(playerid, MSG_TO_MNG_ATTAC_PRESS_MANAGE);

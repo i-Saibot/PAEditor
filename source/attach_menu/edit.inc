@@ -10,30 +10,33 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_EDIT)
 	{
-		new slotid = attachmain_GetCurrentSlotId(playerid);
-
-		if (slotid == ITER_NONE)
+		if (!attachmain_IsUseMultiObject(playerid))
 		{
-			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
-			return 0;
+			if (!attachmain_IsCreateProcess(playerid))
+			{
+				language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
+				return 0;
+			}
+			if (!attachmain_IsValidObject(playerid))
+			{
+				language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
+				return 0;
+			}
+			CancelSelectTextDraw(playerid);
+
+			new slotid = attachmain_GetCurrentSlotId(playerid);
+
+			attachmain_SetMainAttachObject(playerid, slotid);
+			EditAttachedObject(playerid, slotid);
+
+			SendClientMessage(playerid, COLOR_WHITE, "");
+
+			language_MessageInfo(playerid, MSG_FREE_LOOK_HOLD_SPRINT_KEY);
+			language_MessageInfo(playerid, MSG_SAVE_PRESS_ICON_CNL_USE_ESC);
+
+			gAttachEditPlayerEditing[playerid] = true;
+			return 1;
 		}
-		new modelid = attachmain_GetObjectSlotId(playerid, slotid);
-
-		if (modelid == CORE_INVALID_OBJECT_MODEL)
-		{
-			language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
-			return 0;
-		}
-		CancelSelectTextDraw(playerid);
-
-		attachedit_SetAttachObject(playerid);
-		EditAttachedObject(playerid, slotid);
-
-		SendClientMessage(playerid, COLOR_WHITE, !"");
-
-		language_MessageInfo(playerid, MSG_FREE_LOOK_HOLD_SPRINT_KEY);
-		language_MessageInfo(playerid, MSG_SAVE_PRESS_ICON_CNL_USE_ESC);
-		return 1;
 	}
 #if defined attachedit_OnGuiAttachMenu
 	return attachedit_OnGuiAttachMenu(playerid, typeid);
@@ -68,14 +71,14 @@ public OnPlayerEditAttachedObject(
 	Float:fScaleY,
 	Float:fScaleZ)
 {
-	SendClientMessage(playerid, COLOR_WHITE, !"");
+	SendClientMessage(playerid, COLOR_WHITE, "");
 
 	new slotid = attachmain_GetCurrentSlotId(playerid);
 
 	if (!response)
 	{
 		language_MessageInfo(playerid, MSG_NOT_SAVED_EDITING_CANCELLED);
-		attachedit_SetAttachObject(playerid);
+		attachmain_SetMainAttachObject(playerid, slotid);
 	}
 	else
 	{
@@ -96,6 +99,7 @@ public OnPlayerEditAttachedObject(
 		attachmain_JsonSaveAttach(playerid, slotid);
 	}
 	gui_atatch_menu_ShowCursor(playerid);
+	gui_camera_rot_ShowInfo(playerid);
 	gAttachEditPlayerEditing[playerid] = false;
 #if defined attachedit_OnEditAttachedObject
 	return attachedit_OnEditAttachedObject(playerid, typeid);
@@ -113,64 +117,7 @@ public OnPlayerEditAttachedObject(
 	forward attachedit_OnEditAttachedObject(playerid, typeid);
 #endif
 
-
 stock attachedit_IsPlayerEditing(playerid)
 {
 	return gAttachEditPlayerEditing[playerid];
-}
-
-
-stock attachedit_SetAttachObject(playerid)
-{
-	new slotid = attachmain_GetCurrentSlotId(playerid);
-
-	new boneid;
-	new modelid;
-	new Float:fOffsetX;
-	new Float:fOffsetY;
-	new Float:fOffsetZ;
-	new Float:fRotX;
-	new Float:fRotY;
-	new Float:fRotZ;
-	new Float:fScaleX;
-	new Float:fScaleY;
-	new Float:fScaleZ;
-	new materialcolor1;
-	new materialcolor2;
-
-	attachmain_GetAttachInfo(
-		playerid,
-		slotid,
-		modelid,
-		boneid,
-		fOffsetX,
-		fOffsetY,
-		fOffsetZ,
-		fRotX,
-		fRotY,
-		fRotZ,
-		fScaleX,
-		fScaleY,
-		fScaleZ,
-		materialcolor1,
-		materialcolor2
-	);
-	SetPlayerAttachedObject(
-		playerid,
-		slotid,
-		modelid,
-		boneid,
-		fOffsetX,
-		fOffsetY,
-		fOffsetZ,
-		fRotX,
-		fRotY,
-		fRotZ,
-		fScaleX,
-		fScaleY,
-		fScaleZ,
-		materialcolor1,
-		materialcolor2
-	);
-	return 1;
 }

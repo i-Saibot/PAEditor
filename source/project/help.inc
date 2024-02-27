@@ -10,17 +10,17 @@ DialogCreate:dProjectMainHelp(playerid)
 
 	language_GetDialogString(
 		playerid,
-		DC_MAIN_MENU_HELP,
+		DG_MAIN_MENU_HELP,
 		str_dialog
 	);
 	Dialog_Open(
 		playerid,
 		Dialog:dProjectMainHelp,
 		DIALOG_STYLE_MSGBOX,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"«",
-		!""
+		"«",
+		""
 	);
 	return 1;
 }

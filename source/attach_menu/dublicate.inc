@@ -8,11 +8,14 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_DUBLICATE)
 	{
-		new slotid = attachmain_GetCurrentSlotId(playerid);
-
-		if (slotid == ITER_NONE)
+		if (attachmain_GetCurrentSlotId(playerid) == ITER_NONE)
 		{
 			language_MessageError(playerid, MSG_NO_CREATED_PROCESS_FOUND);
+			return 0;
+		}
+		if (attachmain_GetFreeSlotId(playerid) == ITER_NONE)
+		{
+			language_MessageError(playerid, MSG_DUBLICT_NOT_FOUND_FREE_SLOT);
 			return 0;
 		}
 		Dialog_Show(playerid, "dAttachDublicateMenu");
@@ -47,10 +50,10 @@ DialogCreate:dAttachDublicateMenu(playerid)
 		playerid,
 		Dialog:dAttachDublicateMenu,
 		DIALOG_STYLE_MSGBOX,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
 		"»",
-		!"X"
+		"X"
 	);
 	return 1;
 }
@@ -79,10 +82,10 @@ DialogCreate:dAttachMenuDublicateNote(playerid)
 		playerid,
 		Dialog:dAttachMenuDublicateNote,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!""
+		"»",
+		""
 	);
 	return 1;
 }
@@ -97,74 +100,74 @@ DialogResponse:dAttachMenuDublicateNote(playerid, response, listitem, inputtext[
 
 	if (lenght_note > CORE_MAX_LENGHT_NAME_NOTE)
 	{
-		language_MessageInit(
+		language_MessageError(
 			playerid,
-			COLOR_RED,
-			MSG_MAX_COMMENT_LENGTH_IS_CHARS,
-			CORE_MAX_LENGHT_NAME_NOTE
+			MSG_MAX_COMMENT_LENGTH_IS_CHARS
 		);
-		Dialog_Show(playerid, "dAttachMenuObjectNote");
+		Dialog_Show(playerid, "dAttachMenuDublicateNote");
 		return 0;
 	}
-	new slotid = attachmain_GetCurrentSlotId(playerid);
-	new new_slotid = attachmain_GetFreeSlotId(playerid);
+	new
+		slotid = attachmain_GetCurrentSlotId(playerid),
+		new_slotid = attachmain_GetFreeSlotId(playerid);
 
 	attachmain_SetObjectSlotNote(playerid, new_slotid, !lenght_note ? CORE_EMPTY_NOTE : inputtext);
 
-	new boneid;
-	new modelid;
-	new Float:fOffsetX;
-	new Float:fOffsetY;
-	new Float:fOffsetZ;
-	new Float:fRotX;
-	new Float:fRotY;
-	new Float:fRotZ;
-	new Float:fScaleX;
-	new Float:fScaleY;
-	new Float:fScaleZ;
-	new materialcolor1;
-	new materialcolor2;
+	new
+		boneid,
+		modelid,
+		Float:offset_x,
+		Float:offset_y,
+		Float:offset_z,
+		Float:rot_x,
+		Float:rot_y,
+		Float:rot_z,
+		Float:scale_x,
+		Float:scale_y,
+		Float:scale_z,
+		materialcolor1,
+		materialcolor2;
 
-	attachmain_GetAttachInfo(
+	attachmain_GetMainAttachData(
 		playerid,
 		slotid,
 		modelid,
 		boneid,
-		fOffsetX,
-		fOffsetY,
-		fOffsetZ,
-		fRotX,
-		fRotY,
-		fRotZ,
-		fScaleX,
-		fScaleY,
-		fScaleZ,
+		offset_x,
+		offset_y,
+		offset_z,
+		rot_x,
+		rot_y,
+		rot_z,
+		scale_x,
+		scale_y,
+		scale_z,
 		materialcolor1,
 		materialcolor2
 	);
-	attachmain_SetAttachInfo(
+	attachmain_SetMainAttachData(
 		playerid,
 		new_slotid,
 		modelid,
 		boneid,
-		fOffsetX,
-		fOffsetY,
-		fOffsetZ,
-		fRotX,
-		fRotY,
-		fRotZ,
-		fScaleX,
-		fScaleY,
-		fScaleZ,
+		offset_x,
+		offset_y,
+		offset_z,
+		rot_x,
+		rot_y,
+		rot_z,
+		scale_x,
+		scale_y,
+		scale_z,
 		materialcolor1,
 		materialcolor2
 	);
 	attachmain_JsonSaveAttach(playerid, new_slotid);
 	attachmain_SetCurrentSlotId(playerid, new_slotid);
 	attachmain_AddIterSlotId(playerid, new_slotid);
-	attachedit_SetAttachObject(playerid);
+	attachmain_SetMainAttachObject(playerid, new_slotid);
 
-	SendClientMessage(playerid, COLOR_WHITE, !"");
+	SendClientMessage(playerid, COLOR_WHITE, "");
 
 	language_MessageInfo(playerid, MSG_OBJECT_DUPLICATED_SUCCESS);
 	return 1;

@@ -3,6 +3,12 @@
 #endif
 #define _attach_objects_inc
 
+const Float: ATTACH_OBJECT_COORD_BTN_MIN_X				= 0.4385;
+const Float: ATTACH_OBJECT_COORD_BTN_MAX_X				= 0.4781;
+
+const Float: ATTACH_OBJECT_COORD_BTN_MIN_Y				= 0.9259;
+const Float: ATTACH_OBJECT_COORD_BTN_MAX_Y				= 0.9935;
+
 
 static gAttachObjectsPage[MAX_PLAYERS];
 static gAttachObjectsSelectModel[MAX_PLAYERS];
@@ -17,9 +23,7 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_OBJECT)
 	{
-		new slotid = attachmain_GetCurrentSlotId(playerid);
-
-		if (slotid == ITER_NONE)
+		if (!attachmain_IsCreateProcess(playerid))
 		{
 			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
 			return 0;
@@ -47,9 +51,10 @@ public OnGuiAttachObjectsClicked(playerid, typeid, index)
 {
 	if (typeid == GUI_ATTACH_OBJECT_PREVIOUS)
 	{
-		new total_objects = gAttachObjectArrayLength[playerid];
-		new total_pages = (total_objects + ATTACH_OBJ_MAX_ITEM_IN_PAGE - 1) / ATTACH_OBJ_MAX_ITEM_IN_PAGE;
-		new current_page = gAttachObjectsPage[playerid];
+		new
+			total_objects = gAttachObjectArrayLength[playerid],
+			total_pages = (total_objects + ATTACH_OBJ_MAX_ITEM_IN_PAGE - 1) / ATTACH_OBJ_MAX_ITEM_IN_PAGE,
+			current_page = gAttachObjectsPage[playerid];
 
 		gAttachObjectsPage[playerid] = (current_page == 0) ? (total_pages ? total_pages - 1 : 0) : (current_page - 1);
 
@@ -58,9 +63,10 @@ public OnGuiAttachObjectsClicked(playerid, typeid, index)
 	}
 	else if (typeid == GUI_ATTACH_OBJECT_NEXT)
 	{
-		new total_objects = gAttachObjectArrayLength[playerid];
-		new total_pages = (total_objects + ATTACH_OBJ_MAX_ITEM_IN_PAGE - 1) / ATTACH_OBJ_MAX_ITEM_IN_PAGE;
-		new current_page = gAttachObjectsPage[playerid];
+		new
+			total_objects = gAttachObjectArrayLength[playerid],
+			total_pages = (total_objects + ATTACH_OBJ_MAX_ITEM_IN_PAGE - 1) / ATTACH_OBJ_MAX_ITEM_IN_PAGE,
+			current_page = gAttachObjectsPage[playerid];
 
 		gAttachObjectsPage[playerid] = (current_page == total_pages - 1) ? 0 : (current_page + 1);
 
@@ -109,6 +115,45 @@ public OnGuiAttachObjectsClicked(playerid, typeid, index)
 	forward attachobj_OnGuihObjectsClicked(playerid, typeid, index);
 #endif
 
+public OnVirtualKeyReleased(playerid, key_vk)
+{
+	if (key_vk == VK_RBUTTON)
+	{
+		if (gui_atatch_menu_IsShow(playerid)
+			&& !attachedit_IsPlayerEditing(playerid)
+			&& !Dialog_IsOpen(playerid)
+			&& gui_atatch_menu_IsActivePanel(playerid)
+			&& !gui_atatch_menu_IsBannedPanel(playerid))
+		{
+			new Float:x;
+			new Float:y;
+
+			GetMousePos(x, y);
+
+			if ((ATTACH_OBJECT_COORD_BTN_MIN_X <= x <= ATTACH_OBJECT_COORD_BTN_MAX_X)
+				&& (ATTACH_OBJECT_COORD_BTN_MIN_Y <= y <= ATTACH_OBJECT_COORD_BTN_MAX_Y))
+			{
+				gAttachObjectsPage[playerid] = 0;
+				attach_obj_ShowObjectList(playerid);
+				return 1;
+			}
+		}
+	}
+#if defined attachobj_OnVirtualKeyReleased
+	return attachobj_OnVirtualKeyReleased(playerid, key_vk);
+#else
+	return 1;
+#endif
+}
+#if defined _ALS_OnVirtualKeyReleased
+	#undef OnVirtualKeyReleased
+#else
+	#define _ALS_OnVirtualKeyReleased
+#endif
+#define OnVirtualKeyReleased attachobj_OnVirtualKeyReleased
+#if defined    attachobj_OnVirtualKeyReleased
+	forward attachobj_OnVirtualKeyReleased(playerid, key_vk);
+#endif
 
 DialogCreate:dAttachObjectsMenu(playerid)
 {
@@ -123,10 +168,10 @@ DialogCreate:dAttachObjectsMenu(playerid)
 		playerid,
 		Dialog:dAttachObjectsMenu,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"X"
+		"»",
+		"X"
 	);
 	return 1;
 }
@@ -136,6 +181,7 @@ DialogResponse:dAttachObjectsMenu(playerid, response, listitem, inputtext[])
 	if (!response)
 	{
 		gui_atatch_menu_ShowCursor(playerid);
+		gui_camera_rot_ShowInfo(playerid);
 		return 0;
 	}
 	if (listitem == 0)
@@ -173,10 +219,10 @@ DialogCreate:dAttachObjectsInput(playerid)
 		playerid,
 		Dialog:dAttachObjectsInput,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -220,10 +266,10 @@ DialogCreate:dAttachMenuObjectNote(playerid)
 		playerid,
 		Dialog:dAttachMenuObjectNote,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -239,11 +285,9 @@ DialogResponse:dAttachMenuObjectNote(playerid, response, listitem, inputtext[])
 
 	if (lenght_note > CORE_MAX_LENGHT_NAME_NOTE)
 	{
-		language_MessageInit(
+		language_MessageError(
 			playerid,
-			COLOR_RED,
-			MSG_MAX_COMMENT_LENGTH_IS_CHARS,
-			CORE_MAX_LENGHT_NAME_NOTE
+			MSG_MAX_COMMENT_LENGTH_IS_CHARS
 		);
 		Dialog_Show(playerid, "dAttachMenuObjectNote");
 		return 0;
@@ -252,13 +296,16 @@ DialogResponse:dAttachMenuObjectNote(playerid, response, listitem, inputtext[])
 	new modelid = gAttachObjectsSelectModel[playerid];
 
 	attachmain_SetObjectSlotId(playerid, slotid, modelid);
-	attachmain_SetObjectSlotNote(playerid, slotid, !lenght_note ? CORE_EMPTY_NOTE : inputtext);
-
+	
+	attachmain_SetObjectSlotNote(
+		playerid,
+		slotid, !lenght_note ? CORE_EMPTY_NOTE : inputtext
+	);
 	attachmain_JsonSaveAttach(playerid, slotid);
-	attachedit_SetAttachObject(playerid);
+	attachmain_SetMainAttachObject(playerid, slotid);
 	gui_ath_obj_DestroyTextdraws(playerid);
 
-	SendClientMessage(playerid, COLOR_WHITE, !"");
+	SendClientMessage(playerid, COLOR_WHITE, "");
 
 	language_MessageInfo(playerid, MSG_PRESS_TO_EDIT_START_EDITING);
 	return 1;
@@ -266,9 +313,10 @@ DialogResponse:dAttachMenuObjectNote(playerid, response, listitem, inputtext[])
 
 static attach_obj_ShowObjectList(playerid)
 {
-	new JsonNode:node;
-	new JsonNode:item;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_objects, node);
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonCallResult:result = JSON_ParseFile(json_file_name_objects, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
@@ -280,11 +328,12 @@ static attach_obj_ShowObjectList(playerid)
 		JSON_GetArray(node, "objects", node);
 		JSON_ArrayLength(node, length);
 
-		new modelid;
-		new page = gAttachObjectsPage[playerid];
-		new i = page * ATTACH_OBJ_MAX_ITEM_IN_PAGE;
-		new j;
-		new index;
+		new
+			modelid,
+			page = gAttachObjectsPage[playerid],
+			i = page * ATTACH_OBJ_MAX_ITEM_IN_PAGE,
+			j,
+			index;
 
 		gAttachObjectArrayLength[playerid] = length;
 
@@ -334,10 +383,10 @@ DialogCreate:dAttachObjectsActionMenu(playerid)
 		playerid,
 		Dialog:dAttachObjectsActionMenu,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"X"
+		"»",
+		"X"
 	);
 	return 1;
 }
@@ -356,9 +405,10 @@ DialogResponse:dAttachObjectsActionMenu(playerid, response, listitem, inputtext[
 	}
 	else
 	{
-		new JsonNode:node;
-		new JsonCallResult:result = JSON_ParseFile(json_file_name_objects, node);
-		new index = gAttachObjectArrayIndex[playerid][0];
+		new
+			JsonNode:node,
+			JsonCallResult:result = JSON_ParseFile(json_file_name_objects, node),
+			index = gAttachObjectArrayIndex[playerid][0];
 
 		if (result == JSON_CALL_NO_ERR)
 		{
@@ -389,10 +439,10 @@ DialogCreate:dAttachObjectsAddToList(playerid)
 		playerid,
 		Dialog:dAttachObjectsAddToList,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -418,9 +468,10 @@ DialogResponse:dAttachObjectsAddToList(playerid, response, listitem, inputtext[]
 		Dialog_Show(playerid, "dAttachObjectsAddToList");
 		return 0;
 	}
-	new JsonNode:item;
-	new JsonNode:node;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_objects, node);
+	new
+		JsonNode:item,
+		JsonNode:node,
+		JsonCallResult:result = JSON_ParseFile(json_file_name_objects, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{

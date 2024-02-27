@@ -65,7 +65,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	{
 		if (clickedid == Text: INVALID_TEXT_DRAW)
 		{
-			printf("11111");
 			CallRemoteFunction(
 				"OnGuiAttachObjectsClicked",
 				"ddd",
@@ -353,6 +352,7 @@ stock gui_ath_obj_CreateTextdraws(playerid)
 		PlayerTextDrawSetShadow(playerid, gui_AttachObjectTextdrawsText[playerid][i], 0);
 	}
 	gui_AttachObjectPlayerCreate[playerid] = true;
+	gui_atatch_menu_SetBannedPanel(playerid, true);
 	return 1;
 }
 
@@ -471,6 +471,7 @@ stock gui_ath_obj_DestroyTextdraws(playerid)
 			gui_AttachObjectTextdrawsText[playerid][i]
 		);
 	}
+	gui_atatch_menu_SetBannedPanel(playerid, false);
 	gui_AttachObjectPlayerCreate[playerid] = false;
 	return 1;
 }

@@ -6,8 +6,6 @@
 
 const CONNECT_CLEAR_CHAT = 100;
 
-static gConnectPlayerTimer[MAX_PLAYERS];
-
 
 public OnPlayerConnect(playerid)
 {
@@ -18,7 +16,7 @@ public OnPlayerConnect(playerid)
 	PreloadAllAnimLibs(playerid);
 	TogglePlayerSpectating(playerid, true);
 
-	gConnectPlayerTimer[playerid] = SetTimerEx(
+	SetTimerEx(
 		"@_OnPlayerConnect",
 		1_000,
 		false,
@@ -46,7 +44,7 @@ public OnPlayerConnect(playerid)
 {
 	for (new i; i < CONNECT_CLEAR_CHAT;i++)
 	{
-		SendClientMessage(playerid, COLOR_WHITE, !"");
+		SendClientMessage(playerid, COLOR_WHITE, "");
 	}
 	SetSpawnInfo(playerid, 255, 0, 0, 0, 0, 1.0, -1, -1, -1, -1, -1, -1);
 	TogglePlayerSpectating(playerid, false);

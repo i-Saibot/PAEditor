@@ -82,10 +82,10 @@ DialogCreate:dAttachMainLoadProject(playerid)
 		playerid,
 		Dialog:dAttachMainLoadProject,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		string,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -131,10 +131,10 @@ DialogCreate:dAttachMainLoadProjectAct(playerid)
 		playerid,
 		Dialog:dAttachMainLoadProjectAct,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -237,7 +237,7 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 
 				JSON_GetString(item, "note", note, sizeof(note));
 
-				attachmain_SetAttachInfo(
+				attachmain_SetMainAttachData(
 					playerid,
 					slotid,
 					modelid,
@@ -258,7 +258,7 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 
 				attachmain_AddIterSlotId(playerid, slotid);
 				attachmain_SetCurrentSlotId(playerid, slotid);
-				attachedit_SetAttachObject(playerid);
+				attachmain_SetMainAttachObject(playerid, slotid);
 			}
 			language_MessageInfo(playerid, MSG_PROJECT_LOADED_SUCCESS);
 		}
@@ -269,7 +269,8 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 		project_SetJsonName(playerid, name);
 		project_SetFileName(playerid, name);
 
-		gui_ShowAttachMenu(playerid);
+		gui_atatch_menu_ShowMenu(playerid);
+		gui_camera_rot_ShowInfo(playerid);
 		gui_atatch_menu_ShowCursor(playerid);
 
 		project_SetStatusActiveProject(playerid, true);

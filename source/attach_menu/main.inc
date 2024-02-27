@@ -3,58 +3,55 @@
 #endif
 #define _attach_main_inc
 
-
-static const gAttachMainBoneId[CORE_MAX_COUNT_BONE] =
-{
-	1,
-	2,
-	3,
-	4,
-	5,
-	6,
-	7,
-	8,
-	9,
-	10,
-	11,
-	12,
-	13,
-	14,
-	15,
-	16,
-	17,
-	18
-};
-
+static const gAttachMainBoneId[CORE_MAX_COUNT_BONE] = {1, 2, ...};
 static const gAttachMainBoneName[LANGUAGE_MAX_COUNT][CORE_MAX_COUNT_BONE][CORE_MAX_LENGHT_NAME_BONE + 1];
+
+
+static const gAttachMainOppositeBoneIds[][] =
+{
+	{ATTACH_BONE_SPINE, ATTACH_BONE_SPINE},
+	{ATTACH_BONE_HEAD, ATTACH_BONE_HEAD},
+	{ATTACH_BONE_LEFT_SHOULDER, ATTACH_BONE_RIGHT_SHOULDER},
+	{ATTACH_BONE_LEFT_ARM, ATTACH_BONE_RIGHT_ARM},
+	{ATTACH_BONE_LEFT_THIGH, ATTACH_BONE_RIGHT_THIGH},
+	{ATTACH_BONE_LEFT_LEG, ATTACH_BONE_RIGHT_LEG},
+	{ATTACH_BONE_RIGHT_SHIN, ATTACH_BONE_LEFT_SHIN},
+	{ATTACH_BONE_LEFT_FOREARM, ATTACH_BONE_RIGHT_FOREARM},
+	{ATTACH_BONE_LEFT_CLAVICLE, ATTACH_BONE_RIGHT_CLAVICLE},
+	{ATTACH_BONE_NECK, ATTACH_BONE_NECK},
+	{ATTACH_BONE_JAW, ATTACH_BONE_JAW}
+};
 
 
 static enum e_attach_data_struct
 {
-	abone_SlotId,
-	abone_ObjectId,
-	abone_BoneId,
-	Float:abone_fOffsetX,
-	Float:abone_fOffsetY,
-	Float:abone_fOffsetZ,
-	Float:abone_fRotX,
-	Float:abone_fRotY,
-	Float:abone_fRotZ,
-	Float:abone_fScaleX,
-	Float:abone_fScaleY,
-	Float:abone_fScaleZ,
-	abone_materialcolor1,
-	abone_materialcolor2
+	attachmain_SlotId,
+	attachmain_ObjectId,
+	attachmain_BoneId,
+	Float:attachmain_fOffsetX,
+	Float:attachmain_fOffsetY,
+	Float:attachmain_fOffsetZ,
+	Float:attachmain_fRotX,
+	Float:attachmain_fRotY,
+	Float:attachmain_fRotZ,
+	Float:attachmain_fScaleX,
+	Float:attachmain_fScaleY,
+	Float:attachmain_fScaleZ,
+	attachmain_materialcolor1,
+	attachmain_materialcolor2
 }
-static abone_Structure[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS][e_attach_data_struct];
+static attachmain_Structure[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS][e_attach_data_struct];
 static gAttachMainUseCurrentSloteId[MAX_PLAYERS];
 static gAttachMainNoteBone[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS][CORE_MAX_LENGHT_NAME_NOTE + 1];
+static gAttachMenuMultiObject[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS];
 new IteratorArray: AttachObjectSlots[MAX_PLAYERS]<MAX_PLAYER_ATTACHED_OBJECTS>;
+new IteratorArray: AttachMultiObjectSlots[MAX_PLAYERS]<MAX_PLAYER_ATTACHED_OBJECTS>;
 
 
 public OnGameModeInit()
 {
 	Iter_Init(AttachObjectSlots);
+	Iter_Init(AttachMultiObjectSlots);
 #if defined attachjmain_OnGameModeInit
 	return attachjmain_OnGameModeInit();
 #else
@@ -110,20 +107,16 @@ public OnPlayerDisconnect(playerid, reason)
 	forward attachjmain_OnPlayerDisconnect(playerid, reason);
 #endif
 
-/*
-	functions
-*/
-
 
 stock attachmain_GetBoneId(index)
 {
 	return gAttachMainBoneId[index];
 }
 
-stock attachmain_GetBoneName(language, boneid, name[], const size = sizeof(name))
+stock attachmain_GetBoneName(language, index, name[], const size = sizeof(name))
 {
 	name[0] = EOS;
-	strcat(name, gAttachMainBoneName[language][boneid], size);
+	strcat(name, gAttachMainBoneName[language][index], size);
 	return 1;
 }
 
@@ -135,12 +128,12 @@ stock attachmain_SetBoneName(language, boneid, const name[])
 
 stock attachmain_GetBoneSlotId(playerid, slotid)
 {
-	return abone_Structure[playerid][slotid][abone_BoneId];
+	return attachmain_Structure[playerid][slotid][attachmain_BoneId];
 }
 
 stock attachmain_SetBoneSlotId(playerid, index, value)
 {
-	abone_Structure[playerid][index][abone_BoneId] = value;
+	attachmain_Structure[playerid][index][attachmain_BoneId] = value;
 	return 1;
 }
 
@@ -157,12 +150,12 @@ stock attachmain_SetCurrentSlotId(playerid, value)
 
 stock attachmain_GetObjectSlotId(playerid, index)
 {
-	return abone_Structure[playerid][index][abone_ObjectId];
+	return attachmain_Structure[playerid][index][attachmain_ObjectId];
 }
 
 stock attachmain_SetObjectSlotId(playerid, index, value)
 {
-	abone_Structure[playerid][index][abone_ObjectId] = value;
+	attachmain_Structure[playerid][index][attachmain_ObjectId] = value;
 	return 1;
 }
 
@@ -182,12 +175,12 @@ stock attachmain_GetObjectSlotNote(playerid, index, note[], const size = sizeof(
 
 stock attachmain_GetSlotId(playerid, index)
 {
-	return abone_Structure[playerid][index][abone_SlotId];
+	return attachmain_Structure[playerid][index][attachmain_SlotId];
 }
 
 stock attachmain_SetSlotId(playerid, index, value)
 {
-	abone_Structure[playerid][index][abone_SlotId] = value;
+	attachmain_Structure[playerid][index][attachmain_SlotId] = value;
 
 	if (value == ITER_NONE)
 	{
@@ -202,106 +195,106 @@ stock attachmain_SetSlotId(playerid, index, value)
 
 stock attachmain_SetMaterialColor1(playerid, index, value)
 {
-	abone_Structure[playerid][index][abone_materialcolor1] = value;
+	attachmain_Structure[playerid][index][attachmain_materialcolor1] = value;
 	return 1;
 }
 
 stock attachmain_SetMaterialColor2(playerid, index, value)
 {
-	abone_Structure[playerid][index][abone_materialcolor2] = value;
+	attachmain_Structure[playerid][index][attachmain_materialcolor2] = value;
 	return 1;
 }
 
-stock attachmain_GetAttachInfo(
+stock attachmain_GetMainAttachData(
 	playerid,
 	slotid,
 	&objectid,
 	&boneid,
-	&Float:fOffsetX,
-	&Float:fOffsetY,
-	&Float:fOffsetZ,
-	&Float:fRotX,
-	&Float:fRotY,
-	&Float:fRotZ,
-	&Float:fScaleX,
-	&Float:fScaleY,
-	&Float:fScaleZ,
-	&materialcolor1,
-	&materialcolor2)
+	&Float:offset_x,
+	&Float:offset_y,
+	&Float:offset_z,
+	&Float:rot_x,
+	&Float:rot_y,
+	&Float:rot_z,
+	&Float:scale_x,
+	&Float:scale_y,
+	&Float:scale_z,
+	&material_color_1,
+	&material_color_2)
 {
-	objectid		=	abone_Structure[playerid][slotid][abone_ObjectId];
-	boneid			=	abone_Structure[playerid][slotid][abone_BoneId];
-	fOffsetX		=	abone_Structure[playerid][slotid][abone_fOffsetX];
-	fOffsetY		=	abone_Structure[playerid][slotid][abone_fOffsetY];
-	fOffsetZ		=	abone_Structure[playerid][slotid][abone_fOffsetZ];
-	fRotX			=	abone_Structure[playerid][slotid][abone_fRotX];
-	fRotY			=	abone_Structure[playerid][slotid][abone_fRotY];
-	fRotZ			=	abone_Structure[playerid][slotid][abone_fRotZ];
-	fScaleX			=	abone_Structure[playerid][slotid][abone_fScaleX];
-	fScaleY			=	abone_Structure[playerid][slotid][abone_fScaleY];
-	fScaleZ			=	abone_Structure[playerid][slotid][abone_fScaleZ];
-	materialcolor1	=	abone_Structure[playerid][slotid][abone_materialcolor1];
-	materialcolor2	=	abone_Structure[playerid][slotid][abone_materialcolor2];
+	objectid			=	attachmain_Structure[playerid][slotid][attachmain_ObjectId];
+	boneid				=	attachmain_Structure[playerid][slotid][attachmain_BoneId];
+	offset_x			=	attachmain_Structure[playerid][slotid][attachmain_fOffsetX];
+	offset_y			=	attachmain_Structure[playerid][slotid][attachmain_fOffsetY];
+	offset_z			=	attachmain_Structure[playerid][slotid][attachmain_fOffsetZ];
+	rot_x				=	attachmain_Structure[playerid][slotid][attachmain_fRotX];
+	rot_y				=	attachmain_Structure[playerid][slotid][attachmain_fRotY];
+	rot_z				=	attachmain_Structure[playerid][slotid][attachmain_fRotZ];
+	scale_x				=	attachmain_Structure[playerid][slotid][attachmain_fScaleX];
+	scale_y				=	attachmain_Structure[playerid][slotid][attachmain_fScaleY];
+	scale_z				=	attachmain_Structure[playerid][slotid][attachmain_fScaleZ];
+	material_color_1	=	attachmain_Structure[playerid][slotid][attachmain_materialcolor1];
+	material_color_2	=	attachmain_Structure[playerid][slotid][attachmain_materialcolor2];
 	return 1;
 }
 
 
-stock attachmain_SetAttachInfo(
+stock attachmain_SetMainAttachData(
 	playerid,
 	slotid,
 	objectid,
 	boneid,
-	Float:fOffsetX,
-	Float:fOffsetY,
-	Float:fOffsetZ,
-	Float:fRotX,
-	Float:fRotY,
-	Float:fRotZ,
-	Float:fScaleX,
-	Float:fScaleY,
-	Float:fScaleZ,
-	materialcolor1,
-	materialcolor2)
+	Float:offset_x,
+	Float:offset_y,
+	Float:offset_z,
+	Float:rot_x,
+	Float:rot_y,
+	Float:rot_z,
+	Float:scale_x,
+	Float:scale_y,
+	Float:scale_z,
+	material_color_1,
+	material_color_2)
 {
-	abone_Structure[playerid][slotid][abone_SlotId]				= slotid;
-	abone_Structure[playerid][slotid][abone_ObjectId]			= objectid;
-	abone_Structure[playerid][slotid][abone_BoneId]				= boneid;
-	abone_Structure[playerid][slotid][abone_fOffsetX]			= fOffsetX;
-	abone_Structure[playerid][slotid][abone_fOffsetY]			= fOffsetY;
-	abone_Structure[playerid][slotid][abone_fOffsetZ]			= fOffsetZ;
-	abone_Structure[playerid][slotid][abone_fRotX]				= fRotX;
-	abone_Structure[playerid][slotid][abone_fRotY]				= fRotY;
-	abone_Structure[playerid][slotid][abone_fRotZ]				= fRotZ;
-	abone_Structure[playerid][slotid][abone_fScaleX]			= fScaleX;
-	abone_Structure[playerid][slotid][abone_fScaleY]			= fScaleY;
-	abone_Structure[playerid][slotid][abone_fScaleZ]			= fScaleZ;
-	abone_Structure[playerid][slotid][abone_materialcolor1]		= materialcolor1;
-	abone_Structure[playerid][slotid][abone_materialcolor2]		= materialcolor2;
+	attachmain_Structure[playerid][slotid][attachmain_SlotId]			= slotid;
+	attachmain_Structure[playerid][slotid][attachmain_ObjectId]			= objectid;
+	attachmain_Structure[playerid][slotid][attachmain_BoneId]			= boneid;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetX]			= offset_x;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetY]			= offset_y;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetZ]			= offset_z;
+	attachmain_Structure[playerid][slotid][attachmain_fRotX]			= rot_x;
+	attachmain_Structure[playerid][slotid][attachmain_fRotY]			= rot_y;
+	attachmain_Structure[playerid][slotid][attachmain_fRotZ]			= rot_z;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleX]			= scale_x;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleY]			= scale_y;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleZ]			= scale_z;
+	attachmain_Structure[playerid][slotid][attachmain_materialcolor1]	= material_color_1;
+	attachmain_Structure[playerid][slotid][attachmain_materialcolor2]	= material_color_2;
 	return 1;
 }
 
 stock attachmain_SetAttachCoord(
 	playerid,
 	slotid,
-	Float:fOffsetX,
-	Float:fOffsetY,
-	Float:fOffsetZ,
-	Float:fRotX,
-	Float:fRotY,
-	Float:fRotZ,
-	Float:fScaleX,
-	Float:fScaleY,
-	Float:fScaleZ)
+	Float:offset_x,
+	Float:offset_y,
+	Float:offset_z,
+	Float:rot_x,
+	Float:rot_y,
+	Float:rot_z,
+	Float:scale_x,
+	Float:scale_y,
+	Float:scale_z)
 {
-	abone_Structure[playerid][slotid][abone_fOffsetX] = fOffsetX;
-	abone_Structure[playerid][slotid][abone_fOffsetY] = fOffsetY;
-	abone_Structure[playerid][slotid][abone_fOffsetZ] = fOffsetZ;
-	abone_Structure[playerid][slotid][abone_fRotX] = fRotX;
-	abone_Structure[playerid][slotid][abone_fRotY] = fRotY;
-	abone_Structure[playerid][slotid][abone_fRotZ] = fRotZ;
-	abone_Structure[playerid][slotid][abone_fScaleX] = fScaleX;
-	abone_Structure[playerid][slotid][abone_fScaleY] = fScaleY;
-	abone_Structure[playerid][slotid][abone_fScaleZ] = fScaleZ;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetX] = offset_x;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetY] = offset_y;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetZ] = offset_z;
+	attachmain_Structure[playerid][slotid][attachmain_fRotX] = rot_x;
+	attachmain_Structure[playerid][slotid][attachmain_fRotY] = rot_y;
+	attachmain_Structure[playerid][slotid][attachmain_fRotZ] = rot_z;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleX] = scale_x;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleY] = scale_y;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleZ] = scale_z;
 	return 1;
 }
 
@@ -318,23 +311,78 @@ stock attachmain_ClearArray(playerid)
 
 stock attachmain_ClearSlotId(playerid, slotid)
 {
-	abone_Structure[playerid][slotid][abone_SlotId] = ITER_NONE;
-	abone_Structure[playerid][slotid][abone_ObjectId] = CORE_INVALID_OBJECT_MODEL;
-	abone_Structure[playerid][slotid][abone_BoneId] = 0;
-	abone_Structure[playerid][slotid][abone_fOffsetX] = 0.0;
-	abone_Structure[playerid][slotid][abone_fOffsetY] = 0.0;
-	abone_Structure[playerid][slotid][abone_fOffsetZ] = 0.0;
-	abone_Structure[playerid][slotid][abone_fRotX] = 0.0;
-	abone_Structure[playerid][slotid][abone_fRotY] = 0.0;
-	abone_Structure[playerid][slotid][abone_fRotZ] = 0.0;
-	abone_Structure[playerid][slotid][abone_fScaleX] = 1.0;
-	abone_Structure[playerid][slotid][abone_fScaleY] = 1.0;
-	abone_Structure[playerid][slotid][abone_fScaleZ] = 1.0;
-	abone_Structure[playerid][slotid][abone_materialcolor1] = 0;
-	abone_Structure[playerid][slotid][abone_materialcolor2] = 0;
+	attachmain_Structure[playerid][slotid][attachmain_SlotId] = ITER_NONE;
+	attachmain_Structure[playerid][slotid][attachmain_ObjectId] = CORE_INVALID_OBJECT_MODEL;
+	attachmain_Structure[playerid][slotid][attachmain_BoneId] = 0;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetX] = 0.0;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetY] = 0.0;
+	attachmain_Structure[playerid][slotid][attachmain_fOffsetZ] = 0.0;
+	attachmain_Structure[playerid][slotid][attachmain_fRotX] = 0.0;
+	attachmain_Structure[playerid][slotid][attachmain_fRotY] = 0.0;
+	attachmain_Structure[playerid][slotid][attachmain_fRotZ] = 0.0;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleX] = 1.0;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleY] = 1.0;
+	attachmain_Structure[playerid][slotid][attachmain_fScaleZ] = 1.0;
+	attachmain_Structure[playerid][slotid][attachmain_materialcolor1] = 0;
+	attachmain_Structure[playerid][slotid][attachmain_materialcolor2] = 0;
 	gAttachMainNoteBone[playerid][slotid] = CORE_EMPTY_NOTE;
+	gAttachMenuMultiObject[playerid][slotid] = ITER_NONE;
 
 	RemovePlayerAttachedObject(playerid, slotid);
+	return 1;
+}
+
+stock attachmain_SetMainAttachObject(playerid, slotid)
+{
+	new
+		boneid,
+		modelid,
+		Float:offset_x,
+		Float:offset_y,
+		Float:offset_z,
+		Float:rot_x,
+		Float:rot_y,
+		Float:rot_z,
+		Float:scale_x,
+		Float:scale_y,
+		Float:scale_z,
+		material_color_1,
+		material_color_2;
+
+	attachmain_GetMainAttachData(
+		playerid,
+		slotid,
+		modelid,
+		boneid,
+		offset_x,
+		offset_y,
+		offset_z,
+		rot_x,
+		rot_y,
+		rot_z,
+		scale_x,
+		scale_y,
+		scale_z,
+		material_color_1,
+		material_color_2
+	);
+	SetPlayerAttachedObject(
+		playerid,
+		slotid,
+		modelid,
+		boneid,
+		offset_x,
+		offset_y,
+		offset_z,
+		rot_x,
+		rot_y,
+		rot_z,
+		scale_x,
+		scale_y,
+		scale_z,
+		material_color_1,
+		material_color_2
+	);
 	return 1;
 }
 
@@ -363,6 +411,52 @@ stock attachmain_AddIterSlotId(playerid, slotid)
 	Iter_Add(AttachObjectSlots[playerid], slotid);
 	return 1;
 }
+
+stock attachmain_IsUseMultiObject(playerid)
+{
+	return Iter_Count(AttachMultiObjectSlots[playerid]) != 0;
+}
+
+stock attachmain_IsUseMultiObjSlotId(playerid, slotid)
+{
+	return gAttachMenuMultiObject[playerid][slotid] == slotid;
+}
+
+stock attachmain_AddMultiObjSlot(playerid, slotid)
+{
+	Iter_Add(AttachMultiObjectSlots[playerid], slotid);
+	gAttachMenuMultiObject[playerid][slotid] = slotid;
+	return 1;
+}
+
+stock attachmain_ClearMultiObjSlots(playerid)
+{
+	foreach (AttachObjectSlots[playerid], i)
+	{
+		gAttachMenuMultiObject[playerid][i] = ITER_NONE;
+	}
+	Iter_Clear(AttachMultiObjectSlots[playerid]);
+	return 1;
+}
+
+stock attachmain_RemoveMultiObjSlot(playerid, slotid)
+{
+	gAttachMenuMultiObject[playerid][slotid] = ITER_NONE;
+	Iter_Remove(AttachMultiObjectSlots[playerid], slotid);
+	return 1;
+}
+
+stock attachmain_SetMultiObjSlot(playerid, slotid, value)
+{
+	return gAttachMenuMultiObject[playerid][slotid] = value;
+}
+
+
+stock attachmain_GetMultiObjSlot(playerid, slotid)
+{
+	return gAttachMenuMultiObject[playerid][slotid];
+}
+
 
 stock attachmain_JsonSaveSkin(playerid)
 {
@@ -405,47 +499,49 @@ stock attachmain_JsonSaveAttach(playerid, slotid)
 
 	project_GetJsonName(playerid, name_project);
 
-	new JsonNode:node;
-	new JsonNode:item;
-	new JsonNode:obj;
-	new JsonCallResult:result = JSON_ParseFile(name_project, node);
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonNode:obj,
+		JsonCallResult:result = JSON_ParseFile(name_project, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
 		new note[CORE_MAX_LENGHT_NAME_NOTE + 1];
 
-		new objectid;
-		new boneid;
-		new Float:fOffsetX;
-		new Float:fOffsetY;
-		new Float:fOffsetZ;
-		new Float:fRotX;
-		new Float:fRotY;
-		new Float:fRotZ;
-		new Float:fScaleX;
-		new Float:fScaleY;
-		new Float:fScaleZ;
-		new materialcolor1;
-		new materialcolor2;
+		new
+			objectid,
+			boneid,
+			Float:offset_x,
+			Float:offset_y,
+			Float:offset_z,
+			Float:rot_x,
+			Float:rot_y,
+			Float:rot_z,
+			Float:scale_x,
+			Float:scale_y,
+			Float:scale_z,
+			material_color_1,
+			material_color_2;
 
 		attachmain_GetObjectSlotNote(playerid, slotid, note);
 
-		attachmain_GetAttachInfo(
+		attachmain_GetMainAttachData(
 			playerid,
 			slotid,
 			objectid,
 			boneid,
-			fOffsetX,
-			fOffsetY,
-			fOffsetZ,
-			fRotX,
-			fRotY,
-			fRotZ,
-			fScaleX,
-			fScaleY,
-			fScaleZ,
-			materialcolor1,
-			materialcolor2
+			offset_x,
+			offset_y,
+			offset_z,
+			rot_x,
+			rot_y,
+			rot_z,
+			scale_x,
+			scale_y,
+			scale_z,
+			material_color_1,
+			material_color_2
 		);
 		new length;
 		new json_slotid;
@@ -469,17 +565,17 @@ stock attachmain_JsonSaveAttach(playerid, slotid)
 			"slotid", JSON_Int(slotid),
 			"boneid", JSON_Int(boneid),
 			"objectid", JSON_Int(objectid),
-			"fOffsetX", JSON_Float(fOffsetX),
-			"fOffsetY", JSON_Float(fOffsetY),
-			"fOffsetZ", JSON_Float(fOffsetZ),
-			"fRotX", JSON_Float(fRotX),
-			"fRotY", JSON_Float(fRotY),
-			"fRotZ", JSON_Float(fRotZ),
-			"fScaleX", JSON_Float(fScaleX),
-			"fScaleY", JSON_Float(fScaleY),
-			"fScaleZ", JSON_Float(fScaleZ),
-			"materialcolor1", JSON_Int(materialcolor1),
-			"materialcolor2", JSON_Int(materialcolor2),
+			"offset_x", JSON_Float(offset_x),
+			"offset_y", JSON_Float(offset_y),
+			"offset_z", JSON_Float(offset_z),
+			"rot_x", JSON_Float(rot_x),
+			"rot_y", JSON_Float(rot_y),
+			"rot_z", JSON_Float(rot_z),
+			"scale_x", JSON_Float(scale_x),
+			"scale_y", JSON_Float(scale_y),
+			"scale_z", JSON_Float(scale_z),
+			"material_color_1", JSON_Int(material_color_1),
+			"material_color_2", JSON_Int(material_color_2),
 			"note", JSON_String(note))
 		);
 		JSON_SaveFile(name_project, node, 4);
@@ -497,10 +593,11 @@ stock attachmain_JsonDeleteAttach(playerid, slotid)
 
 	project_GetJsonName(playerid, name_project);
 	
-	new JsonNode:node;
-	new JsonNode:item;
-	new JsonNode:attachArray;
-	new JsonCallResult:result = JSON_ParseFile(name_project, node);
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonNode:attachArray,
+		JsonCallResult:result = JSON_ParseFile(name_project, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
@@ -527,5 +624,37 @@ stock attachmain_JsonDeleteAttach(playerid, slotid)
 	JSON_Cleanup(attachArray);
 	JSON_Cleanup(item);
 	JSON_Cleanup(node);
+	return 1;
+}
+
+stock attachmain_IsCreateProcess(playerid)
+{
+	new slotid = attachmain_GetCurrentSlotId(playerid);
+	return slotid != ITER_NONE;
+}
+
+stock attachmain_IsValidObject(playerid)
+{
+	new slotid = attachmain_GetCurrentSlotId(playerid);
+	new modelid = attachmain_GetObjectSlotId(playerid, slotid);
+	return modelid != CORE_INVALID_OBJECT_MODEL;
+}
+
+stock attachmain_GetOppositeBoneIds(boneid)
+{
+	for (new i; i < sizeof(gAttachMainOppositeBoneIds); i++)
+	{
+		if (boneid == gAttachMainOppositeBoneIds[i][0])
+		{
+			return gAttachMainOppositeBoneIds[i][1];
+		}
+	}
+	for (new i; i < sizeof(gAttachMainOppositeBoneIds); i++)
+	{
+		if (boneid == gAttachMainOppositeBoneIds[i][1])
+		{
+			return gAttachMainOppositeBoneIds[i][0];
+		}
+	}
 	return 1;
 }

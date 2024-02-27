@@ -45,29 +45,32 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 
 DialogCreate:dAttachAnimationsList(playerid)
 {
-	new length;
-	new library_index;
-	new name[ATTACH_ANIM_MAX_LENGHT_NAME + 1];
-	new string[42 + 30 * 2 + (25 + (- 2 + sizeof(name))) * ATTACH_ANIM_MAX_ROW_IN_PAGE];
+	new
+		length,
+		library_index,
+		name[ATTACH_ANIM_MAX_LENGHT_NAME + 1],
+		string[42 + 30 * 2 + (25 + (- 2 + sizeof(name))) * ATTACH_ANIM_MAX_ROW_IN_PAGE];
 	
 	language_GetDialogString(
 		playerid,
 		DG_ADD_ANIMATION,
 		string
 	);
-	new JsonNode:node;
-	new JsonNode:item;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_animations, node);
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonCallResult:result = JSON_ParseFile(json_file_name_animations, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
 		JSON_GetArray(node, "animations", node);
 		JSON_ArrayLength(node, length);
 
-		new page = gAttachAnimationsPage[playerid];
-		new i = page * ATTACH_ANIM_MAX_ROW_IN_PAGE;
-		new j;
-		new index;
+		new
+			page = gAttachAnimationsPage[playerid],
+			i = page * ATTACH_ANIM_MAX_ROW_IN_PAGE,
+			j,
+			index;
 
 		for (; i < length; i++)
 		{
@@ -110,10 +113,10 @@ DialogCreate:dAttachAnimationsList(playerid)
 		playerid,
 		Dialog:dAttachAnimationsList,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		string,
-		!"»",
-		!"X"
+		"»",
+		"X"
 	);
 	return 1;
 }
@@ -123,6 +126,7 @@ DialogResponse:dAttachAnimationsList(playerid, response, listitem, inputtext[])
 	if (!response)
 	{
 		gui_atatch_menu_ShowCursor(playerid);
+		gui_camera_rot_ShowInfo(playerid);
 		return 0;
 	}
 	if (!strcmp(inputtext, "»»»", false))
@@ -164,10 +168,10 @@ DialogResponse:dAttachAnimationsList(playerid, response, listitem, inputtext[])
 		playerid,
 		Dialog:dAttachAnimationAction,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -190,9 +194,10 @@ DialogResponse:dAttachAnimationAction(playerid, response, listitem, inputtext[])
 	}
 	else
 	{
-		new JsonNode:node;
-		new JsonCallResult:result = JSON_ParseFile(json_file_name_animations, node);
-		new index = gAttachAnimationsArrayIndex[playerid][0];
+		new
+			JsonNode:node,
+			JsonCallResult:result = JSON_ParseFile(json_file_name_animations, node),
+			index = gAttachAnimationsArrayIndex[playerid][0];
 
 		if (result == JSON_CALL_NO_ERR)
 		{
@@ -222,10 +227,10 @@ DialogCreate:dAttachAddAnimation(playerid)
 		playerid,
 		Dialog:dAttachAddAnimation,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -245,9 +250,10 @@ DialogResponse:dAttachAddAnimation(playerid, response, listitem, inputtext[])
 		Dialog_Show(playerid, "dAttachAddAnimation");
 		return 0;
 	}
-	new JsonNode:item;
-	new JsonNode:node;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_animations, node);
+	new
+		JsonNode:item,
+		JsonNode:node,
+		JsonCallResult:result = JSON_ParseFile(json_file_name_animations, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
@@ -299,9 +305,10 @@ stock attachanim_ApplyAnimationIndex(playerid, index)
 	{
 		return 0;
 	}
-	new lib[24];
-	new name[24];
-	new anim_index = index;
+	new
+		lib[24],
+		name[24],
+		anim_index = index;
 
 	GetAnimationName(anim_index, lib, sizeof(lib), name, sizeof(name));
 

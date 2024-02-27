@@ -7,18 +7,18 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_EXPORT)
 	{
-		new slotid = attachmain_GetCurrentSlotId(playerid);
-
-		if (slotid == ITER_NONE)
+		if (!attachmain_IsCreateProcess(playerid))
 		{
 			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
 			return 0;
 		}
-		new modelid = attachmain_GetObjectSlotId(playerid, slotid);
-
-		if (modelid == CORE_INVALID_OBJECT_MODEL)
+		if (!attachmain_IsValidObject(playerid))
 		{
 			language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
+			return 0;
+		}
+		if (attacheditbtn_IsStartEdit(playerid))
+		{
 			return 0;
 		}
 		attachexport_Export(playerid);
@@ -40,37 +40,40 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	forward attachexport_OnGuiAttachMenu(playerid, typeid);
 #endif
 
-static attachexport_Export(playerid)
+stock attachexport_Export(playerid, bool: is_show_dialog_info = true)
 {
-	new index;
-	new boneid;
-	new modelid;
-	new Float:fOffsetX;
-	new Float:fOffsetY;
-	new Float:fOffsetZ;
-	new Float:fRotX;
-	new Float:fRotY;
-	new Float:fRotZ;
-	new Float:fScaleX;
-	new Float:fScaleY;
-	new Float:fScaleZ;
-	new materialcolor1;
-	new materialcolor2;
+	new
+		index,
+		boneid,
+		modelid,
+		Float:offset_x,
+		Float:offset_y,
+		Float:offset_z,
+		Float:rot_x,
+		Float:rot_y,
+		Float:rot_z,
+		Float:scale_x,
+		Float:scale_y,
+		Float:scale_z,
+		material_color_1,
+		material_color_2;
 
-	new name[CORE_MAX_LENGHT_FOLDER_PROJECT];
-	new note[CORE_MAX_LENGHT_NAME_NOTE];
-	new str_note[4 + CORE_MAX_LENGHT_NAME_NOTE];
-	new string[333 + 70 + 36 + 10 + 4 + MAX_PLAYER_NAME + ((120 + 3 + 4+ CORE_MAX_LENGHT_NAME_NOTE) + 14 * 11) * MAX_PLAYER_ATTACHED_OBJECTS];
+	new
+		name[CORE_MAX_LENGHT_FOLDER_PROJECT + 1],
+		note[CORE_MAX_LENGHT_NAME_NOTE + 1],
+		str_note[4 + CORE_MAX_LENGHT_NAME_NOTE + 1],
+		string[333 + 70 + 36 + 10 + 4 + MAX_PLAYER_NAME + ((120 + 3 + 4+ CORE_MAX_LENGHT_NAME_NOTE) + 14 * 11) * MAX_PLAYER_ATTACHED_OBJECTS];
 
 	project_GetFileName(playerid, name);
 
-	new day;
-	new month;
-	new year;
-	new hour;
-	new minuite;
-	new second;
-	new player_name[MAX_PLAYER_NAME + 1];
+	new
+		day,
+		month,
+		year,
+		hour,
+		minuite,
+		second,
+		player_name[MAX_PLAYER_NAME + 1];
 
 	GetPlayerName(playerid, player_name, sizeof(player_name));
 
@@ -102,30 +105,32 @@ static attachexport_Export(playerid)
 
 	foreach (AttachObjectSlots[playerid], i)
 	{
-		attachmain_GetAttachInfo(
+		attachmain_GetMainAttachData(
 			playerid,
 			i,
 			modelid,
 			boneid,
-			fOffsetX,
-			fOffsetY,
-			fOffsetZ,
-			fRotX,
-			fRotY,
-			fRotZ,
-			fScaleX,
-			fScaleY,
-			fScaleZ,
-			materialcolor1,
-			materialcolor2
+			offset_x,
+			offset_y,
+			offset_z,
+			rot_x,
+			rot_y,
+			rot_z,
+			scale_x,
+			scale_y,
+			scale_z,
+			material_color_1,
+			material_color_2
 		);
+		if (modelid == CORE_INVALID_OBJECT_MODEL)
+		{
+			continue;
+		}
 		attachmain_GetObjectSlotNote(playerid, i, note);
 
-		if (!strcmp(note, "-", false))
-		{
-			str_note = "";
-		}
-		else
+		str_note = "";
+
+		if (strcmp(note, "-", false))
 		{
 			strcat(str_note, " //");
 			strcat(str_note, note);
@@ -136,17 +141,17 @@ static attachexport_Export(playerid)
 			index++,
 			modelid,
 			boneid,
-			fOffsetX,
-			fOffsetY,
-			fOffsetZ,
-			fRotX,
-			fRotY,
-			fRotZ,
-			fScaleX,
-			fScaleY,
-			fScaleZ,
-			materialcolor1,
-			materialcolor2,
+			offset_x,
+			offset_y,
+			offset_z,
+			rot_x,
+			rot_y,
+			rot_z,
+			scale_x,
+			scale_y,
+			scale_z,
+			material_color_1,
+			material_color_2,
 			str_note
 		);
 	}
@@ -156,21 +161,24 @@ static attachexport_Export(playerid)
 	}
 	fclose(handle);
 
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
+	if (is_show_dialog_info)
+	{
+		new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
 
-	language_GetDialogString(
-		playerid,
-		DG_DATA_EXPORT_SUCCESS,
-		str_dialog
-	);
-	Dialog_Open(
-		playerid,
-		Dialog:dNone,
-		DIALOG_STYLE_MSGBOX,
-		!""cMain"PAEditor",
-		str_dialog,
-		!"X",
-		!""
-	);
+		language_GetDialogString(
+			playerid,
+			DG_DATA_EXPORT_SUCCESS,
+			str_dialog
+		);
+		Dialog_Open(
+			playerid,
+			Dialog:dNone,
+			DIALOG_STYLE_MSGBOX,
+			name_dialog_header,
+			str_dialog,
+			"X",
+			""
+		);
+	}
 	return 1;
 }

@@ -37,7 +37,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		else if (newkeys & KEY_NO)
 		{
-			gui_atatch_menu_ShowCursor(playerid);
+			if (gui_atatch_menu_IsShow(playerid))
+			{
+				gui_atatch_menu_ShowCursor(playerid);
+				gui_camera_rot_ShowInfo(playerid);
+			}
 		}
 	}
 #if defined projectmain_OnKeyStateChange
@@ -69,10 +73,10 @@ DialogCreate:dProjectMainMenu(playerid)
 		playerid,
 		Dialog:dProjectMainMenu,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"X"
+		"»",
+		"X"
 	);
 	return 1;
 }
@@ -95,7 +99,8 @@ DialogResponse:dProjectMainMenu(playerid, response, listitem, inputtext[])
 				Dialog_Show(playerid, "dProjectMainMenu");
 				return 0;
 			}
-			gui_HideAttachMenu(playerid);
+			gui_atatch_menu_HideMenu(playerid);
+			gui_camera_rot_HideInfo(playerid);
 			attachmain_ClearArray(playerid);
 			project_SetStatusActiveProject(playerid, false);
 

@@ -6,27 +6,36 @@
 const ATTACH_COLOR_MAX_ROW_IN_PAGE					= 25;
 const ATTACH_COLOR_MAX_LNGT_HEX_CODE				= 6;
 
+
+const Float: ATTACH_COLOR_C1_COORD_BTN_MIN_X				= 0.6130;
+const Float: ATTACH_COLOR_C1_COORD_BTN_MAX_X				= 0.6536;
+const Float: ATTACH_COLOR_C1_COORD_BTN_MIN_Y				= 0.9250;
+const Float: ATTACH_COLOR_C1_COORD_BTN_MAX_Y				= 0.9953;
+
+const Float: ATTACH_COLOR_C2_COORD_BTN_MIN_X				= 0.6572;
+const Float: ATTACH_COLOR_C2_COORD_BTN_MAX_X				= 0.6968;
+const Float: ATTACH_COLOR_C2_COORD_BTN_MIN_Y				= 0.9259;
+const Float: ATTACH_COLOR_C2_COORD_BTN_MAX_Y				= 0.9925;
+
+
 static gAttachColorsSelectColorId[MAX_PLAYERS];
 static gAttachColorsPage[MAX_PLAYERS];
 
 static gAttachColorHexCode[MAX_PLAYERS][ATTACH_COLOR_MAX_ROW_IN_PAGE];
 static gAttachColorsArrayIndex[MAX_PLAYERS][ATTACH_COLOR_MAX_ROW_IN_PAGE];
+static bool: gAttachObjectOpenRmouse[MAX_PLAYERS];
 
 
 public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_COLOR_1 || typeid == GUI_ATTACH_MENU_COLOR_2)
 	{
-		new slotid = attachmain_GetCurrentSlotId(playerid);
-
-		if (slotid == ITER_NONE)
+		if (!attachmain_IsCreateProcess(playerid))
 		{
 			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
 			return 0;
 		}
-		new modelid = attachmain_GetObjectSlotId(playerid, slotid);
-
-		if (modelid == CORE_INVALID_OBJECT_MODEL)
+		if (!attachmain_IsValidObject(playerid))
 		{
 			language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
 			return 0;
@@ -52,6 +61,57 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	forward attachcolor_OnGuiAttachMenu(playerid, typeid);
 #endif
 
+public OnVirtualKeyReleased(playerid, key_vk)
+{
+	if (key_vk == VK_RBUTTON)
+	{
+		if (gui_atatch_menu_IsShow(playerid)
+			&& !attachedit_IsPlayerEditing(playerid)
+			&& !Dialog_IsOpen(playerid)
+			&& gui_atatch_menu_IsActivePanel(playerid)
+			&& !gui_atatch_menu_IsBannedPanel(playerid))
+		{
+			new Float:x;
+			new Float:y;
+
+			GetMousePos(x, y);
+
+			if ((ATTACH_COLOR_C1_COORD_BTN_MIN_X <= x <= ATTACH_COLOR_C1_COORD_BTN_MAX_X)
+				&& (ATTACH_COLOR_C1_COORD_BTN_MIN_Y <= y <= ATTACH_COLOR_C1_COORD_BTN_MAX_Y))
+			{
+				gAttachColorsSelectColorId[playerid] = 0;
+				gAttachColorsPage[playerid] = 0;
+				gAttachObjectOpenRmouse[playerid] = true;
+				Dialog_Show(playerid, "dAttachColorList");
+				return 1;
+			}
+			else if ((ATTACH_COLOR_C2_COORD_BTN_MIN_X <= x <= ATTACH_COLOR_C2_COORD_BTN_MAX_X)
+				&& (ATTACH_COLOR_C2_COORD_BTN_MIN_Y <= y <= ATTACH_COLOR_C2_COORD_BTN_MAX_Y))
+			{
+				gAttachColorsSelectColorId[playerid] = 1;
+				gAttachColorsPage[playerid] = 0;
+				gAttachObjectOpenRmouse[playerid] = true;
+				Dialog_Show(playerid, "dAttachColorList");
+				return 1;
+			}
+		}
+	}
+#if defined attachcolor_OnVirtualKeyRlsd
+	return attachcolor_OnVirtualKeyRlsd(playerid, key_vk);
+#else
+	return 1;
+#endif
+}
+#if defined _ALS_OnVirtualKeyReleased
+	#undef OnVirtualKeyReleased
+#else
+	#define _ALS_OnVirtualKeyReleased
+#endif
+#define OnVirtualKeyReleased attachcolor_OnVirtualKeyRlsd
+#if defined    attachcolor_OnVirtualKeyRlsd
+	forward attachcolor_OnVirtualKeyRlsd(playerid, key_vk);
+#endif
+
 DialogCreate:dAttachColorMenu(playerid)
 {
 	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
@@ -65,10 +125,10 @@ DialogCreate:dAttachColorMenu(playerid)
 		playerid,
 		Dialog:dAttachColorMenu,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"X"
+		"»",
+		"X"
 	);
 	return 1;
 }
@@ -78,6 +138,7 @@ DialogResponse:dAttachColorMenu(playerid, response, listitem, inputtext[])
 	if (!response)
 	{
 		gui_atatch_menu_ShowCursor(playerid);
+		gui_camera_rot_ShowInfo(playerid);
 		return 0;
 	}
 	switch (listitem)
@@ -89,6 +150,7 @@ DialogResponse:dAttachColorMenu(playerid, response, listitem, inputtext[])
 		case 1:
 		{
 			gAttachColorsPage[playerid] = 0;
+			gAttachObjectOpenRmouse[playerid] = false;
 			Dialog_Show(playerid, "dAttachColorList");
 		}
 		case 3:
@@ -105,7 +167,7 @@ DialogResponse:dAttachColorMenu(playerid, response, listitem, inputtext[])
 				attachmain_SetMaterialColor2(playerid, slotid, 0);
 			}
 			attachmain_JsonSaveAttach(playerid, slotid);
-			attachedit_SetAttachObject(playerid);
+			attachmain_SetMainAttachObject(playerid, slotid);
 
 			language_MessageInfo(playerid, MSG_COLOR_HEX_REMOVED_SUCCESS);
 		}
@@ -130,10 +192,10 @@ DialogCreate:dAttachColorInput(playerid)
 		playerid,
 		Dialog:dAttachColorInput,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"X"
+		"»",
+		"X"
 	);
 	return 1;
 }
@@ -166,7 +228,7 @@ DialogResponse:dAttachColorInput(playerid, response, listitem, inputtext[])
 	{
 		attachmain_SetMaterialColor2(playerid, slotid, hex_code);
 	}
-	attachedit_SetAttachObject(playerid);
+	attachmain_SetMainAttachObject(playerid, slotid);
 	attachmain_JsonSaveAttach(playerid, slotid);
 
 	language_MessageInfo(playerid, MSG_COLOR_HEX_APPLIED_SUCCESS);
@@ -176,29 +238,32 @@ DialogResponse:dAttachColorInput(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachColorList(playerid)
 {
-	new length;
-	new str_hex[ATTACH_COLOR_MAX_LNGT_HEX_CODE + 1];
-	new string[47 + 30 * 2 + (48 + (- 2 + sizeof(str_hex))) * ATTACH_COLOR_MAX_ROW_IN_PAGE];
-	
+	new
+		length,
+		str_hex[ATTACH_COLOR_MAX_LNGT_HEX_CODE + 1],
+		string[47 + 30 * 2 + (48 + (- 2 + sizeof(str_hex))) * ATTACH_COLOR_MAX_ROW_IN_PAGE];
+		
 	language_GetDialogString(
 		playerid,
 		DG_ADD_COLOR_HEX_CODE,
 		string
 	);
-	new JsonNode:node;
-	new JsonNode:item;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_colors, node);
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonCallResult:result = JSON_ParseFile(json_file_name_colors, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
 		JSON_GetArray(node, "colors", node);
 		JSON_ArrayLength(node, length);
 
-		new page = gAttachColorsPage[playerid];
-		new i = page * ATTACH_COLOR_MAX_ROW_IN_PAGE;
-		new j;
-		new index;
-		new hex_code;
+		new
+			page = gAttachColorsPage[playerid],
+			i = page * ATTACH_COLOR_MAX_ROW_IN_PAGE,
+			j,
+			index,
+			hex_code;
 
 		for (; i < length; i++)
 		{
@@ -238,14 +303,16 @@ DialogCreate:dAttachColorList(playerid)
 	JSON_Cleanup(item);
 	JSON_Cleanup(node);
 
+	new is_open_rmouse = gAttachObjectOpenRmouse[playerid];
+
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachColorList,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		string,
-		!"»",
-		!"X"
+		"»",
+		is_open_rmouse ? "«" : "X"
 	);
 	return 1;
 }
@@ -255,6 +322,10 @@ DialogResponse:dAttachColorList(playerid, response, listitem, inputtext[])
 {
 	if (!response)
 	{
+		if (gAttachObjectOpenRmouse[playerid] == true)
+		{
+			return 0;
+		}
 		Dialog_Show(playerid, "dAttachColorMenu");
 		return 0;
 	}
@@ -297,10 +368,10 @@ DialogResponse:dAttachColorList(playerid, response, listitem, inputtext[])
 		playerid,
 		Dialog:dAttachColorsAction,
 		DIALOG_STYLE_LIST,
-		!""cMain"PAEditor",
+		name_dialog_header,
 		str_dialog,
-		!"»",
-		!"«"
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -315,9 +386,10 @@ DialogResponse:dAttachColorsAction(playerid, response, listitem, inputtext[])
 	}
 	if (listitem == 0)
 	{
-		new slotid = attachmain_GetCurrentSlotId(playerid);
-		new colorid = gAttachColorsSelectColorId[playerid];
-		new hex_code = gAttachColorHexCode[playerid][0];
+		new
+			slotid = attachmain_GetCurrentSlotId(playerid),
+			colorid = gAttachColorsSelectColorId[playerid],
+			hex_code = gAttachColorHexCode[playerid][0];
 
 		if (colorid == 0)
 		{
@@ -327,16 +399,17 @@ DialogResponse:dAttachColorsAction(playerid, response, listitem, inputtext[])
 		{
 			attachmain_SetMaterialColor2(playerid, slotid, hex_code);
 		}
-		attachedit_SetAttachObject(playerid);
+		attachmain_SetMainAttachObject(playerid, slotid);
 		attachmain_JsonSaveAttach(playerid, slotid);
 
 		language_MessageInfo(playerid, MSG_COLOR_HEX_APPLIED_SUCCESS);
 	}
 	else
 	{
-		new JsonNode:node;
-		new JsonCallResult:result = JSON_ParseFile(json_file_name_colors, node);
-		new index = gAttachColorsArrayIndex[playerid][0];
+		new
+			JsonNode:node,
+			JsonCallResult:result = JSON_ParseFile(json_file_name_colors, node),
+			index = gAttachColorsArrayIndex[playerid][0];
 
 		if (result == JSON_CALL_NO_ERR)
 		{
@@ -355,16 +428,21 @@ DialogResponse:dAttachColorsAction(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachColorsAddToList(playerid)
 {
+	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
+
+	language_GetDialogString(
+		playerid,
+		DG_ADD_COLOR_HEX_IN_LIST,
+		str_dialog
+	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachColorsAddToList,
 		DIALOG_STYLE_INPUT,
-		!""cMain"PAEditor",
-		""cWhite"Чтобы добавить цвет, введите цвет в формате HEX, например, FF0000.\n\
-		Чтобы узнать цвет, вы можете воспользоваться сайтом: "cMain"htmlcolorcodes.com\n\n\
-		"cRed"Примечание: "cWhite"Некоторые цвета могут отображаться некорректно на объектах.",
-		!"»",
-		!"«"
+		name_dialog_header,
+		str_dialog,
+		"»",
+		"«"
 	);
 	return 1;
 }
@@ -382,9 +460,10 @@ DialogResponse:dAttachColorsAddToList(playerid, response, listitem, inputtext[])
 		Dialog_Show(playerid, "dAttachColorsAddToList");
 		return 0;
 	}
-	new JsonNode:item;
-	new JsonNode:node;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_colors, node);
+	new 
+		JsonNode:item,
+		JsonNode:node,
+		JsonCallResult:result = JSON_ParseFile(json_file_name_colors, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
