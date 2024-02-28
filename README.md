@@ -5,7 +5,7 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 > Interface language:
 - ```English```
 - ```Русский```
-- ```Український```
+- ```Українська```
 - ```Беларускі```
  
 
