@@ -420,7 +420,7 @@ stock asymmetry_PressSave(playerid)
 		material_color_1,
 		material_color_2
 	);
-	attachmain_JsonSaveAttach(playerid, slotid);
+	project_JsonSaveAttach(playerid, slotid);
 	attachmain_SetCurrentSlotId(playerid, slotid);
 	attachmain_AddIterSlotId(playerid, slotid);
 	attachmain_SetMainAttachObject(playerid, slotid);

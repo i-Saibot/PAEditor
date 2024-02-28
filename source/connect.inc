@@ -49,7 +49,7 @@ public OnPlayerConnect(playerid)
 	SetSpawnInfo(playerid, 255, 0, 0, 0, 0, 1.0, -1, -1, -1, -1, -1, -1);
 	TogglePlayerSpectating(playerid, false);
 
-	GameTextForPlayer(playerid, "~g~Player Attach Editor", 3000, 4);
+	GameTextForPlayer(playerid, "~y~PAEditor", 3000, 4);
 
 	Dialog_Show(playerid, "dLanguageChoose");
 	return 1;

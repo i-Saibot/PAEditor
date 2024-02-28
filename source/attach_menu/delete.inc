@@ -67,14 +67,30 @@ DialogResponse:dAttachDeleteMenu(playerid, response, listitem, inputtext[])
 		return 0;
 	}
 	new slotid = attachmain_GetCurrentSlotId(playerid);
+	new per_slotid = Iter_Previous(AttachObjectSlots[playerid], slotid);
+	new last_slotid = Iter_Last(AttachObjectSlots[playerid]);
+	new new_slotid;
 
 	attachmain_ClearSlotId(playerid, slotid);
 	attachmain_IterRemoveSlotId(playerid, slotid);
-	attachmain_JsonDeleteAttach(playerid, slotid);
-	
-	new first_slotid = attachmain_GetFirstSlotId(playerid);
+	project_JsonDeleteAttach(playerid, slotid);
 
-	attachmain_SetCurrentSlotId(playerid, first_slotid);
+	if (per_slotid > last_slotid)
+	{
+		new_slotid = Iter_First(AttachObjectSlots[playerid]);
+	}
+	else
+	{
+		new_slotid = per_slotid;
+	}
+	if (Iter_Count(AttachObjectSlots[playerid]) == 0)
+	{
+		attachmain_SetCurrentSlotId(playerid, ITER_NONE);
+	}
+	else
+	{
+		attachmain_SetCurrentSlotId(playerid, new_slotid);
+	}
 	return 1;
 }
 
@@ -116,7 +132,7 @@ DialogResponse:dAttachMultiDeleteMenu(playerid, response, listitem, inputtext[])
 		}
 		attachmain_ClearSlotId(playerid, i);
 		attachmain_IterRemoveSlotId(playerid, i);
-		attachmain_JsonDeleteAttach(playerid, i);
+		project_JsonDeleteAttach(playerid, i);
 
 		attachmain_SetMultiObjSlot(playerid, i, ITER_NONE);
 		Iter_SafeRemove(AttachMultiObjectSlots[playerid], i, i);

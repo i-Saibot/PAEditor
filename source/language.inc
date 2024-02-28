@@ -4,7 +4,7 @@
 #define _language_inc
 
 
-const LANGUAGE_MAX_LENGHT_STRING_DL						= 1450;
+const LANGUAGE_MAX_LENGHT_STRING_DL						= 1600;
 
 ////////////////////////////////////////
 static enum

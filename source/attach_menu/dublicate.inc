@@ -162,7 +162,7 @@ DialogResponse:dAttachMenuDublicateNote(playerid, response, listitem, inputtext[
 		materialcolor1,
 		materialcolor2
 	);
-	attachmain_JsonSaveAttach(playerid, new_slotid);
+	project_JsonSaveAttach(playerid, new_slotid);
 	attachmain_SetCurrentSlotId(playerid, new_slotid);
 	attachmain_AddIterSlotId(playerid, new_slotid);
 	attachmain_SetMainAttachObject(playerid, new_slotid);

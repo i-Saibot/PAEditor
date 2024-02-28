@@ -7,14 +7,23 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_EXPORT)
 	{
-		if (!attachmain_IsCreateProcess(playerid))
+		if (Iter_Count(AttachObjectSlots[playerid]) == 0)
 		{
 			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
 			return 0;
 		}
-		if (!attachmain_IsValidObject(playerid))
+		new bool: is_valid_export;
+		foreach (AttachObjectSlots[playerid], i)
 		{
-			language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
+			if (attachmain_GetObjectSlotId(playerid, i) != CORE_INVALID_OBJECT_MODEL)
+			{
+				is_valid_export = true;
+				break;
+			}
+		}
+		if (!is_valid_export)
+		{
+			language_MessageError(playerid, MSG_TO_SET_OBJECT_PRESS_OBJECTS);
 			return 0;
 		}
 		if (attacheditbtn_IsStartEdit(playerid))

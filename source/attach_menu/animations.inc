@@ -23,7 +23,7 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	else if (typeid == GUI_ATTACH_MENU_ANIMATION_CLEAR)
 	{
 		ClearAnimations(playerid);
-		attachmain_JsonSaveAnimation(playerid, -1);
+		project_JsonSaveAnimation(playerid, -1);
 		return 1;
 	}
 #if defined attachanim_OnGuiAttachMenu
@@ -189,7 +189,7 @@ DialogResponse:dAttachAnimationAction(playerid, response, listitem, inputtext[])
 		new anim_index = gAttachAnimationsLibraryIndex[playerid][0];
 		
 		attachanim_ApplyAnimationIndex(playerid, anim_index);
-		attachmain_JsonSaveAnimation(playerid, anim_index);
+		project_JsonSaveAnimation(playerid, anim_index);
 		language_MessageInfo(playerid, MSG_ANIM_APPLIED_TO_CHARACTER);
 	}
 	else

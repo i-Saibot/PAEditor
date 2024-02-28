@@ -79,6 +79,16 @@ public OnVirtualKeyReleased(playerid, key_vk)
 			if ((ATTACH_COLOR_C1_COORD_BTN_MIN_X <= x <= ATTACH_COLOR_C1_COORD_BTN_MAX_X)
 				&& (ATTACH_COLOR_C1_COORD_BTN_MIN_Y <= y <= ATTACH_COLOR_C1_COORD_BTN_MAX_Y))
 			{
+				if (!attachmain_IsCreateProcess(playerid))
+				{
+					language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
+					return 0;
+				}
+				if (!attachmain_IsValidObject(playerid))
+				{
+					language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
+					return 0;
+				}
 				gAttachColorsSelectColorId[playerid] = 0;
 				gAttachColorsPage[playerid] = 0;
 				gAttachObjectOpenRmouse[playerid] = true;
@@ -88,6 +98,16 @@ public OnVirtualKeyReleased(playerid, key_vk)
 			else if ((ATTACH_COLOR_C2_COORD_BTN_MIN_X <= x <= ATTACH_COLOR_C2_COORD_BTN_MAX_X)
 				&& (ATTACH_COLOR_C2_COORD_BTN_MIN_Y <= y <= ATTACH_COLOR_C2_COORD_BTN_MAX_Y))
 			{
+				if (!attachmain_IsCreateProcess(playerid))
+				{
+					language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
+					return 0;
+				}
+				if (!attachmain_IsValidObject(playerid))
+				{
+					language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
+					return 0;
+				}
 				gAttachColorsSelectColorId[playerid] = 1;
 				gAttachColorsPage[playerid] = 0;
 				gAttachObjectOpenRmouse[playerid] = true;
@@ -166,7 +186,7 @@ DialogResponse:dAttachColorMenu(playerid, response, listitem, inputtext[])
 			{
 				attachmain_SetMaterialColor2(playerid, slotid, 0);
 			}
-			attachmain_JsonSaveAttach(playerid, slotid);
+			project_JsonSaveAttach(playerid, slotid);
 			attachmain_SetMainAttachObject(playerid, slotid);
 
 			language_MessageInfo(playerid, MSG_COLOR_HEX_REMOVED_SUCCESS);
@@ -229,7 +249,7 @@ DialogResponse:dAttachColorInput(playerid, response, listitem, inputtext[])
 		attachmain_SetMaterialColor2(playerid, slotid, hex_code);
 	}
 	attachmain_SetMainAttachObject(playerid, slotid);
-	attachmain_JsonSaveAttach(playerid, slotid);
+	project_JsonSaveAttach(playerid, slotid);
 
 	language_MessageInfo(playerid, MSG_COLOR_HEX_APPLIED_SUCCESS);
 	return 1;
@@ -400,7 +420,7 @@ DialogResponse:dAttachColorsAction(playerid, response, listitem, inputtext[])
 			attachmain_SetMaterialColor2(playerid, slotid, hex_code);
 		}
 		attachmain_SetMainAttachObject(playerid, slotid);
-		attachmain_JsonSaveAttach(playerid, slotid);
+		project_JsonSaveAttach(playerid, slotid);
 
 		language_MessageInfo(playerid, MSG_COLOR_HEX_APPLIED_SUCCESS);
 	}

@@ -96,7 +96,7 @@ public OnPlayerEditAttachedObject(
 			fScaleZ
 		);
 		language_MessageInfo(playerid, MSG_CHANGES_SAVED_AFTER_EDIT);
-		attachmain_JsonSaveAttach(playerid, slotid);
+		project_JsonSaveAttach(playerid, slotid);
 	}
 	gui_atatch_menu_ShowCursor(playerid);
 	gui_camera_rot_ShowInfo(playerid);

@@ -170,3 +170,173 @@ stock project_SetFileName(playerid, const name[])
 	strcat(gProjectFileName[playerid], string);
 	return 1;
 }
+
+
+stock project_JsonSaveSkin(playerid)
+{
+	new name_project[CORE_MAX_LENGHT_FOLDER_PROJECT];
+	project_GetJsonName(playerid, name_project);
+
+	new JsonNode:node;
+	new JsonCallResult:result = JSON_ParseFile(name_project, node);
+
+	if (result == JSON_CALL_NO_ERR)
+	{
+		JSON_SetInt(node, "skinid", GetPlayerSkin(playerid));
+		JSON_SaveFile(name_project, node, 4);
+	}
+	JSON_Cleanup(node);
+	return 1;
+}
+
+stock project_JsonSaveAnimation(playerid, index_anim)
+{
+	new name_project[CORE_MAX_LENGHT_FOLDER_PROJECT];
+
+	project_GetJsonName(playerid, name_project);
+
+	new JsonNode:node;
+	new JsonCallResult:result = JSON_ParseFile(name_project, node);
+
+	if (result == JSON_CALL_NO_ERR)
+	{
+		JSON_SetInt(node, "animation", index_anim);
+		JSON_SaveFile(name_project, node, 4);
+	}
+	JSON_Cleanup(node);
+	return 1;
+}
+
+stock project_JsonSaveAttach(playerid, slotid)
+{
+	new name_project[CORE_MAX_LENGHT_FOLDER_PROJECT];
+
+	project_GetJsonName(playerid, name_project);
+
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonNode:obj,
+		JsonCallResult:result = JSON_ParseFile(name_project, node);
+
+	if (result == JSON_CALL_NO_ERR)
+	{
+		new note[CORE_MAX_LENGHT_NAME_NOTE + 1];
+
+		new
+			objectid,
+			boneid,
+			Float:offset_x,
+			Float:offset_y,
+			Float:offset_z,
+			Float:rot_x,
+			Float:rot_y,
+			Float:rot_z,
+			Float:scale_x,
+			Float:scale_y,
+			Float:scale_z,
+			material_color_1,
+			material_color_2;
+
+		attachmain_GetObjectSlotNote(playerid, slotid, note);
+
+		attachmain_GetMainAttachData(
+			playerid,
+			slotid,
+			objectid,
+			boneid,
+			offset_x,
+			offset_y,
+			offset_z,
+			rot_x,
+			rot_y,
+			rot_z,
+			scale_x,
+			scale_y,
+			scale_z,
+			material_color_1,
+			material_color_2
+		);
+		new length;
+		new json_slotid;
+
+		JSON_GetObject(node, "attach", obj);
+		JSON_ArrayLength(obj, length);
+
+		for (new i; i < length; i++)
+		{
+			JSON_ArrayObject(obj, i, item);
+
+			JSON_GetInt(item, "slotid", json_slotid);
+
+			if (json_slotid == slotid)
+			{
+				JSON_ArrayRemoveIndex(node, "attach", i);
+				break;
+			}
+		}
+		JSON_ArrayAppend(node, "attach", JSON_Object(
+			"slotid", JSON_Int(slotid),
+			"boneid", JSON_Int(boneid),
+			"objectid", JSON_Int(objectid),
+			"fOffsetX", JSON_Float(offset_x),
+			"fOffsetY", JSON_Float(offset_y),
+			"fOffsetZ", JSON_Float(offset_z),
+			"fRotX", JSON_Float(rot_x),
+			"fRotY", JSON_Float(rot_y),
+			"fRotZ", JSON_Float(rot_z),
+			"fScaleX", JSON_Float(scale_x),
+			"fScaleY", JSON_Float(scale_y),
+			"fScaleZ", JSON_Float(scale_z),
+			"materialcolor1", JSON_Int(material_color_1),
+			"materialcolor2", JSON_Int(material_color_2),
+			"note", JSON_String(note))
+		);
+		JSON_SaveFile(name_project, node, 4);
+	}
+	JSON_Cleanup(obj);
+	JSON_Cleanup(item);
+	JSON_Cleanup(node);
+	return 1;
+}
+
+
+stock project_JsonDeleteAttach(playerid, slotid)
+{
+	new name_project[CORE_MAX_LENGHT_FOLDER_PROJECT];
+
+	project_GetJsonName(playerid, name_project);
+	
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonNode:attachArray,
+		JsonCallResult:result = JSON_ParseFile(name_project, node);
+
+	if (result == JSON_CALL_NO_ERR)
+	{
+		new length;
+		new json_slotid;
+
+		JSON_GetObject(node, "attach", attachArray);
+		JSON_ArrayLength(attachArray, length);
+
+		for (new i; i < length; i++)
+		{
+			JSON_ArrayObject(attachArray, i, item);
+
+			JSON_GetInt(item, "slotid", json_slotid);
+
+			if (json_slotid == slotid)
+			{
+				JSON_ArrayRemoveIndex(node, "attach", i);
+				break;
+			}
+		}
+		JSON_SaveFile(name_project, node, 4);
+	}
+	JSON_Cleanup(attachArray);
+	JSON_Cleanup(item);
+	JSON_Cleanup(node);
+	return 1;
+}

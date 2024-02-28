@@ -10,7 +10,7 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	{
 		if (attachmain_GetFreeSlotId(playerid) == ITER_NONE)
 		{
-			language_MessageInfo(playerid, MSG_NO_AVAILABLE_ATTACH_SLOTS);
+			language_MessageError(playerid, MSG_NO_AVAILABLE_ATTACH_SLOTS);
 			return 0;
 		}
 		Dialog_Show(playerid, "dAttachMenuNew");
@@ -75,7 +75,7 @@ DialogResponse:dAttachMenuNew(playerid, response, listitem, inputtext[])
 	attachmain_SetCurrentSlotId(playerid, slotid);
 	attachmain_SetBoneSlotId(playerid, slotid, boneid);
 
-	attachmain_JsonSaveAttach(playerid, slotid);
+	project_JsonSaveAttach(playerid, slotid);
 
 	SendClientMessage(playerid, COLOR_WHITE, "");
 

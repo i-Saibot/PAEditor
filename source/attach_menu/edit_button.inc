@@ -400,7 +400,7 @@ stock attacheditbtn_PressSave(playerid)
 			material_color_2
 		);
 		attachmain_SetMainAttachObject(playerid, i);
-		attachmain_JsonSaveAttach(playerid, i);
+		project_JsonSaveAttach(playerid, i);
 	}
 	gui_ath_edit_DestroyTextdraws(playerid);
 	attacheditbtn_SetStartEdit(playerid, false);

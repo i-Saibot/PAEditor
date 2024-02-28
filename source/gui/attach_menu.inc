@@ -696,7 +696,7 @@ public OnGameModeInit()
 	gui_AttachMenu[69] = TextDrawCreate(450.0999, 420.8927, "<____>");
 	TextDrawLetterSize(gui_AttachMenu[69], 0.3123, 1.2764);
 	TextDrawAlignment(gui_AttachMenu[69], 1);
-	TextDrawColor(gui_AttachMenu[69], -1);
+	TextDrawColor(gui_AttachMenu[69], -1061109505);
 	TextDrawBackgroundColor(gui_AttachMenu[69], 255);
 	TextDrawFont(gui_AttachMenu[69], 1);
 	TextDrawSetProportional(gui_AttachMenu[69], 1);

@@ -106,27 +106,38 @@ new const language_dialog[][][] =
 			//DG__MAIN_MENU_HELP,
 			"Manage \n\
 			- Left-click opens a dialogue with created processes\n\
-			- Right-click opens a dialogue for selecting multiple processes simultaneously\n\
-			Export - Export project\n\
-			New - Create a new process\n\
-			Delete - Delete process\n\
-			Duplicate - Duplicate process\n\
-			Bone - Modify bone for the current process\n\
-			Symmetry - Create a symmetrical mirrored object from the current one\n\
+			- Right-click opens a dialogue for selecting multiple processes simultaneously\n\n\
+			Export\n\
+			- Export project\n\n\
+			New\n\
+			- Create a new process\n\n\
+			Delete\n\
+			- Delete process\n\n\
+			Duplicate\n\
+			- Duplicate process\n\n\
+			Bone\n\
+			- Modify bone for the current process\n\n\
+			Symmetry\n\
+			- Create a symmetrical mirrored object from the current one\n\n\
 			Objects\n\
-			- Left-click opens a dialogue for choosing to set an object or selecting from the list\n\
-			- Right-click opens a menu for selecting objects from the list\n\
-			Edit - Edit object\n\
+			- Left-click opens a dialogue for choosing to set an object or selecting from the list\n\n\
+			- Right-click opens a menu for selecting objects from the list\n\n\
+			Edit\n\
+			- Edit object\n\n\
 			Color\n\
 			- Left-click opens a dialogue for choosing to set a color or selecting from the list\n\
-			- Right-click opens a menu for selecting colors from the list\n\
-			Camera Move - Enable/disable camera rotation with an active panel\n\
-			Skin - Set skin\n\
+			- Right-click opens a menu for selecting colors from the list\n\n\
+			Camera Move\n\
+			- Enable/disable camera rotation with an active panel\n\n\
+			Skin\n\
+			- Set skin\n\n\
 			Prev Skin & Next Skin\n\
 			- Left-click enables quick skin change\n\
-			- Right-click enables quick skin change and automatic project export\n\
-			Animation - Set animation\n\
-			Clear Anim - Clear animation\n\n\
+			- Right-click enables quick skin change and automatic project export\n\n\
+			Animation\n\
+			- Set animation\n\n\
+			Clear Anim\n\
+			- Clear animation\n\n\
 			/headmove - Enable/disable character head rotation\n\
 			/setweather - Set weather\n\
 			/settime - Set time"
@@ -244,27 +255,38 @@ new const language_dialog[][][] =
 			//DG__MAIN_MENU_HELP,
 			"Manage \n\
 			- Нажатие левой кнопкой мыши, открывает диалог с созданными процессами\n\
-			- Нажатие правой кнопкой мыши, открывает диалог для выбора несколько процессов одновременно\n\
-			Export - Экспортировать проект\n\
-			New - Создать новый процесс\n\
-			Delete - Удалить процесс\n\
-			Dublicate - Продублировать процесс\n\
-			Bone - Изменить кость для текущего процесса\n\
-			Symmetry - Создать симметрический отзеркаленый объект от текущего\n\
+			- Нажатие правой кнопкой мыши, открывает диалог для выбора несколько процессов одновременно\n\n\
+			Export\n\
+			- Экспортировать проект\n\n\
+			New\n\
+			- Создать новый процесс\n\n\
+			Delete\n\
+			- Удалить процесс\n\n\
+			Dublicate\n\
+			- Продублировать процесс\n\n\
+			Bone\n\
+			- Изменить кость для текущего процесса\n\n\
+			Symmetry\n\
+			- Создать симметрический отзеркаленый объект от текущего\n\n\
 			Objects\n\
 			- Нажатие левой кнопкой мыши, открывает диалог с выбором установить объект или выбрать из списка\n\
-			- Нажатие правой кнопкой мыши, открывает меню выбора объектов из списка\n\
-			Edit - Редактирование объекта\n\
+			- Нажатие правой кнопкой мыши, открывает меню выбора объектов из списка\n\n\
+			Edit\n\
+			- Редактирование объекта\n\n\
 			Color\n\
 			- Нажатие левой кнопкой мыши, открывает диалог с выбором установить цвет или выбрать из списка\n\
-			- Нажатие правой кнопкой мыши, открывает меню выбора цвета из списка\n\
-			Camera Move - Включить/отключить вращение камеры при активной панели\n\
-			Skin - Установить skin\n\
-			Prev Skin & Next Skin\n\
+			- Нажатие правой кнопкой мыши, открывает меню выбора цвета из списка\n\n\
+			Camera Move\n\
+			- Включить/отключить вращение камеры при активной панели\n\n\
+			Skin\n\
+			- Установить skin\n\
+			Prev Skin & Next Skin\n\n\
 			- Нажатие левой кнопкой мыши, быстрая смена скина\n\
-			- Нажатие правой кнопкой мыши, быстрая смена скина и автоматический экспорт проекта\n\
-			Animation - Установить анимацию\n\
-			Clear Anim - Очистить анимацию\n\n\
+			- Нажатие правой кнопкой мыши, быстрая смена скина и автоматический экспорт проекта\n\n\
+			Animation\n\
+			- Установить анимацию\n\
+			Clear Anim\n\
+			- Очистить анимацию\n\n\
 			/headmove - Включить/отключить вращение головы у персонажа\n\
 			/setweather - Установить погоду\n\
 			/settime - Установить время"
@@ -385,27 +407,38 @@ new const language_dialog[][][] =
 			//DG_MAIN_MENU_HELP,
 			"Manage \n\
 			- Натискання лiвої кнопки мишi вiдкриває дiалог зi створеними процесами\n\
-			- Натискання правої кнопки мишi вiдкриває дiалог для вибору декiлькох процесiв одночасно\n\
-			Export - Експорт проекту\n\
-			New - Створити новий процес\n\
-			Delete - Видалити процес\n\
-			Duplicate - Створити копiю процесу\n\
-			Bone - Змiнити кiстку для поточного процесу\n\
-			Symmetry - Створити симетричний вiдзеркалений об'єкт вiд поточного\n\
+			- Натискання правої кнопки мишi вiдкриває дiалог для вибору декiлькох процесiв одночасно\n\n\
+			Export\n\
+			- Експорт проекту\n\n\
+			New\n\
+			- Створити новий процес\n\n\
+			Delete\n\
+			- Видалити процес\n\n\
+			Duplicate\n\
+			- Створити копiю процесу\n\n\
+			Bone\n\
+			- Змiнити кiстку для поточного процесу\n\n\
+			Symmetry\n\
+			- Створити симетричний вiдзеркалений об'єкт вiд поточного\n\n\
 			Objects\n\
 			- Натискання лiвої кнопки мишi вiдкриває дiалог для вибору установки об'єкта або вибору зi списку\n\
-			- Натискання правої кнопки мишi вiдкриває меню вибору об'єктiв iз списку\n\
-			Edit - Редагування об'єкта\n\
+			- Натискання правої кнопки мишi вiдкриває меню вибору об'єктiв iз списку\n\n\
+			Edit\n\
+			- Редагування об'єкта\n\n\
 			Color\n\
 			- Натискання лiвої кнопки мишi вiдкриває дiалог для вибору установки кольору або вибору зi списку\n\
-			- Натискання правої кнопки мишi вiдкриває меню вибору кольорiв iз списку\n\
-			Camera Move - Увiмкнути/вимкнути обертання камери при активнiй панелi\n\
-			Skin - Встановити шкiру\n\
+			- Натискання правої кнопки мишi вiдкриває меню вибору кольорiв iз списку\n\n\
+			Camera Move\n\
+			- Увiмкнути/вимкнути обертання камери при активнiй панелi\n\n\
+			Skin\n\
+			- Встановити шкiру\n\n\
 			Prev Skin & Next Skin\n\
 			- Натискання лiвої кнопки мишi для швидкої змiни скина\n\
-			- Натискання правої кнопки мишi для швидкої змiни скина та автоматичного експорту проекту\n\
-			Animation - Встановити анiмацiю\n\
-			Clear Anim - Очистити анiмацiю\n\n\
+			- Натискання правої кнопки мишi для швидкої змiни скина та автоматичного експорту проекту\n\n\
+			Animation\n\
+			- Встановити анiмацiю\n\n\
+			Clear Anim\n\
+			- Очистити анiмацiю\n\n\
 			/headmove - Увiмкнути/вимкнути обертання голови у персонажа\n\
 			/setweather - Встановити погоду\n\
 			/settime - Встановити час"
@@ -523,29 +556,40 @@ new const language_dialog[][][] =
 		},
 		{
 			//DG_MAIN_MENU_HELP,
-			"Manage \n\
+			"Manage\n\
 			- Нацiсканне левай кнопкай мышы адчыняе дыялог з створанымi працэсамi\n\
-			- Нацiсканне правай кнопкай мышы адчыняе дыялог для выбару некалькiх працэсаў адначасова\n\
-			Export - Экспартаваць праект\n\
-			New - Стварыць новы працэс\n\
-			Delete - Выдалiць працэс\n\
-			Dublicate - Прадубляваць працэс\n\
-			Bone - Змянiць косьць для бягучага працэсу\n\
-			Symmetry - Стварыць сiметрычны адзеркалены аб'ект ад бягучага\n\
+			- Нацiсканне правай кнопкай мышы адчыняе дыялог для выбару некалькiх працэсаў адначасова\n\n\
+			Export\n\
+			- Экспартаваць праект\n\n\
+			New\n\
+			- Стварыць новы працэс\n\n\
+			Delete\n\
+			- Выдалiць працэс\n\n\
+			Dublicate\n\
+			- Прадубляваць працэс\n\n\
+			Bone\n\
+			- Змянiць косьць для бягучага працэсу\n\n\
+			Symmetry\n\
+			- Стварыць сiметрычны адзеркалены аб'ект ад бягучага\n\n\
 			Objects\n\
 			- Нацiсканне левай кнопкай мышы адчыняе дыялог з выбарам устанавiць аб'ект цi выбраць з спiсу\n\
-			- Нацiсканне правай кнопкай мышы адчыняе мэню выбару аб'ектаў з спiсу\n\
-			Edit - Рэдагаванне аб'екта\n\
+			- Нацiсканне правай кнопкай мышы адчыняе мэню выбару аб'ектаў з спiсу\n\n\
+			Edit\n\
+			- Рэдагаванне аб'екта\n\n\
 			Color\n\
 			- Нацiсканне левай кнопкай мышы адчыняе дыялог з выбарам устанавiць колер цi выбраць з спiсу\n\
-			- Нацiсканне правай кнопкай мышы адчыняе мэню выбару колеру з спiсу\n\
-			Camera Move - Уключыць/адключыць варачэнне камеры пры актыўнай панэлi\n\
-			Skin - Устанавiць скiн\n\
+			- Нацiсканне правай кнопкай мышы адчыняе мэню выбару колеру з спiсу\n\n\
+			Camera Move\n\
+			- Уключыць/адключыць варачэнне камеры пры актыўнай панэлi\n\n\
+			Skin\n\
+			- Устанавiць скiн\n\n\
 			Prev Skin & Next Skin\n\
 			- Нацiсканне левай кнопкай мышы, хуткая змена скiна\n\
-			- Нацiсканне правай кнопкай мышы, хуткая змена скiна i аўтаматычны экспарт праекта\n\
-			Animation - Устанавiць анiмацыю\n\
-			Clear Anim - Ачысцiць анiмацыю\n\n\
+			- Нацiсканне правай кнопкай мышы, хуткая змена скiна i аўтаматычны экспарт праекта\n\n\
+			Animation\n\
+			- Устанавiць анiмацыю\n\n\
+			Clear Anim\n\
+			- Ачысцiць анiмацыю\n\n\
 			/headmove - Уключыць/адключыць варачэнне галавы ў персанажа\n\
 			/setweather - Устанавiць надвор'е\n\
 			/settime - Устанавiць час"

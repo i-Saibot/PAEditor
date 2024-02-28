@@ -50,7 +50,7 @@ main(){}
 
 static http_address_available_version[]				= "https://pastebin.com/raw/xebukdmH";
 
-const Float:CURRENT_PAEDITOR_VERSION				= 1.1;
+const Float:CURRENT_PAEDITOR_VERSION				= 1.2;
 
 
 public OnGameModeInit()

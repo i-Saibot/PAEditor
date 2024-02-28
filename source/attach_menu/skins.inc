@@ -152,7 +152,7 @@ DialogResponse:dAttachSkinMenu(playerid, response, listitem, inputtext[])
 	
 	gui_atatch_menu_ShowCursor(playerid);
 	gui_camera_rot_ShowInfo(playerid);
-	attachmain_JsonSaveSkin(playerid);
+	project_JsonSaveSkin(playerid);
 	return 1;
 }
 
@@ -165,7 +165,7 @@ static attachskin_SetPrevSkin(playerid, bool: is_export = false)
 		skinid = ATTACH_SKIN_MAX_ID_SKIN;
 	}
 	SetPlayerSkin(playerid, skinid);
-	attachmain_JsonSaveSkin(playerid);
+	project_JsonSaveSkin(playerid);
 
 	new string[38 + (- 2 + 3) * 2] = "~y~Skin %d";
 
@@ -191,7 +191,7 @@ static attachskin_SetNextSkin(playerid, bool: is_export = false)
 		skinid = ATTACH_SKIN_MIN_ID_SKIN;
 	}
 	SetPlayerSkin(playerid, skinid);
-	attachmain_JsonSaveSkin(playerid);
+	project_JsonSaveSkin(playerid);
 
 	new string[38 + (- 2 + 3) * 2] = "~y~Skin %d";
 

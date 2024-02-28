@@ -77,7 +77,7 @@ DialogResponse:dAttachMenuChangeBone(playerid, response, listitem, inputtext[])
 	new modelid = attachmain_GetObjectSlotId(playerid, slotid);
 
 	attachmain_SetBoneSlotId(playerid, slotid, boneid);
-	attachmain_JsonSaveAttach(playerid, slotid);
+	project_JsonSaveAttach(playerid, slotid);
 
 	SendClientMessage(playerid, COLOR_WHITE, "");
 

@@ -187,17 +187,17 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 			new slotid;
 			new boneid;
 			new modelid;
-			new Float:fOffsetX;
-			new Float:fOffsetY;
-			new Float:fOffsetZ;
-			new Float:fRotX;
-			new Float:fRotY;
-			new Float:fRotZ;
-			new Float:fScaleX;
-			new Float:fScaleY;
-			new Float:fScaleZ;
-			new materialcolor1;
-			new materialcolor2;
+			new Float:offset_x;
+			new Float:offset_y;
+			new Float:offset_z;
+			new Float:rot_x;
+			new Float:rot_y;
+			new Float:rot_z;
+			new Float:scale_x;
+			new Float:scale_y;
+			new Float:scale_z;
+			new material_color_1;
+			new material_color_2;
 			new note[CORE_MAX_LENGHT_NAME_NOTE + 1];
 
 			new skinid;
@@ -220,20 +220,20 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 				JSON_GetInt(item, "boneid", boneid);
 				JSON_GetInt(item, "objectid", modelid);
 				
-				JSON_GetFloat(item, "fOffsetX", fOffsetX);
-				JSON_GetFloat(item, "fOffsetY", fOffsetY);
-				JSON_GetFloat(item, "fOffsetZ", fOffsetZ);
+				JSON_GetFloat(item, "fOffsetX", offset_x);
+				JSON_GetFloat(item, "fOffsetY", offset_y);
+				JSON_GetFloat(item, "fOffsetZ", offset_z);
 
-				JSON_GetFloat(item, "fRotX", fRotX);
-				JSON_GetFloat(item, "fRotY", fRotY);
-				JSON_GetFloat(item, "fRotZ", fRotZ);
+				JSON_GetFloat(item, "fRotX", rot_x);
+				JSON_GetFloat(item, "fRotY", rot_y);
+				JSON_GetFloat(item, "fRotZ", rot_z);
 
-				JSON_GetFloat(item, "fScaleX", fScaleX);
-				JSON_GetFloat(item, "fScaleY", fScaleY);
-				JSON_GetFloat(item, "fScaleZ", fScaleZ);
+				JSON_GetFloat(item, "fScaleX", scale_x);
+				JSON_GetFloat(item, "fScaleY", scale_y);
+				JSON_GetFloat(item, "fScaleZ", scale_z);
 
-				JSON_GetInt(item, "materialcolor1", materialcolor1);
-				JSON_GetInt(item, "materialcolor2", materialcolor2);
+				JSON_GetInt(item, "materialcolor1", material_color_1);
+				JSON_GetInt(item, "materialcolor2", material_color_2);
 
 				JSON_GetString(item, "note", note, sizeof(note));
 
@@ -242,17 +242,17 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 					slotid,
 					modelid,
 					boneid,
-					fOffsetX,
-					fOffsetY,
-					fOffsetZ,
-					fRotX,
-					fRotY,
-					fRotZ,
-					fScaleX,
-					fScaleY,
-					fScaleZ,
-					materialcolor1,
-					materialcolor2
+					offset_x,
+					offset_y,
+					offset_z,
+					rot_x,
+					rot_y,
+					rot_z,
+					scale_x,
+					scale_y,
+					scale_z,
+					material_color_1,
+					material_color_2
 				);
 				attachmain_SetObjectSlotNote(playerid, slotid, note);
 

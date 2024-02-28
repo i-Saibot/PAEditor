@@ -301,7 +301,7 @@ DialogResponse:dAttachMenuObjectNote(playerid, response, listitem, inputtext[])
 		playerid,
 		slotid, !lenght_note ? CORE_EMPTY_NOTE : inputtext
 	);
-	attachmain_JsonSaveAttach(playerid, slotid);
+	project_JsonSaveAttach(playerid, slotid);
 	attachmain_SetMainAttachObject(playerid, slotid);
 	gui_ath_obj_DestroyTextdraws(playerid);
 
