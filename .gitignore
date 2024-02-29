@@ -12,3 +12,5 @@ samp-server.exe
 *.exe
 *.ini
 pawno
+tde/
+tde
