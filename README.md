@@ -82,3 +82,7 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 <img src="https://i.imgur.com/yOWYcsy.png" width="100" height="80">
 <img src="https://i.imgur.com/wLuEMlY.png" width="100" height="80">
 
+## Server startup errors
+If your server does not start, then you need
+- Download this application and install all libraries >> https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
+- Download and install all libraries according to your system bit depth. (x86 or x64) https://learn.microsoft.com/ru-ru/cpp/windows/latest-supported-vc-redist?view=msvc-170
