@@ -84,5 +84,5 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 
 ## Server startup errors
 If your server does not start, then you need
-- Download this application and install all libraries >> https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
-- Download and install all libraries according to your system bit depth. (x86 or x64) https://learn.microsoft.com/en-en/cpp/windows/latest-supported-vc-redist?view=msvc-170
+- ##### Download this application and install all libraries >> https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
+- ##### Download and install all libraries according to your system bit depth. (x86 or x64) https://learn.microsoft.com/en-en/cpp/windows/latest-supported-vc-redist?view=msvc-170
