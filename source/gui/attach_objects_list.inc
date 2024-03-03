@@ -380,7 +380,7 @@ stock gui_ath_obj_ShowTextdraws(playerid)
 	return 1;
 }
 
-stock gui_ath_obj_SetModelObjecInCell(playerid, cellid, modelid)
+stock gui_ath_obj_SetModelObjecInCell(playerid, cellid, modelid, Float:rx = 0.0, Float:ry = 0.0, Float:rz = 0.0)
 {
 	if (!gui_ath_obj_IsPlayerCreateTD(playerid))
 	{
@@ -394,9 +394,9 @@ stock gui_ath_obj_SetModelObjecInCell(playerid, cellid, modelid)
 	PlayerTextDrawSetPreviewRot(
 		playerid,
 		gui_AttachObjectTextdrawsItems[playerid][cellid],
-		0.0000,
-		0.0000,
-		(modelid == CORE_INVALID_OBJECT_MODEL) ? 90.0000 : 0.0000,
+		rx,
+		ry,
+		(modelid == CORE_INVALID_OBJECT_MODEL) ? 90.0000 : rz,
 		(modelid == CORE_INVALID_OBJECT_MODEL) ? 2.0000 : 1.0000
 	);
 	PlayerTextDrawShow(

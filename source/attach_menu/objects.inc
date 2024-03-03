@@ -330,6 +330,7 @@ static attach_obj_ShowObjectList(playerid)
 
 		new
 			modelid,
+			Float:rx, Float:ry, Float:rz,
 			page = gAttachObjectsPage[playerid],
 			i = page * ATTACH_OBJ_MAX_ITEM_IN_PAGE,
 			j,
@@ -346,8 +347,11 @@ static attach_obj_ShowObjectList(playerid)
 			JSON_ArrayObject(node, i, item);
 
 			JSON_GetInt(item, "modelid", modelid);
+			JSON_GetFloat(item, "rx", rx);
+			JSON_GetFloat(item, "ry", ry);
+			JSON_GetFloat(item, "rz", rz);
 
-			gui_ath_obj_SetModelObjecInCell(playerid, index, modelid);
+			gui_ath_obj_SetModelObjecInCell(playerid, index, modelid, rx, ry, rz);
 			gui_ath_obj_SetModelTextInCell(playerid, index, modelid);
 
 			gAttachObjectsArrayModel[playerid][index] = modelid;
@@ -505,7 +509,10 @@ DialogResponse:dAttachObjectsAddToList(playerid, response, listitem, inputtext[]
 	if (result == JSON_CALL_NO_ERR)
 	{
 		JSON_ArrayAppend(node, "objects", JSON_Object(
-			"modelid", JSON_Int(modelid))
+			"modelid", JSON_Int(modelid),
+			"rx", JSON_Float(0.0),
+			"ry", JSON_Float(0.0),
+			"rz", JSON_Float(0.0))
 		);
 		JSON_SaveFile(json_file_name_objects, node, 4);
 	}
