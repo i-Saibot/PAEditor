@@ -3,19 +3,27 @@
 #endif
 #define _attach_animations_inc
 
-const ATTACH_ANIM_MAX_ROW_IN_PAGE 				= 20;
-const ATTACH_ANIM_MAX_LENGHT_NAME				= 64;
-const ATTACH_ANIM_INVALID_ANIM_ID				= -1;
+const
+	ATTACH_ANIM_MAX_ROW_IN_PAGE 					= 20,
+	ATTACH_ANIM_MAX_LENGHT_NAME						= 64,
+	ATTACH_ANIM_INVALID_ANIM_ID						= -1;
 
-static gAttachAnimationsPage[MAX_PLAYERS];
-static gAttachAnimationsLibraryIndex[MAX_PLAYERS][ATTACH_ANIM_MAX_ROW_IN_PAGE];
-static gAttachAnimationsArrayIndex[MAX_PLAYERS][ATTACH_ANIM_MAX_ROW_IN_PAGE];
+
+static
+	gAttachAnimationsPage[MAX_PLAYERS],
+	gAttachAnimationsLibraryIndex[MAX_PLAYERS][ATTACH_ANIM_MAX_ROW_IN_PAGE],
+	gAttachAnimationsArrayIndex[MAX_PLAYERS][ATTACH_ANIM_MAX_ROW_IN_PAGE],
+	gAttachAnimationsUseIndex[MAX_PLAYERS] = {ATTACH_ANIM_INVALID_ANIM_ID, ...};
 
 
 public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_ANIMATIONS)
 	{
+		if (gui_ath_uniqedit_IsShowTD(playerid))
+		{
+			return 0;
+		}
 		gAttachAnimationsPage[playerid] = 0;
 		Dialog_Show(playerid, "dAttachAnimationsList");
 		return 1;
@@ -23,7 +31,8 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	else if (typeid == GUI_ATTACH_MENU_ANIMATION_CLEAR)
 	{
 		ClearAnimations(playerid);
-		project_JsonSaveAnimation(playerid, -1);
+		attachanim_SetAnimIndex(playerid, ATTACH_ANIM_INVALID_ANIM_ID);
+		project_JsonSaveAnimation(playerid, ATTACH_ANIM_INVALID_ANIM_ID);
 		return 1;
 	}
 #if defined attachanim_OnGuiAttachMenu
@@ -42,6 +51,24 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	forward attachanim_OnGuiAttachMenu(playerid, typeid);
 #endif
 
+public OnPlayerDisconnect(playerid, reason)
+{
+	attachanim_SetAnimIndex(playerid, ATTACH_ANIM_INVALID_ANIM_ID);
+#if defined attachanim_OnPlayerDisconnect
+	return attachanim_OnPlayerDisconnect(playerid, reason);
+#else
+	return 1;
+#endif
+}
+#if defined _ALS_OnPlayerDisconnect
+	#undef OnPlayerDisconnect
+#else
+	#define _ALS_OnPlayerDisconnect
+#endif
+#define OnPlayerDisconnect attachanim_OnPlayerDisconnect
+#if defined    attachanim_OnPlayerDisconnect
+	forward attachanim_OnPlayerDisconnect(playerid, reason);
+#endif
 
 DialogCreate:dAttachAnimationsList(playerid)
 {
@@ -50,12 +77,6 @@ DialogCreate:dAttachAnimationsList(playerid)
 		library_index,
 		name[ATTACH_ANIM_MAX_LENGHT_NAME + 1],
 		string[42 + 30 * 2 + (25 + (- 2 + sizeof(name))) * ATTACH_ANIM_MAX_ROW_IN_PAGE];
-	
-	language_GetDialogString(
-		playerid,
-		DG_ADD_ANIMATION,
-		string
-	);
 	new
 		JsonNode:node,
 		JsonNode:item,
@@ -114,9 +135,10 @@ DialogCreate:dAttachAnimationsList(playerid)
 		Dialog:dAttachAnimationsList,
 		DIALOG_STYLE_LIST,
 		name_dialog_header,
-		string,
+		"DG_ADD_ANIMATION",
 		"»",
-		"X"
+		"X",
+		string
 	);
 	return 1;
 }
@@ -151,25 +173,19 @@ DialogResponse:dAttachAnimationsList(playerid, response, listitem, inputtext[])
 		Dialog_Show(playerid, "dAttachAnimationsList");
 		return 0;
 	}
-	new index_library = gAttachAnimationsLibraryIndex[playerid][listitem - 2];
-	new index_array = gAttachAnimationsArrayIndex[playerid][listitem - 2];
+	new
+		index_library = gAttachAnimationsLibraryIndex[playerid][listitem - 2],
+		index_array = gAttachAnimationsArrayIndex[playerid][listitem - 2];
 
 	gAttachAnimationsLibraryIndex[playerid][0] = index_library;
 	gAttachAnimationsArrayIndex[playerid][0] = index_array;
 
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_APPLY_ANIM_REMOVE_FROM_LIST,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachAnimationAction,
 		DIALOG_STYLE_LIST,
 		name_dialog_header,
-		str_dialog,
+		"DG_APPLY_ANIM_REMOVE_FROM_LIST",
 		"»",
 		"«"
 	);
@@ -190,7 +206,7 @@ DialogResponse:dAttachAnimationAction(playerid, response, listitem, inputtext[])
 		
 		attachanim_ApplyAnimationIndex(playerid, anim_index);
 		project_JsonSaveAnimation(playerid, anim_index);
-		language_MessageInfo(playerid, MSG_ANIM_APPLIED_TO_CHARACTER);
+		language_MessageInfo(playerid, "MSG_ANIM_APPLIED_TO_CHARACTER");
 	}
 	else
 	{
@@ -201,7 +217,7 @@ DialogResponse:dAttachAnimationAction(playerid, response, listitem, inputtext[])
 
 		if (result == JSON_CALL_NO_ERR)
 		{
-			language_MessageInfo(playerid, MSG_ANIM_REMOVED_SUCCESS);
+			language_MessageInfo(playerid, "MSG_ANIM_REMOVED_SUCCESS");
 
 			JSON_ArrayRemoveIndex(node, "animations", index);
 			JSON_SaveFile(json_file_name_animations, node, 4);
@@ -216,19 +232,12 @@ DialogResponse:dAttachAnimationAction(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachAddAnimation(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_ADD_ANIM_ENTER_TITLE_INDEX,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachAddAnimation,
 		DIALOG_STYLE_INPUT,
 		name_dialog_header,
-		str_dialog,
+		"DG_ADD_ANIM_ENTER_TITLE_INDEX",
 		"»",
 		"«"
 	);
@@ -242,8 +251,9 @@ DialogResponse:dAttachAddAnimation(playerid, response, listitem, inputtext[])
 		Dialog_Show(playerid, "dAttachAnimationsMenu");
 		return 0;
 	}
-	new name[ATTACH_ANIM_MAX_LENGHT_NAME + 1];
-	new library_index;
+	new
+		name[ATTACH_ANIM_MAX_LENGHT_NAME + 1],
+		library_index;
 
 	if (sscanf(inputtext, "P<,.>s[*]d", ATTACH_ANIM_MAX_LENGHT_NAME, name, library_index))
 	{
@@ -270,7 +280,7 @@ DialogResponse:dAttachAddAnimation(playerid, response, listitem, inputtext[])
 
 			if (existing_library_index == library_index)
 			{
-				language_MessageError(playerid, MSG_ANIM_EXISTS_WITH_INDEX);
+				language_MessageError(playerid, "MSG_ANIM_EXISTS_WITH_INDEX");
 
 				Dialog_Show(playerid, "dAttachAddAnimation");
 				JSON_Cleanup(node);
@@ -324,5 +334,17 @@ stock attachanim_ApplyAnimationIndex(playerid, index)
 		.time = 0,
 		.forcesync = 0
 	);
+	attachanim_SetAnimIndex(playerid, index);
 	return 1;
+}
+
+stock attachanim_SetAnimIndex(playerid, index)
+{
+	gAttachAnimationsUseIndex[playerid] = index;
+	return 1;
+}
+
+stock attachanim_GetAnimIndex(playerid)
+{
+	return gAttachAnimationsUseIndex[playerid];
 }

@@ -20,26 +20,31 @@ static enum e_edit_btn_temp_struct
 	asymmetry_materialcolor1,
 	asymmetry_materialcolor2
 }
-static asymmetry_TempStructure[MAX_PLAYERS][e_edit_btn_temp_struct];
-static gAttachSymmetryTempSlotId[MAX_PLAYERS];
+static
+	asymmetry_TempStructure[MAX_PLAYERS][e_edit_btn_temp_struct],
+	gAttachSymmetryTempSlotId[MAX_PLAYERS];
 
 public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_SYMMETRY)
 	{
+		if (gui_ath_uniqedit_IsShowTD(playerid))
+		{
+			return 0;
+		}
 		if (!attachmain_IsCreateProcess(playerid))
 		{
-			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
+			language_MessageError(playerid, "MSG_PROCESS_START_PRESS_NEW");
 			return 0;
 		}
 		if (!attachmain_IsValidObject(playerid))
 		{
-			language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
+			language_MessageError(playerid, "MSG_START_SELECT_OBJ_PRESS_OBJ");
 			return 0;
 		}
 		if (attachmain_GetFreeSlotId(playerid) == ITER_NONE)
 		{
-			language_MessageError(playerid, MSG_SMTRY_NOT_FOUND_FREE_SLOT);
+			language_MessageError(playerid, "MSG_SMTRY_NOT_FOUND_FREE_SLOT");
 			return 0;
 		}
 		if (gui_atatch_symm_IsShow(playerid))
@@ -120,19 +125,12 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 
 DialogCreate:dAttachSymmetrySaveNote(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_ENTER_COMMENT,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachSymmetrySaveNote,
 		DIALOG_STYLE_INPUT,
 		name_dialog_header,
-		str_dialog,
+		"DG_ENTER_COMMENT",
 		"»",
 		""
 	);
@@ -150,10 +148,7 @@ DialogResponse:dAttachSymmetrySaveNote(playerid, response, listitem, inputtext[]
 
 	if (lenght_note > CORE_MAX_LENGHT_NAME_NOTE)
 	{
-		language_MessageError(
-			playerid,
-			MSG_MAX_COMMENT_LENGTH_IS_CHARS
-		);
+		language_MessageError(playerid, "MSG_MAX_COMMENT_LENGTH_IS_CHARS");
 		Dialog_Show(playerid, "dAttachSymmetrySaveNote");
 		return 0;
 	}
@@ -423,7 +418,7 @@ stock asymmetry_PressSave(playerid)
 	project_JsonSaveAttach(playerid, slotid);
 	attachmain_SetCurrentSlotId(playerid, slotid);
 	attachmain_AddIterSlotId(playerid, slotid);
-	attachmain_SetMainAttachObject(playerid, slotid);
+	attachmain_ApplyMainAttach(playerid, slotid);
 
 	gui_atatch_symm_HideMenu(playerid);
 	return 1;

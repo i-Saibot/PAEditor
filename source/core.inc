@@ -18,23 +18,25 @@
 
 #define CORE_EMPTY_NOTE							"-"
 
-const Float: CORE_PLAYER_SPAWN_X				= 1909.4329;
-const Float: CORE_PLAYER_SPAWN_Y				= 1273.1715;
-const Float: CORE_PLAYER_SPAWN_Z				= 10.6719;
-const Float: CORE_PLAYER_SPAWN_A				= 269.7423;
 
-const CORE_PLAYER_DEFAULT_SKIN_ID				= 60;
-const CORE_MAX_LENGHT_NAME_PROJECT				= 32;
-const CORE_MAX_LENGHT_FOLDER_PROJECT			= CORE_MAX_LENGHT_NAME_PROJECT + 1 + 36 + 6;
+const
+	Float:CORE_PLAYER_SPAWN_X					= 1909.4329,
+	Float:CORE_PLAYER_SPAWN_Y					= 1273.1715,
+	Float:CORE_PLAYER_SPAWN_Z					= 10.6719,
+	Float:CORE_PLAYER_SPAWN_A					= 269.7423,
 
-const CORE_MAX_LENGHT_NAME_NOTE					= 31;
-const CORE_MAX_LENGHT_NAME_BONE					= 18;
-const CORE_MAX_COUNT_BONE						= 18;
+	CORE_PLAYER_DEFAULT_SKIN_ID					= 60,
+	CORE_MAX_LENGHT_NAME_PROJECT				= 32,
+	CORE_MAX_LENGHT_FOLDER_PROJECT				= CORE_MAX_LENGHT_NAME_PROJECT + 1 + 36 + 6,
 
-const CORE_MIN_VALID_OBJECT_MODEL				= 320;
-const CORE_MAX_VALID_OBJECT_MODEL				= 19999;
+	CORE_MAX_LENGHT_NAME_NOTE					= 31,
+	CORE_MAX_LENGHT_NAME_BONE					= 32,
+	CORE_MAX_COUNT_BONE							= 18,
 
-const CORE_INVALID_OBJECT_MODEL					= -1;
+	CORE_MIN_VALID_OBJECT_MODEL					= 320,
+	CORE_MAX_VALID_OBJECT_MODEL					= 19999,
+
+	CORE_INVALID_OBJECT_MODEL					= -1;
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -45,14 +47,13 @@ forward OnVirtualKeyReleased(playerid, key_vk);
 
 ////////////////////////////////////////////////////////////////////////////////
 
-new json_file_name_colors[]						= "resources/colors.json";
-new json_file_name_objects[]					= "resources/objects.json";
-new json_file_name_animations[]					= "resources/animations.json";
-
-new json_file_name_import[]						= "scriptfiles/project/import/";
-new json_file_name_export[]						= "project/export/";
-
-new json_file_name_list[]						= "scriptfiles/project/import/.list.json";
+new
+	json_file_name_colors[]						= "resources/colors.json",
+	json_file_name_objects[]					= "resources/objects.json",
+	json_file_name_animations[]					= "resources/animations.json",
+	json_file_name_import[]						= "scriptfiles/project/import/",
+	json_file_name_export[]						= "project/export/",
+	json_file_name_list[]						= "scriptfiles/project/import/.list.json";
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -99,87 +100,9 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
 	return 1;
 }
 
-
-CMD:setweather(playerid, params[])
+public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
-	new weatherid;
-
-	if (sscanf(params, "d", weatherid))
-	{
-		SendClientMessage(playerid, COLOR_SERVER_MAIN, "» "cWhite"/setweather [id]");
-		return 0;
-	}
-	const WEATHER_ID_MIN = 0;
-	const WEATHER_ID_MAX = 20;
-
-	if (!(WEATHER_ID_MIN <= weatherid <= WEATHER_ID_MAX))
-	{
-		static const
-			fmt_str[] =
-				"» "cWhite"%d - %d"
-		;
-		new string[sizeof(fmt_str) + (- 2 + 2) * 2];
-
-		format(string, sizeof(string),
-			fmt_str,
-			WEATHER_ID_MIN,
-			WEATHER_ID_MAX
-		);
-		SendClientMessage(playerid, COLOR_RED, string);
-		return 0;
-	}
-	SetPlayerWeather(playerid, weatherid);
-	return 1;
-}
-
-CMD:settime(playerid, params[])
-{
-	new hour;
-	new minute;
-
-	if (sscanf(params, "dD(0)", hour, minute))
-	{
-		SendClientMessage(playerid, COLOR_SERVER_MAIN, "» "cWhite"/settime [hour] [minute]");
-		return 0;
-	}
-	const HOUR_MIN = 0;
-	const HOUR_MAX = 23;
-
-	if (!(HOUR_MIN <= hour <= HOUR_MAX))
-	{
-		static const
-			fmt_str[] =
-				"» "cWhite"hour %d - %d"
-		;
-		new string[sizeof(fmt_str) + (- 2 + 2) * 2];
-
-		format(string, sizeof(string),
-			fmt_str,
-			HOUR_MIN,
-			HOUR_MAX
-		);
-		SendClientMessage(playerid, COLOR_RED, string);
-		return 0;
-	}
-	const MINUTE_MIN = 0;
-	const MINUTE_MAX = 59;
-
-	if (!(MINUTE_MIN <= minute <= MINUTE_MAX))
-	{
-		static const
-			fmt_str[] =
-				"» "cWhite"minute %d - %d"
-		;
-		new string[sizeof(fmt_str) + (- 2 + 2) * 2];
-
-		format(string, sizeof(string),
-			fmt_str,
-			MINUTE_MIN,
-			MINUTE_MAX
-		);
-		SendClientMessage(playerid, COLOR_RED, string);
-		return 0;
-	}
-	SetPlayerTime(playerid, hour, minute);
+	SetPlayerPos(playerid, fX, fY, fZ);
+	SetPlayerHealth(playerid, 100.0);
 	return 1;
 }

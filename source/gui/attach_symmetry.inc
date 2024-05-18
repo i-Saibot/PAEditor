@@ -16,8 +16,9 @@ enum
 }
 
 
-static Text: gui_AttachSymmetry[17];
-static bool: gui_AttachSymmetryShowTD[MAX_PLAYERS];
+static
+	Text: gui_AttachSymmetry[17],
+	bool:gui_AttachSymmetryShowTD[MAX_PLAYERS];
 
 public OnGameModeInit()
 {
@@ -238,8 +239,9 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		}
 		else
 		{
-			new Text: textdraw_save = gui_AttachSymmetry[14];
-			new Text: textdraw_cancel = gui_AttachSymmetry[15];
+			new
+				Text: textdraw_save = gui_AttachSymmetry[14],
+				Text: textdraw_cancel = gui_AttachSymmetry[15];
 			
 			if (clickedid == textdraw_save)
 			{
@@ -251,8 +253,9 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 				asymmetry_PressCancel(playerid);
 				return 1;
 			}
-			const INDEX_TD_ID = 0;
-			const INDEX_TYPE_ID = 1;
+			const
+				INDEX_TD_ID = 0,
+				INDEX_TYPE_ID = 1;
 
 			static const index[][] =
 			{

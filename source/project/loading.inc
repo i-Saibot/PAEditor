@@ -6,24 +6,27 @@
 
 const ATTACH_LOAD_MAX_ROW_IN_PAGE					= 25;
 
-static gAttachLoadPage[MAX_PLAYERS];
-static gAttachLoadArrayIndex[MAX_PLAYERS][ATTACH_LOAD_MAX_ROW_IN_PAGE];
+static
+	gAttachLoadPage[MAX_PLAYERS],
+	gAttachLoadArrayIndex[MAX_PLAYERS][ATTACH_LOAD_MAX_ROW_IN_PAGE];
 
 
 DialogCreate:dAttachMainLoadProject(playerid)
 {
 	if (project_IsHasActiveProject(playerid))
 	{
-		language_MessageError(playerid, MSG_CLOSE_CURRENT_PROJECT_FIRST);
+		language_MessageError(playerid, "MSG_CLOSE_CURRENT_PROJECT_FIRST");
 		Dialog_Show(playerid, "dProjectMainMenu");
 		return 0;
 	}
-	new name[CORE_MAX_LENGHT_NAME_PROJECT + 1];
-	new string[47 + 30 * 2 + (48 + (- 2 + sizeof(name))) * ATTACH_LOAD_MAX_ROW_IN_PAGE];
+	new
+		name[CORE_MAX_LENGHT_NAME_PROJECT + 1],
+		string[47 + 30 * 2 + (48 + (- 2 + sizeof(name))) * ATTACH_LOAD_MAX_ROW_IN_PAGE];
 
-	new JsonNode:node;
-	new JsonNode:item;
-	new JsonCallResult:result = JSON_ParseFile(json_file_name_list, node);
+	new
+		JsonNode:node,
+		JsonNode:item,
+		JsonCallResult:result = JSON_ParseFile(json_file_name_list, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
@@ -34,14 +37,15 @@ DialogCreate:dAttachMainLoadProject(playerid)
 
 		if (length == 0)
 		{
-			language_MessageError(playerid, MSG_PROJECTS_LIST_EMPTY);
+			language_MessageError(playerid, "MSG_PROJECTS_LIST_EMPTY");
 			Dialog_Show(playerid, "dProjectMainMenu");
 			return 0;
 		}
-		new page = gAttachLoadPage[playerid];
-		new i = page * ATTACH_LOAD_MAX_ROW_IN_PAGE;
-		new j;
-		new index;
+		new
+			page = gAttachLoadPage[playerid],
+			i = page * ATTACH_LOAD_MAX_ROW_IN_PAGE,
+			j,
+			index;
 
 		for (; i < length; i++)
 		{
@@ -120,19 +124,12 @@ DialogResponse:dAttachMainLoadProject(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachMainLoadProjectAct(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_LOAD_PRJCT_REMOVE_FROM_LIST,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachMainLoadProjectAct,
 		DIALOG_STYLE_LIST,
 		name_dialog_header,
-		str_dialog,
+		"DG_LOAD_PRJCT_REMOVE_FROM_LIST",
 		"»",
 		"«"
 	);
@@ -150,10 +147,11 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 
 	if (listitem == 0)
 	{
-		new JsonNode:node;
-		new JsonNode:item;
-		new JsonNode:obj;
-		new JsonCallResult:result = JSON_ParseFile(json_file_name_list, node);
+		new
+			JsonNode:node,
+			JsonNode:item,
+			JsonNode:obj,
+			JsonCallResult:result = JSON_ParseFile(json_file_name_list, node);
 
 		new name[CORE_MAX_LENGHT_NAME_PROJECT + 1];
 
@@ -177,31 +175,31 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 
 		if (result == JSON_CALL_NO_SUCH_FILE_ERR)
 		{
-			language_MessageError(playerid, MSG_PRJCT_FILE_NO_FOUND_WH_NAME);
-
+			language_MessageError(playerid, "MSG_PRJCT_FILE_NO_FOUND_WH_NAME");
 			Dialog_Show(playerid, "dAttachMainLoadProjectAct");
 		}
 		else
 		{
-			new length;
-			new slotid;
-			new boneid;
-			new modelid;
-			new Float:offset_x;
-			new Float:offset_y;
-			new Float:offset_z;
-			new Float:rot_x;
-			new Float:rot_y;
-			new Float:rot_z;
-			new Float:scale_x;
-			new Float:scale_y;
-			new Float:scale_z;
-			new material_color_1;
-			new material_color_2;
-			new note[CORE_MAX_LENGHT_NAME_NOTE + 1];
+			new
+				length,
+				slotid,
+				boneid,
+				modelid,
+				Float:offset_x,
+				Float:offset_y,
+				Float:offset_z,
+				Float:rot_x,
+				Float:rot_y,
+				Float:rot_z,
+				Float:scale_x,
+				Float:scale_y,
+				Float:scale_z,
+				material_color_1,
+				material_color_2,
+				note[CORE_MAX_LENGHT_NAME_NOTE + 1],
 
-			new skinid;
-			new anim_index;
+				skinid,
+				anim_index;
 
 			JSON_GetInt(node, "skinid", skinid);
 			JSON_GetInt(node, "animation", anim_index);
@@ -258,9 +256,9 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 
 				attachmain_AddIterSlotId(playerid, slotid);
 				attachmain_SetCurrentSlotId(playerid, slotid);
-				attachmain_SetMainAttachObject(playerid, slotid);
+				attachmain_ApplyMainAttach(playerid, slotid);
 			}
-			language_MessageInfo(playerid, MSG_PROJECT_LOADED_SUCCESS);
+			language_MessageInfo(playerid, "MSG_PROJECT_LOADED_SUCCESS");
 		}
 		JSON_Cleanup(item);
 		JSON_Cleanup(obj);
@@ -277,12 +275,13 @@ DialogResponse:dAttachMainLoadProjectAct(playerid, response, listitem, inputtext
 	}
 	else
 	{
-		new JsonNode:node;
-		new JsonCallResult: result = JSON_ParseFile(json_file_name_list, node);
+		new
+			JsonNode:node,
+			JsonCallResult: result = JSON_ParseFile(json_file_name_list, node);
 
 		if (result == JSON_CALL_NO_ERR)
 		{
-			language_MessageInfo(playerid, MSG_PRJCT_RMOVD_FRM_LT_SUCCESS);
+			language_MessageInfo(playerid, "MSG_PRJCT_RMOVD_FRM_LT_SUCCESS");
 			
 			JSON_ArrayRemoveIndex(node, "list", index);
 			JSON_SaveFile(json_file_name_list, node, 4);

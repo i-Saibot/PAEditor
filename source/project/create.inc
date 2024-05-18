@@ -8,30 +8,21 @@ DialogCreate:dAttachMainCreateProject(playerid)
 {
 	if (project_IsHasActiveProject(playerid))
 	{
-		language_MessageError(playerid, MSG_CLOSE_CURRENT_PROJECT_FIRST);
-
+		language_MessageError(playerid, "MSG_CLOSE_CURRENT_PROJECT_FIRST");
 		Dialog_Show(playerid, "dProjectMainMenu");
 		return 0;
 	}
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_ENTER_PROJECT_NAME,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachMainCreateProject,
 		DIALOG_STYLE_INPUT,
 		name_dialog_header,
-		str_dialog,
+		"DG_ENTER_PROJECT_NAME",
 		"»",
 		"«"
 	);
 	return 1;
 }
-
 
 DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[])
 {
@@ -49,10 +40,7 @@ DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[
 	}
 	if (lenght > CORE_MAX_LENGHT_NAME_PROJECT)
 	{
-		language_MessageError(
-			playerid,
-			MSG_MAX_PROJECT_LENGTH_IS_CHARS
-		);
+		language_MessageError(playerid, "MSG_MAX_PROJECT_LENGTH_IS_CHARS");
 		Dialog_Show(playerid, "dAttachMainCreateProject");
 		return 0;
 	}
@@ -66,7 +54,7 @@ DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[
 			}
 			default:
 			{
-				language_MessageError(playerid, MSG_ONLY_LATIN_LETTERS_DIGITS);
+				language_MessageError(playerid, "MSG_ONLY_LATIN_LETTERS_DIGITS");
 				Dialog_Show(playerid, "dAttachMainCreateProject");
 				return 0;
 			}
@@ -78,12 +66,13 @@ DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[
 	strcat(str_name_project, inputtext);
 	strcat(str_name_project, ".json");
 
-	new JsonNode:node;
-	new JsonCallResult:result = JSON_ParseFile(str_name_project, node);
+	new
+		JsonNode:node,
+		JsonCallResult:result = JSON_ParseFile(str_name_project, node);
 
 	if (result != JSON_CALL_NO_SUCH_FILE_ERR)
 	{
-		language_MessageError(playerid, MSG_PROJECT_WITH_NAME_EXISTS);
+		language_MessageError(playerid, "MSG_PROJECT_WITH_NAME_EXISTS");
 
 		Dialog_Show(playerid, "dAttachMainCreateProject");
 		JSON_Cleanup(node);
@@ -105,7 +94,7 @@ DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[
 
 	SendClientMessage(playerid, COLOR_WHITE, "");
 
-	language_MessageInfo(playerid, MSG_PRJCT_NAME_SUCCESS_CREATED);
+	language_MessageInfo(playerid, "MSG_PRJCT_NAME_SUCCESS_CREATED");
 
 	SendClientMessage(playerid, COLOR_WHITE, "");
 	
@@ -113,9 +102,9 @@ DialogResponse:dAttachMainCreateProject(playerid, response, listitem, inputtext[
 	gui_camera_rot_ShowInfo(playerid);
 	gui_atatch_menu_ShowCursor(playerid);
 
-	language_MessageInfo(playerid, MSG_FREE_LK_MODE_ACTIV_PRS_ESC);
-	language_MessageInfo(playerid, MSG_CURSOR_ACTIVATION_PRESS_N);
-	language_MessageInfo(playerid, MSG_PROCESS_SRT_SLCT_OPTION_NEW);
+	language_MessageInfo(playerid, "MSG_FREE_LK_MODE_ACTIV_PRS_ESC");
+	language_MessageInfo(playerid, "MSG_CURSOR_ACTIVATION_PRESS_N");
+	language_MessageInfo(playerid, "MSG_PROCESS_SRT_SLCT_OPTION_NEW");
 
 	result = JSON_ParseFile(json_file_name_list, node);
 

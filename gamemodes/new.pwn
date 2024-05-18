@@ -1,6 +1,9 @@
 #include <a_samp>
 #include <Pawn.CMD>
 #include <sscanf2>
+#include <gvar>
+#include <zlang>
+#define MDIALOG_ZLANG_MODE
 #include <mdialog>
 #include <YAPJ>
 #include <foreach>
@@ -9,11 +12,16 @@
 #include <dcc>
 #include <PAE>
 
+
 #pragma dynamic											7_000
 
-#include "..\language\dialogs.inc"
-#include "..\language\messages.inc"
-#include "..\language\array.inc"
+////////////////////////////////////////////////////////////////////////////////
+
+const Float:CURRENT_PAEDITOR_VERSION					= 1.39;
+
+static http_address_available_version[]					= "https://pastebin.com/raw/xebukdmH";
+
+////////////////////////////////////////////////////////////////////////////////
 
 #include "..\source\core.inc"
 #include "..\source\language.inc"
@@ -21,23 +29,18 @@
 #include "..\source\virtual_key.inc"
 #include "..\source\gui\attach_menu.inc"
 #include "..\source\gui\attach_objects_list.inc"
-#include "..\source\gui\attach_edit_button.inc"
 #include "..\source\gui\camera_rotation.inc"
 #include "..\source\gui\attach_symmetry.inc"
-
-#include "..\source\project\main.inc"
-#include "..\source\project\create.inc"
-#include "..\source\project\loading.inc"
-#include "..\source\project\help.inc"
+#include "..\source\gui\attach_uniq_edit.inc"
+#include "..\source\gui\logo.inc"
 
 #include "..\source\attach_menu\main.inc"
 #include "..\source\attach_menu\manage.inc"
 #include "..\source\attach_menu\new.inc"
-#include "..\source\attach_menu\skins.inc"
 #include "..\source\attach_menu\animations.inc"
+#include "..\source\attach_menu\skins.inc"
 #include "..\source\attach_menu\objects.inc"
 #include "..\source\attach_menu\edit.inc"
-#include "..\source\attach_menu\edit_button.inc"
 #include "..\source\attach_menu\colors.inc"
 #include "..\source\attach_menu\delete.inc"
 #include "..\source\attach_menu\dublicate.inc"
@@ -45,12 +48,19 @@
 #include "..\source\attach_menu\move_camera.inc"
 #include "..\source\attach_menu\bone.inc"
 #include "..\source\attach_menu\symmetry.inc"
+#include "..\source\attach_menu\uniq_edit.inc"
+
+#include "..\source\project\main.inc"
+#include "..\source\project\create.inc"
+#include "..\source\project\loading.inc"
+#include "..\source\project\help.inc"
+
+#include "..\source\cmd\object.inc"
+#include "..\source\cmd\settime.inc"
+#include "..\source\cmd\setweather.inc"
+
 
 main(){}
-
-static http_address_available_version[]				= "https://pastebin.com/raw/xebukdmH";
-
-const Float:CURRENT_PAEDITOR_VERSION				= 1.2;
 
 
 public OnGameModeInit()
@@ -59,7 +69,7 @@ public OnGameModeInit()
 		fmt_str[] =
 			"Version: %.1f"
 	;
-	new string[sizeof(fmt_str) + (- 2 + 3)];
+	new string[sizeof(fmt_str) + (- 2 + 11)];
 
 	format(string, sizeof(string),
 		fmt_str,
@@ -110,11 +120,10 @@ public OnGameModeInit()
 	);
 	return 1;
 }
-
 @_OnCheckAvailableVersion(Request:id, E_HTTP_STATUS:status, data[], dataLen);
 @_OnCheckAvailableVersion(Request:id, E_HTTP_STATUS:status, data[], dataLen)
 {
-	new Float: version;
+	new Float:version;
 	sscanf(data, "f", version);
 
 	if (CURRENT_PAEDITOR_VERSION != version)
@@ -124,7 +133,7 @@ public OnGameModeInit()
 
 		printf("\n\n");
 		printf("New version PAEditor available | https://github.com/i-Saibot/PAEditor/releases");
-
+		printf("\n\n");
 		SetConsoleColors(backup_color, COLOR_TYPE_TXT);
 	}
 	return 1;

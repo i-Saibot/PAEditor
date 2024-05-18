@@ -4,13 +4,14 @@
 #define _attach_manage_inc
 
 
-const Float: ATTACH_MANAGE_COORD_BTN_MIN_X				= 0.2192;
-const Float: ATTACH_MANAGE_COORD_BTN_MAX_X				= 0.2593;
+const
+	Float:ATTACH_MANAGE_COORD_BTN_MIN_X				= 0.2192,
+	Float:ATTACH_MANAGE_COORD_BTN_MAX_X				= 0.2593,
 
-const Float: ATTACH_MANAGE_COORD_BTN_MIN_Y				= 0.926;
-const Float: ATTACH_MANAGE_COORD_BTN_MAX_Y				= 0.997;
+	Float:ATTACH_MANAGE_COORD_BTN_MIN_Y				= 0.926,
+	Float:ATTACH_MANAGE_COORD_BTN_MAX_Y				= 0.997,
 
-const ATTACH_MANAGE_UPDATE_TIMER						= 100;
+	ATTACH_MANAGE_UPDATE_TIMER						= 100;
 
 
 static gAttachManageListItem[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS];
@@ -20,6 +21,10 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_MANAGE)
 	{
+		if (gui_ath_uniqedit_IsShowTD(playerid))
+		{
+			return 0;
+		}
 		if (attachmain_IsUseMultiObject(playerid))
 		{
 			Dialog_Show(playerid, "dAttachMenuManageMultiObj");
@@ -50,13 +55,11 @@ public OnVirtualKeyReleased(playerid, key_vk)
 {
 	if (key_vk == VK_RBUTTON)
 	{
-		if (gui_atatch_menu_IsShow(playerid)
-			&& !attachedit_IsPlayerEditing(playerid)
-			&& !Dialog_IsOpen(playerid)
-			&& !gui_atatch_menu_IsBannedPanel(playerid))
+		if (attachmain_IsNoBannedClick(playerid))
 		{
-			new Float:x;
-			new Float:y;
+			new
+				Float:x,
+				Float:y;
 
 			GetMousePos(x, y);
 
@@ -84,54 +87,41 @@ public OnVirtualKeyReleased(playerid, key_vk)
 	forward attachmng_OnVirtualKeyReleased(playerid, key_vk);
 #endif
 
-
 DialogCreate:dAttachMenuManage(playerid)
 {
 	new
-		name_bone[CORE_MAX_LENGHT_NAME_BONE + 1],
 		note[CORE_MAX_LENGHT_NAME_NOTE + 1],
 		str_obj[12],
 		string
 		[
 			67
-			+ (35 + (- 2 + sizeof(name_bone))
+			+ (35 + (- 2 + CORE_MAX_LENGHT_NAME_BONE)
 			+ (- 2 + 8) * 3
 			+ (- 2 + sizeof(note))
 			+ (- 2 + 11)
 			+ (- 2 + sizeof(str_obj))
 			+ (- 2 + CORE_MAX_LENGHT_NAME_NOTE + 1)) * MAX_PLAYER_ATTACHED_OBJECTS
 		];
+
 	new
 		count,
 		modelid,
 		slotid,
 		boneid,
-		language = language_GetLanguage(playerid);
+		Lang:lanid = Lang_GetPlayerLang(playerid);
 
-	language_GetDialogString(
-		playerid,
-		DG_NUM_NAME_OBJECT_COMMENT,
-		string
-	);
 	foreach (AttachObjectSlots[playerid], i)
 	{
+		str_obj = "-";
 		modelid = attachmain_GetObjectSlotId(playerid, i);
 
-		if (modelid == CORE_INVALID_OBJECT_MODEL)
+		if (modelid != CORE_INVALID_OBJECT_MODEL)
 		{
-			str_obj = "-";
-		}
-		else
-		{
-			format(str_obj, sizeof(str_obj),
-				"%d",
-				modelid
-			);
+			format(str_obj, sizeof(str_obj), "%d", modelid);
 		}
 		slotid = attachmain_GetCurrentSlotId(playerid);
 		boneid = attachmain_GetBoneSlotId(playerid, i) - 1;
 
-		attachmain_GetBoneName(language, boneid, name_bone);
 		attachmain_GetObjectSlotNote(playerid, i, note);
 
 		format(string, sizeof(string),
@@ -139,7 +129,7 @@ DialogCreate:dAttachMenuManage(playerid)
 			string,
 			count + 1,
 			slotid == i ? ""cRed"" : ""cWhite"",
-			name_bone,
+			gLangArrayBone[_:lanid][boneid],
 			slotid == i ? ""cRed"" : ""cWhite"",
 			str_obj,
 			slotid == i ? ""cRed"" : ""cWhite"",
@@ -149,7 +139,7 @@ DialogCreate:dAttachMenuManage(playerid)
 	}
 	if (count == 0)
 	{
-		language_MessageInfo(playerid, MSG_LIST_ATTACHED_OBJECTS_EMPTY);
+		language_MessageError(playerid, "MSG_LIST_ATTACHED_OBJECTS_EMPTY");
 		return 0;
 	}
 	Dialog_Open(
@@ -157,9 +147,10 @@ DialogCreate:dAttachMenuManage(playerid)
 		Dialog:dAttachMenuManage,
 		DIALOG_STYLE_TABLIST_HEADERS,
 		name_dialog_header,
-		string,
+		"DG_MANAGE_LIST",
 		"»",
-		"X"
+		"X",
+		string
 	);
 	return 1;
 }
@@ -179,14 +170,13 @@ DialogResponse:dAttachMenuManage(playerid, response, listitem, inputtext[])
 DialogCreate:dAttachMenuManageMultiObj(playerid)
 {
 	new
-		name_bone[CORE_MAX_LENGHT_NAME_BONE + 1],
 		note[CORE_MAX_LENGHT_NAME_NOTE + 1],
 		str_obj[12],
 		string
 		[
 			67
 			+ 15
-			+ (35 + (- 2 + sizeof(name_bone))
+			+ (35 + (- 2 + CORE_MAX_LENGHT_NAME_BONE)
 			+ (- 2 + 8) * 3
 			+ (- 2 + sizeof(note))
 			+ (- 2 + 11)
@@ -198,41 +188,20 @@ DialogCreate:dAttachMenuManageMultiObj(playerid)
 		modelid,
 		slotid,
 		boneid,
-		language = language_GetLanguage(playerid);
-
-	language_GetDialogString(
-		playerid,
-		DG_NUM_NAME_OBJECT_COMMENT,
-		string
-	);
-	new str_clear[20];
-
-	language_GetDialogString(
-		playerid,
-		DG_MULTIOBJECT_LIST_MANAGE,
-		str_clear
-	);
-	strcat(string, str_clear);
+		Lang:lanid = Lang_GetPlayerLang(playerid);
 
 	foreach (AttachObjectSlots[playerid], i)
 	{
+		str_obj = "-";
 		modelid = attachmain_GetObjectSlotId(playerid, i);
 
-		if (modelid == CORE_INVALID_OBJECT_MODEL)
+		if (modelid != CORE_INVALID_OBJECT_MODEL)
 		{
-			str_obj = "-";
-		}
-		else
-		{
-			format(str_obj, sizeof(str_obj),
-				"%d",
-				modelid
-			);
+			format(str_obj, sizeof(str_obj), "%d", modelid);
 		}
 		slotid = attachmain_GetMultiObjSlot(playerid, i);
 		boneid = attachmain_GetBoneSlotId(playerid, i) - 1;
 
-		attachmain_GetBoneName(language, boneid, name_bone);
 		attachmain_GetObjectSlotNote(playerid, i, note);
 
 		format(string, sizeof(string),
@@ -240,7 +209,7 @@ DialogCreate:dAttachMenuManageMultiObj(playerid)
 			string,
 			count + 1,
 			slotid == i ? ""cRed"" : ""cWhite"",
-			name_bone,
+			gLangArrayBone[_:lanid][boneid],
 			slotid == i ? ""cRed"" : ""cWhite"",
 			str_obj,
 			slotid == i ? ""cRed"" : ""cWhite"",
@@ -250,7 +219,7 @@ DialogCreate:dAttachMenuManageMultiObj(playerid)
 	}
 	if (count == 0)
 	{
-		language_MessageInfo(playerid, MSG_LIST_ATTACHED_OBJECTS_EMPTY);
+		language_MessageError(playerid, "MSG_LIST_ATTACHED_OBJECTS_EMPTY");
 		return 0;
 	}
 	Dialog_Open(
@@ -258,9 +227,10 @@ DialogCreate:dAttachMenuManageMultiObj(playerid)
 		Dialog:dAttachMenuManageMultiObj,
 		DIALOG_STYLE_TABLIST_HEADERS,
 		name_dialog_header,
-		string,
+		"DG_MULTIOBJECT_LIST_MANAGE",
 		"»",
-		"X"
+		"X",
+		string
 	);
 	return 1;
 }
@@ -282,13 +252,14 @@ DialogResponse:dAttachMenuManageMultiObj(playerid, response, listitem, inputtext
 		Dialog_Show(playerid, "dAttachMenuManageMultiObj");
 		return 0;
 	}
-	new slotid = gAttachManageListItem[playerid][listitem - 2];
-	new modelid = attachmain_GetObjectSlotId(playerid, slotid);
+	new
+		slotid = gAttachManageListItem[playerid][listitem - 2],
+		modelid = attachmain_GetObjectSlotId(playerid, slotid);
 
 	if (modelid == CORE_INVALID_OBJECT_MODEL)
 	{
 		Dialog_Show(playerid, "dAttachMenuManageMultiObj");
-		language_MessageError(playerid, MSG_MULTIOBJ_INVALID_MODELID);
+		language_MessageError(playerid, "MSG_MULTIOBJ_INVALID_MODELID");
 		return 0;
 	}
 	if (attachmain_IsUseMultiObjSlotId(playerid, slotid))

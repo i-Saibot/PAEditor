@@ -52,6 +52,8 @@ public OnPlayerConnect(playerid)
 	GameTextForPlayer(playerid, "~y~PAEditor", 3000, 4);
 
 	Dialog_Show(playerid, "dLanguageChoose");
+
+	gui_logo_ShowTD(playerid);
 	return 1;
 }
 
@@ -67,6 +69,8 @@ public OnPlayerSpawn(playerid)
 
 	SetCameraBehindPlayer(playerid);
 	SetPlayerSkin(playerid, CORE_PLAYER_DEFAULT_SKIN_ID);
+
+	SetPlayerHealth(playerid, 999);
 #if defined connect_OnPlayerSpawn
 	return connect_OnPlayerSpawn(playerid);
 #else
@@ -83,7 +87,7 @@ public OnPlayerSpawn(playerid)
 	forward connect_OnPlayerSpawn(playerid);
 #endif
 
-stock PreloadAllAnimLibs (playerid)
+stock PreloadAllAnimLibs(playerid)
 {
 	PreloadAnimLib(playerid,"AIRPORT");
 	PreloadAnimLib(playerid,"Attractors");

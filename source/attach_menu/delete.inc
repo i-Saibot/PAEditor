@@ -8,7 +8,11 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_DELETE)
 	{
-		if (attachmain_IsUseMultiObject(playerid) && !attacheditbtn_IsStartEdit(playerid))
+		if (gui_ath_uniqedit_IsShowTD(playerid))
+		{
+			return 0;
+		}
+		if (attachmain_IsUseMultiObject(playerid) && !attach_unqedit_IsStartEdit(playerid))
 		{
 			Dialog_Show(playerid, "dAttachMultiDeleteMenu");
 			return 0;
@@ -17,7 +21,7 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 
 		if (slotid == ITER_NONE)
 		{
-			language_MessageError(playerid, MSG_NO_CREATED_PROCESS_FOUND);
+			language_MessageError(playerid, "MSG_NO_CREATED_PROCESS_FOUND");
 			return 0;
 		}
 		Dialog_Show(playerid, "dAttachDeleteMenu");
@@ -41,19 +45,12 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 
 DialogCreate:dAttachDeleteMenu(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_CONFIRM_DELETE_PROCESS,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachDeleteMenu,
 		DIALOG_STYLE_MSGBOX,
 		name_dialog_header,
-		str_dialog,
+		"DG_CONFIRM_DELETE_PROCESS",
 		"»",
 		"X"
 	);
@@ -66,10 +63,11 @@ DialogResponse:dAttachDeleteMenu(playerid, response, listitem, inputtext[])
 	{
 		return 0;
 	}
-	new slotid = attachmain_GetCurrentSlotId(playerid);
-	new per_slotid = Iter_Previous(AttachObjectSlots[playerid], slotid);
-	new last_slotid = Iter_Last(AttachObjectSlots[playerid]);
-	new new_slotid;
+	new
+		slotid = attachmain_GetCurrentSlotId(playerid),
+		per_slotid = Iter_Previous(AttachObjectSlots[playerid], slotid),
+		last_slotid = Iter_Last(AttachObjectSlots[playerid]),
+		new_slotid;
 
 	attachmain_ClearSlotId(playerid, slotid);
 	attachmain_IterRemoveSlotId(playerid, slotid);
@@ -96,19 +94,12 @@ DialogResponse:dAttachDeleteMenu(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachMultiDeleteMenu(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_CONFIRM_MULT_DELETE_PROCESS,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachMultiDeleteMenu,
 		DIALOG_STYLE_MSGBOX,
 		name_dialog_header,
-		str_dialog,
+		"DG_CONFIRM_MULT_DELETE_PROCESS",
 		"»",
 		"X"
 	);
@@ -121,8 +112,9 @@ DialogResponse:dAttachMultiDeleteMenu(playerid, response, listitem, inputtext[])
 	{
 		return 0;
 	}
-	new slotid = attachmain_GetCurrentSlotId(playerid);
-	new bool: find_new_slot;
+	new
+		slotid = attachmain_GetCurrentSlotId(playerid),
+		bool:find_new_slot;
 
 	foreach (AttachMultiObjectSlots[playerid], i)
 	{

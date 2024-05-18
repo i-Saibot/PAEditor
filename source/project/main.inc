@@ -3,9 +3,10 @@
 #endif
 #define _project_main_inc
 
-static bool: gProjectPlayerHasActiveProcess[MAX_PLAYERS];
-static gProjectJsonName[MAX_PLAYERS][CORE_MAX_LENGHT_FOLDER_PROJECT];
-static gProjectFileName[MAX_PLAYERS][CORE_MAX_LENGHT_FOLDER_PROJECT];
+static
+	bool:gProjectPlayerHasActiveProcess[MAX_PLAYERS],
+	gProjectJsonName[MAX_PLAYERS][CORE_MAX_LENGHT_FOLDER_PROJECT],
+	gProjectFileName[MAX_PLAYERS][CORE_MAX_LENGHT_FOLDER_PROJECT];
 
 public OnPlayerDisconnect(playerid, reason)
 {
@@ -60,21 +61,56 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	forward projectmain_OnKeyStateChange(playerid, newkeys, oldkeys);
 #endif
 
+public OnVirtualKeyReleased(playerid, key_vk)
+{
+	if (!attachedit_IsPlayerEditing(playerid)
+		&& gui_atatch_menu_IsShow(playerid)
+		&& !Dialog_IsOpen(playerid))
+	{
+		if (key_vk == VK_MB5)
+		{
+			if (!gui_atatch_menu_IsActivePanel(playerid))
+			{
+				gui_atatch_menu_ShowCursor(playerid);
+				gui_camera_rot_ShowInfo(playerid);
+			}
+			else
+			{
+				if (attachcameramove_IsUseMove(playerid))
+				{
+					SetCameraBehindPlayer(playerid);
+				}
+				CancelSelectTextDraw(playerid);
+				
+				gui_atatch_menu_HideCursor(playerid);
+				gui_camera_rot_HideInfo(playerid);
+			}
+		}
+	}
+#if defined projectmain_OnVKeyReleased
+	return projectmain_OnVKeyReleased(playerid, key_vk);
+#else
+	return 1;
+#endif
+}
+#if defined _ALS_OnVirtualKeyReleased
+	#undef OnVirtualKeyReleased
+#else
+	#define _ALS_OnVirtualKeyReleased
+#endif
+#define OnVirtualKeyReleased projectmain_OnVKeyReleased
+#if defined projectmain_OnVKeyReleased
+	forward projectmain_OnVKeyReleased(playerid, key_vk);
+#endif
+
 DialogCreate:dProjectMainMenu(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_CREATE_LOAD_CLS_HELP_PROJECT,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dProjectMainMenu,
 		DIALOG_STYLE_LIST,
 		name_dialog_header,
-		str_dialog,
+		"DG_CREATE_LOAD_CLS_HELP_PROJECT",
 		"»",
 		"X"
 	);
@@ -95,7 +131,7 @@ DialogResponse:dProjectMainMenu(playerid, response, listitem, inputtext[])
 		{
 			if (!project_IsHasActiveProject(playerid))
 			{
-				language_MessageError(playerid, MSG_NO_ACTIVE_PROJECT_FOUND);
+				language_MessageError(playerid, "MSG_NO_ACTIVE_PROJECT_FOUND");
 				Dialog_Show(playerid, "dProjectMainMenu");
 				return 0;
 			}
@@ -103,8 +139,9 @@ DialogResponse:dProjectMainMenu(playerid, response, listitem, inputtext[])
 			gui_camera_rot_HideInfo(playerid);
 			attachmain_ClearArray(playerid);
 			project_SetStatusActiveProject(playerid, false);
-
-			language_MessageInfo(playerid, MSG_CURRENT_PRJCT_CLSD_SUCCESS);
+			attachanim_SetAnimIndex(playerid, ATTACH_ANIM_INVALID_ANIM_ID);
+			
+			language_MessageInfo(playerid, "MSG_CURRENT_PRJCT_CLSD_SUCCESS");
 			Dialog_Show(playerid, "dProjectMainMenu");
 		}
 		case 4:
@@ -177,8 +214,9 @@ stock project_JsonSaveSkin(playerid)
 	new name_project[CORE_MAX_LENGHT_FOLDER_PROJECT];
 	project_GetJsonName(playerid, name_project);
 
-	new JsonNode:node;
-	new JsonCallResult:result = JSON_ParseFile(name_project, node);
+	new
+		JsonNode:node,
+		JsonCallResult:result = JSON_ParseFile(name_project, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
@@ -195,8 +233,9 @@ stock project_JsonSaveAnimation(playerid, index_anim)
 
 	project_GetJsonName(playerid, name_project);
 
-	new JsonNode:node;
-	new JsonCallResult:result = JSON_ParseFile(name_project, node);
+	new
+		JsonNode:node,
+		JsonCallResult:result = JSON_ParseFile(name_project, node);
 
 	if (result == JSON_CALL_NO_ERR)
 	{
@@ -257,8 +296,9 @@ stock project_JsonSaveAttach(playerid, slotid)
 			material_color_1,
 			material_color_2
 		);
-		new length;
-		new json_slotid;
+		new
+			length,
+			json_slotid;
 
 		JSON_GetObject(node, "attach", obj);
 		JSON_ArrayLength(obj, length);

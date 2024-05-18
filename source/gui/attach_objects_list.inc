@@ -4,8 +4,9 @@
 #define _gui_attach_objects_list_inc
 
 
-const ATTACH_OBJ_EMPTY_MODEL							= 1_649;
-const ATTACH_OBJ_MAX_ITEM_IN_PAGE						= 20;
+const
+	ATTACH_OBJ_EMPTY_MODEL							= 1_649,
+	ATTACH_OBJ_MAX_ITEM_IN_PAGE						= 20;
 
 enum
 {
@@ -16,10 +17,11 @@ enum
 }
 
 
-static PlayerText: gui_AttachObjectTextdrawsBases[MAX_PLAYERS][15];
-static PlayerText: gui_AttachObjectTextdrawsItems[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE];
-static PlayerText: gui_AttachObjectTextdrawsText[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE];
-static bool: gui_AttachObjectPlayerCreate[MAX_PLAYERS];
+static
+	PlayerText: gui_AttachObjectTextdrawsBases[MAX_PLAYERS][15],
+	PlayerText: gui_AttachObjectTextdrawsItems[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE],
+	PlayerText: gui_AttachObjectTextdrawsText[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE],
+	bool:gui_AttachObjectPlayerCreate[MAX_PLAYERS];
 
 public OnPlayerDisconnect(playerid, reason)
 {
@@ -100,8 +102,9 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		{
 			return 0;
 		}
-		const INDEX_TD_ID = 0;
-		const INDEX_TYPE_ID = 0;
+		const
+			INDEX_TD_ID = 0,
+			INDEX_TYPE_ID = 0;
 
 		static const index[][] =
 		{
@@ -299,16 +302,18 @@ stock gui_ath_obj_CreateTextdraws(playerid)
 	PlayerTextDrawSetShadow(playerid, gui_AttachObjectTextdrawsBases[playerid][13], 0);
 	PlayerTextDrawSetSelectable(playerid, gui_AttachObjectTextdrawsBases[playerid][13], true);
 
-	const MAX_ROWS						= 5;
+	const
+		MAX_ROWS						= 5,
 
-	const Float: X_BASE_ITEM			= 214.2666;
-	const Float: Y_BASE_ITEM			= 139.4812;
+		Float:X_BASE_ITEM			= 214.2666,
+		Float:Y_BASE_ITEM			= 139.4812,
 
-	const Float: DX_ITEM				= 41.1;
-	const Float: DY_ITEM				= 44.4;
+		Float:DX_ITEM				= 41.1,
+		Float:DY_ITEM				= 44.4;
 	
-	new Float: x_cell_pos_item;
-	new Float: y_cell_pos_item;
+	new
+		Float:x_cell_pos_item,
+		Float:y_cell_pos_item;
 
 	for (new i; i < ATTACH_OBJ_MAX_ITEM_IN_PAGE; i++)
 	{
@@ -328,14 +333,16 @@ stock gui_ath_obj_CreateTextdraws(playerid)
 		PlayerTextDrawSetPreviewRot(playerid, gui_AttachObjectTextdrawsItems[playerid][i], 0.0000, 0.0000, 90.0000, 2.0000);
 
 	}
-	const Float: X_BASE_AMOUNT			= 253.6666;
-	const Float: Y_BASE_AMOUNT			= 139.0;
+	const
+		Float:X_BASE_AMOUNT			= 253.6666,
+		Float:Y_BASE_AMOUNT			= 139.0,
 
-	const Float: DX_AMOUNT				= 41.0;
-	const Float: DY_AMOUNT				= 45.2;
+		Float:DX_AMOUNT				= 41.0,
+		Float:DY_AMOUNT				= 45.2;
 
-	new Float: x_cell_pos_amount;
-	new Float: y_cell_pos_amount;
+	new
+		Float:x_cell_pos_amount,
+		Float:y_cell_pos_amount;
 
 	for (new i; i < ATTACH_OBJ_MAX_ITEM_IN_PAGE; i++)
 	{

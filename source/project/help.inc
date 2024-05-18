@@ -6,19 +6,12 @@
 
 DialogCreate:dProjectMainHelp(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_MAIN_MENU_HELP,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dProjectMainHelp,
 		DIALOG_STYLE_MSGBOX,
 		name_dialog_header,
-		str_dialog,
+		"DG_MAIN_MENU_HELP",
 		"«",
 		""
 	);

@@ -3,29 +3,35 @@
 #endif
 #define _attach_objects_inc
 
-const Float: ATTACH_OBJECT_COORD_BTN_MIN_X				= 0.4385;
-const Float: ATTACH_OBJECT_COORD_BTN_MAX_X				= 0.4781;
+const
+	Float:ATTACH_OBJECT_COORD_BTN_MIN_X				= 0.4385,
+	Float:ATTACH_OBJECT_COORD_BTN_MAX_X				= 0.4781,
 
-const Float: ATTACH_OBJECT_COORD_BTN_MIN_Y				= 0.9259;
-const Float: ATTACH_OBJECT_COORD_BTN_MAX_Y				= 0.9935;
+	Float:ATTACH_OBJECT_COORD_BTN_MIN_Y				= 0.9259,
+	Float:ATTACH_OBJECT_COORD_BTN_MAX_Y				= 0.9935;
 
 
-static gAttachObjectsPage[MAX_PLAYERS];
-static gAttachObjectsSelectModel[MAX_PLAYERS];
+static
+	gAttachObjectsPage[MAX_PLAYERS],
+	gAttachObjectsSelectModel[MAX_PLAYERS],
 
-static gAttachObjectsArrayModel[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE];
-static gAttachObjectArrayIndex[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE];
-static gAttachObjectArrayLength[MAX_PLAYERS];
-static gAttachObjectCooldownClick[MAX_PLAYERS];
+	gAttachObjectsArrayModel[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE],
+	gAttachObjectArrayIndex[MAX_PLAYERS][ATTACH_OBJ_MAX_ITEM_IN_PAGE],
+	gAttachObjectArrayLength[MAX_PLAYERS],
+	gAttachObjectCooldownClick[MAX_PLAYERS];
 
 
 public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_OBJECT)
 	{
+		if (gui_ath_uniqedit_IsShowTD(playerid))
+		{
+			return 0;
+		}
 		if (!attachmain_IsCreateProcess(playerid))
 		{
-			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
+			language_MessageError(playerid, "MSG_PROCESS_START_PRESS_NEW");
 			return 0;
 		}
 		Dialog_Show(playerid, "dAttachObjectsMenu");
@@ -77,7 +83,7 @@ public OnGuiAttachObjectsClicked(playerid, typeid, index)
 	{
 		if (gAttachObjectCooldownClick[playerid] > gettime())
 		{
-			language_MessageInfo(playerid, MSG_PRTCT_FRM_ACCIDENTAL_CLICK);
+			language_MessageInfo(playerid, "MSG_PRTCT_FRM_ACCIDENTAL_CLICK");
 			return 0;
 		}
 		new modelid = gAttachObjectsArrayModel[playerid][index];
@@ -119,20 +125,22 @@ public OnVirtualKeyReleased(playerid, key_vk)
 {
 	if (key_vk == VK_RBUTTON)
 	{
-		if (gui_atatch_menu_IsShow(playerid)
-			&& !attachedit_IsPlayerEditing(playerid)
-			&& !Dialog_IsOpen(playerid)
-			&& gui_atatch_menu_IsActivePanel(playerid)
-			&& !gui_atatch_menu_IsBannedPanel(playerid))
+		if (attachmain_IsNoBannedClick(playerid))
 		{
-			new Float:x;
-			new Float:y;
+			new
+				Float:x,
+				Float:y;
 
 			GetMousePos(x, y);
 
 			if ((ATTACH_OBJECT_COORD_BTN_MIN_X <= x <= ATTACH_OBJECT_COORD_BTN_MAX_X)
 				&& (ATTACH_OBJECT_COORD_BTN_MIN_Y <= y <= ATTACH_OBJECT_COORD_BTN_MAX_Y))
 			{
+				if (!attachmain_IsCreateProcess(playerid))
+				{
+					language_MessageError(playerid, "MSG_PROCESS_START_PRESS_NEW");
+					return 0;
+				}
 				gAttachObjectsPage[playerid] = 0;
 				attach_obj_ShowObjectList(playerid);
 				return 1;
@@ -157,19 +165,12 @@ public OnVirtualKeyReleased(playerid, key_vk)
 
 DialogCreate:dAttachObjectsMenu(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_SET_MODEL_ADD_SELECT_OBJECT,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachObjectsMenu,
 		DIALOG_STYLE_LIST,
 		name_dialog_header,
-		str_dialog,
+		"DG_SET_MODEL_ADD_SELECT_OBJECT",
 		"»",
 		"X"
 	);
@@ -208,19 +209,12 @@ DialogResponse:dAttachObjectsMenu(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachObjectsInput(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_ENTER_ATTACHMENT_OBJ_MODEL,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachObjectsInput,
 		DIALOG_STYLE_INPUT,
 		name_dialog_header,
-		str_dialog,
+		"DG_ENTER_ATTACHMENT_OBJ_MODEL",
 		"»",
 		"«"
 	);
@@ -243,7 +237,7 @@ DialogResponse:dAttachObjectsInput(playerid, response, listitem, inputtext[])
 	}
 	if (!(CORE_MIN_VALID_OBJECT_MODEL <= modelid <= CORE_MAX_VALID_OBJECT_MODEL))
 	{
-		language_MessageError(playerid, MSG_INVALID_OBJECT_MODEL);
+		language_MessageError(playerid, "MSG_INVALID_OBJECT_MODEL");
 		Dialog_Show(playerid, "dAttachObjectsInput");
 		return 0;
 	}
@@ -255,19 +249,12 @@ DialogResponse:dAttachObjectsInput(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachMenuObjectNote(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_ENTER_COMMENT,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachMenuObjectNote,
 		DIALOG_STYLE_INPUT,
 		name_dialog_header,
-		str_dialog,
+		"DG_ENTER_COMMENT",
 		"»",
 		"«"
 	);
@@ -285,15 +272,13 @@ DialogResponse:dAttachMenuObjectNote(playerid, response, listitem, inputtext[])
 
 	if (lenght_note > CORE_MAX_LENGHT_NAME_NOTE)
 	{
-		language_MessageError(
-			playerid,
-			MSG_MAX_COMMENT_LENGTH_IS_CHARS
-		);
+		language_MessageError(playerid, "MSG_MAX_COMMENT_LENGTH_IS_CHARS");
 		Dialog_Show(playerid, "dAttachMenuObjectNote");
 		return 0;
 	}
-	new slotid = attachmain_GetCurrentSlotId(playerid);
-	new modelid = gAttachObjectsSelectModel[playerid];
+	new
+		slotid = attachmain_GetCurrentSlotId(playerid),
+		modelid = gAttachObjectsSelectModel[playerid];
 
 	attachmain_SetObjectSlotId(playerid, slotid, modelid);
 	
@@ -302,12 +287,12 @@ DialogResponse:dAttachMenuObjectNote(playerid, response, listitem, inputtext[])
 		slotid, !lenght_note ? CORE_EMPTY_NOTE : inputtext
 	);
 	project_JsonSaveAttach(playerid, slotid);
-	attachmain_SetMainAttachObject(playerid, slotid);
+	attachmain_ApplyMainAttach(playerid, slotid);
 	gui_ath_obj_DestroyTextdraws(playerid);
 
 	SendClientMessage(playerid, COLOR_WHITE, "");
 
-	language_MessageInfo(playerid, MSG_PRESS_TO_EDIT_START_EDITING);
+	language_MessageInfo(playerid, "MSG_PRESS_TO_EDIT_START_EDITING");
 	return 1;
 }
 
@@ -372,19 +357,12 @@ static attach_obj_ShowObjectList(playerid)
 
 DialogCreate:dAttachObjectsActionMenu(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_SET_OBJECT_REMOVE_FROM_LIST,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachObjectsActionMenu,
 		DIALOG_STYLE_LIST,
 		name_dialog_header,
-		str_dialog,
+		"DG_SET_OBJECT_REMOVE_FROM_LIST",
 		"»",
 		"X"
 	);
@@ -412,7 +390,7 @@ DialogResponse:dAttachObjectsActionMenu(playerid, response, listitem, inputtext[
 
 		if (result == JSON_CALL_NO_ERR)
 		{
-			language_MessageInfo(playerid, MSG_OBJECT_REMOVED_SUCCESS);
+			language_MessageInfo(playerid, "MSG_OBJECT_REMOVED_SUCCESS");
 
 			JSON_ArrayRemoveIndex(node, "objects", index);
 			JSON_SaveFile(json_file_name_objects, node, 4);
@@ -428,19 +406,12 @@ DialogResponse:dAttachObjectsActionMenu(playerid, response, listitem, inputtext[
 
 DialogCreate:dAttachObjectsAddToList(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_ENTER_OBJECT_MODEL_TO_ADD,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachObjectsAddToList,
 		DIALOG_STYLE_INPUT,
 		name_dialog_header,
-		str_dialog,
+		"DG_ENTER_OBJECT_MODEL_TO_ADD",
 		"»",
 		"«"
 	);
@@ -463,8 +434,7 @@ DialogResponse:dAttachObjectsAddToList(playerid, response, listitem, inputtext[]
 	}
 	if (!(CORE_MIN_VALID_OBJECT_MODEL <= modelid <= CORE_MAX_VALID_OBJECT_MODEL))
 	{
-		language_MessageError(playerid, MSG_INVALID_OBJECT_MODEL);
-
+		language_MessageError(playerid, "MSG_INVALID_OBJECT_MODEL");
 		Dialog_Show(playerid, "dAttachObjectsAddToList");
 		return 0;
 	}
@@ -475,8 +445,9 @@ DialogResponse:dAttachObjectsAddToList(playerid, response, listitem, inputtext[]
 
 	if (result == JSON_CALL_NO_ERR)
 	{
-		new length;
-		new modelid_json;
+		new
+			length,
+			modelid_json;
 		
 		JSON_GetArray(node, "objects", node);
 		JSON_ArrayLength(node, length);
@@ -488,7 +459,7 @@ DialogResponse:dAttachObjectsAddToList(playerid, response, listitem, inputtext[]
 
 			if (modelid_json == modelid)
 			{
-				language_MessageInfo(playerid, MSG_OBJECT_MODEL_EXISTS_WITH_ID);
+				language_MessageInfo(playerid, "MSG_OBJECT_MODEL_EXISTS_WITH_ID");
 
 				Dialog_Show(playerid, "dAttachObjectsAddToList");
 				JSON_Cleanup(node);
@@ -511,7 +482,7 @@ DialogResponse:dAttachObjectsAddToList(playerid, response, listitem, inputtext[]
 	}
 	JSON_Cleanup(node);
 
-	language_MessageInfo(playerid, MSG_OBJECT_MODEL_ADDED_SUCCESS);
+	language_MessageInfo(playerid, "MSG_OBJECT_MODEL_ADDED_SUCCESS");
 	Dialog_Show(playerid, "dAttachObjectsMenu");
 	return 1;
 }

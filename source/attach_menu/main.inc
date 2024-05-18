@@ -3,9 +3,7 @@
 #endif
 #define _attach_main_inc
 
-static const gAttachMainBoneId[CORE_MAX_COUNT_BONE] = {1, 2, ...};
-static const gAttachMainBoneName[LANGUAGE_MAX_COUNT][CORE_MAX_COUNT_BONE][CORE_MAX_LENGHT_NAME_BONE + 1];
-
+static gAttachMainBoneId[CORE_MAX_COUNT_BONE] = {1, 2, ...};
 
 static const gAttachMainOppositeBoneIds[][] =
 {
@@ -21,7 +19,6 @@ static const gAttachMainOppositeBoneIds[][] =
 	{ATTACH_BONE_NECK, ATTACH_BONE_NECK},
 	{ATTACH_BONE_JAW, ATTACH_BONE_JAW}
 };
-
 
 static enum e_attach_data_struct
 {
@@ -40,18 +37,22 @@ static enum e_attach_data_struct
 	attachmain_materialcolor1,
 	attachmain_materialcolor2
 }
-static attachmain_Structure[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS][e_attach_data_struct];
-static gAttachMainUseCurrentSloteId[MAX_PLAYERS];
-static gAttachMainNoteBone[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS][CORE_MAX_LENGHT_NAME_NOTE + 1];
-static gAttachMenuMultiObject[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS];
-new IteratorArray: AttachObjectSlots[MAX_PLAYERS]<MAX_PLAYER_ATTACHED_OBJECTS>;
-new IteratorArray: AttachMultiObjectSlots[MAX_PLAYERS]<MAX_PLAYER_ATTACHED_OBJECTS>;
+static
+	attachmain_Structure[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS][e_attach_data_struct],
+	gAttachMainUseCurrentSloteId[MAX_PLAYERS],
+	gAttachMainNoteBone[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS][CORE_MAX_LENGHT_NAME_NOTE + 1],
+	gAttachMenuMultiObject[MAX_PLAYERS][MAX_PLAYER_ATTACHED_OBJECTS];
+
+new
+	IteratorArray:AttachObjectSlots[MAX_PLAYERS]<MAX_PLAYER_ATTACHED_OBJECTS>,
+	IteratorArray:AttachMultiObjectSlots[MAX_PLAYERS]<MAX_PLAYER_ATTACHED_OBJECTS>;
 
 
 public OnGameModeInit()
 {
 	Iter_Init(AttachObjectSlots);
 	Iter_Init(AttachMultiObjectSlots);
+
 #if defined attachjmain_OnGameModeInit
 	return attachjmain_OnGameModeInit();
 #else
@@ -107,23 +108,9 @@ public OnPlayerDisconnect(playerid, reason)
 	forward attachjmain_OnPlayerDisconnect(playerid, reason);
 #endif
 
-
 stock attachmain_GetBoneId(index)
 {
 	return gAttachMainBoneId[index];
-}
-
-stock attachmain_GetBoneName(language, index, name[], const size = sizeof(name))
-{
-	name[0] = EOS;
-	strcat(name, gAttachMainBoneName[language][index], size);
-	return 1;
-}
-
-stock attachmain_SetBoneName(language, boneid, const name[])
-{
-	strcat(gAttachMainBoneName[language][boneid], name);
-	return 1;
 }
 
 stock attachmain_GetBoneSlotId(playerid, slotid)
@@ -332,7 +319,7 @@ stock attachmain_ClearSlotId(playerid, slotid)
 	return 1;
 }
 
-stock attachmain_SetMainAttachObject(playerid, slotid)
+stock attachmain_ApplyMainAttach(playerid, slotid)
 {
 	new
 		boneid,
@@ -465,8 +452,10 @@ stock attachmain_IsCreateProcess(playerid)
 
 stock attachmain_IsValidObject(playerid)
 {
-	new slotid = attachmain_GetCurrentSlotId(playerid);
-	new modelid = attachmain_GetObjectSlotId(playerid, slotid);
+	new
+		slotid = attachmain_GetCurrentSlotId(playerid),
+		modelid = attachmain_GetObjectSlotId(playerid, slotid);
+		
 	return modelid != CORE_INVALID_OBJECT_MODEL;
 }
 
@@ -487,4 +476,14 @@ stock attachmain_GetOppositeBoneIds(boneid)
 		}
 	}
 	return 1;
+}
+
+stock attachmain_IsNoBannedClick(playerid)
+{
+	return
+		gui_atatch_menu_IsShow(playerid)
+		&& !attachedit_IsPlayerEditing(playerid)
+		&& !Dialog_IsOpen(playerid)
+		&& !gui_atatch_menu_IsBannedPanel(playerid)
+		&& !gui_ath_uniqedit_IsShowTD(playerid);
 }

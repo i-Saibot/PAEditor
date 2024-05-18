@@ -10,6 +10,5 @@ samp-server.exe
 *.ico
 *.pdb
 *.exe
-*.ini
 pawno
 tde/

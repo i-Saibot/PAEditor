@@ -8,14 +8,18 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_DUBLICATE)
 	{
+		if (gui_ath_uniqedit_IsShowTD(playerid))
+		{
+			return 0;
+		}
 		if (attachmain_GetCurrentSlotId(playerid) == ITER_NONE)
 		{
-			language_MessageError(playerid, MSG_NO_CREATED_PROCESS_FOUND);
+			language_MessageError(playerid, "MSG_NO_CREATED_PROCESS_FOUND");
 			return 0;
 		}
 		if (attachmain_GetFreeSlotId(playerid) == ITER_NONE)
 		{
-			language_MessageError(playerid, MSG_DUBLICT_NOT_FOUND_FREE_SLOT);
+			language_MessageError(playerid, "MSG_DUBLICT_NOT_FOUND_FREE_SLOT");
 			return 0;
 		}
 		Dialog_Show(playerid, "dAttachDublicateMenu");
@@ -39,19 +43,12 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 
 DialogCreate:dAttachDublicateMenu(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_CONFIRM_DUPLICATE_PROCESS,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachDublicateMenu,
 		DIALOG_STYLE_MSGBOX,
 		name_dialog_header,
-		str_dialog,
+		"DG_CONFIRM_DUPLICATE_PROCESS",
 		"»",
 		"X"
 	);
@@ -71,19 +68,12 @@ DialogResponse:dAttachDublicateMenu(playerid, response, listitem, inputtext[])
 
 DialogCreate:dAttachMenuDublicateNote(playerid)
 {
-	new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-	language_GetDialogString(
-		playerid,
-		DG_ENTER_COMMENT,
-		str_dialog
-	);
 	Dialog_Open(
 		playerid,
 		Dialog:dAttachMenuDublicateNote,
 		DIALOG_STYLE_INPUT,
 		name_dialog_header,
-		str_dialog,
+		"DG_ENTER_COMMENT",
 		"»",
 		""
 	);
@@ -100,10 +90,7 @@ DialogResponse:dAttachMenuDublicateNote(playerid, response, listitem, inputtext[
 
 	if (lenght_note > CORE_MAX_LENGHT_NAME_NOTE)
 	{
-		language_MessageError(
-			playerid,
-			MSG_MAX_COMMENT_LENGTH_IS_CHARS
-		);
+		language_MessageError(playerid, "MSG_MAX_COMMENT_LENGTH_IS_CHARS");
 		Dialog_Show(playerid, "dAttachMenuDublicateNote");
 		return 0;
 	}
@@ -165,10 +152,10 @@ DialogResponse:dAttachMenuDublicateNote(playerid, response, listitem, inputtext[
 	project_JsonSaveAttach(playerid, new_slotid);
 	attachmain_SetCurrentSlotId(playerid, new_slotid);
 	attachmain_AddIterSlotId(playerid, new_slotid);
-	attachmain_SetMainAttachObject(playerid, new_slotid);
+	attachmain_ApplyMainAttach(playerid, new_slotid);
 
 	SendClientMessage(playerid, COLOR_WHITE, "");
 
-	language_MessageInfo(playerid, MSG_OBJECT_DUPLICATED_SUCCESS);
+	language_MessageInfo(playerid, "MSG_OBJECT_DUPLICATED_SUCCESS");
 	return 1;
 }

@@ -13,13 +13,15 @@ static const gVirtualKeysId[] =
 	VK_KEY_D,
 	VK_KEY_Q,
 	VK_KEY_E,
+	VK_LBUTTON,
 	VK_RBUTTON,
 	VK_UP,
 	VK_DOWN,
 	VK_LEFT,
 	VK_RIGHT,
-	VK_LSHIFT,
-	VK_LMENU
+	VK_Q,
+	VK_E,
+	VK_MB5
 };
 
 static gVirtualKeyTimer[MAX_PLAYERS];

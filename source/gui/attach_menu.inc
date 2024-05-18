@@ -3,10 +3,11 @@
 #endif
 #define _gui_attach_menu_inc
 
-static Text: gui_AttachMenu[71];
-static bool: gui_AttachMenuPlayerShow[MAX_PLAYERS];
-static bool: gui_AttachMenuActivePanel[MAX_PLAYERS];
-static bool: gui_AttachMenuBannedPanel[MAX_PLAYERS];
+static
+	Text: gui_AttachMenu[71],
+	bool:gui_AttachMenuPlayerShow[MAX_PLAYERS],
+	bool:gui_AttachMenuActivePanel[MAX_PLAYERS],
+	bool:gui_AttachMenuBannedPanel[MAX_PLAYERS];
 
 
 enum
@@ -360,8 +361,8 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[33], 1);
 	TextDrawSetShadow(gui_AttachMenu[33], 0);
 
-	gui_AttachMenu[34] = TextDrawCreate(496.2703, 401.9859, "Hide_cursor_-");
-	TextDrawLetterSize(gui_AttachMenu[34], 0.1251, 0.9168);
+	gui_AttachMenu[34] = TextDrawCreate(492.1700, 402.4859, "Hide_cursor_-");
+	TextDrawLetterSize(gui_AttachMenu[34], 0.1144, 0.8096);
 	TextDrawTextSize(gui_AttachMenu[34], 0.0000, 466.0000);
 	TextDrawAlignment(gui_AttachMenu[34], 2);
 	TextDrawColor(gui_AttachMenu[34], -1);
@@ -388,8 +389,8 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[36], 0);
 	TextDrawSetShadow(gui_AttachMenu[36], 0);
 
-	gui_AttachMenu[37] = TextDrawCreate(522.2006, 401.8005, "ESC");
-	TextDrawLetterSize(gui_AttachMenu[37], 0.1551, 1.0166);
+	gui_AttachMenu[37] = TextDrawCreate(520.3010, 401.7005, "ESC/MB5");
+	TextDrawLetterSize(gui_AttachMenu[37], 0.1154, 0.9253);
 	TextDrawTextSize(gui_AttachMenu[37], 0.0000, 466.0000);
 	TextDrawAlignment(gui_AttachMenu[37], 2);
 	TextDrawColor(gui_AttachMenu[37], 950371583);
@@ -398,8 +399,8 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[37], 1);
 	TextDrawSetShadow(gui_AttachMenu[37], 0);
 
-	gui_AttachMenu[38] = TextDrawCreate(164.4640, 401.9858, "Show_cursor_-");
-	TextDrawLetterSize(gui_AttachMenu[38], 0.1211, 0.9268);
+	gui_AttachMenu[38] = TextDrawCreate(159.1636, 402.0858, "Show_cursor_-");
+	TextDrawLetterSize(gui_AttachMenu[38], 0.1077, 0.8677);
 	TextDrawTextSize(gui_AttachMenu[38], 0.0000, 466.0000);
 	TextDrawAlignment(gui_AttachMenu[38], 2);
 	TextDrawColor(gui_AttachMenu[38], -1);
@@ -426,8 +427,8 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[40], 0);
 	TextDrawSetShadow(gui_AttachMenu[40], 0);
 
-	gui_AttachMenu[41] = TextDrawCreate(189.0973, 401.2005, "N");
-	TextDrawLetterSize(gui_AttachMenu[41], 0.1764, 1.0607);
+	gui_AttachMenu[41] = TextDrawCreate(186.3971, 401.9005, "N/MB5");
+	TextDrawLetterSize(gui_AttachMenu[41], 0.1257, 0.9021);
 	TextDrawTextSize(gui_AttachMenu[41], 0.0000, 466.0000);
 	TextDrawAlignment(gui_AttachMenu[41], 2);
 	TextDrawColor(gui_AttachMenu[41], 950371583);
@@ -540,8 +541,8 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[52], 1);
 	TextDrawSetShadow(gui_AttachMenu[52], 0);
 
-	gui_AttachMenu[53] = TextDrawCreate(315.4218, 437.2296, "Bone");
-	TextDrawLetterSize(gui_AttachMenu[53], 0.1685, 0.8284);
+	gui_AttachMenu[53] = TextDrawCreate(310.0, 437.2296, "Bone/Note");
+	TextDrawLetterSize(gui_AttachMenu[53], 0.1500, 0.8284);
 	TextDrawTextSize(gui_AttachMenu[53], 32.0000, 0.0000);
 	TextDrawAlignment(gui_AttachMenu[53], 1);
 	TextDrawColor(gui_AttachMenu[53], -1);
@@ -755,16 +756,20 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	{
 		if (clickedid == Text: INVALID_TEXT_DRAW)
 		{
+			if (attachcameramove_IsUseMove(playerid))
+			{
+				SetCameraBehindPlayer(playerid);
+			}
 			gui_atatch_menu_HideCursor(playerid);
-			SetCameraBehindPlayer(playerid);
 			gui_camera_rot_HideInfo(playerid);
 		}
 		if (!Dialog_IsOpen(playerid)
 			&& !gui_ath_obj_IsPlayerCreateTD(playerid)
 			&& !gui_atatch_menu_IsBannedPanel(playerid))
 		{
-			const INDEX_TD_ID = 0;
-			const INDEX_TYPE_ID = 1;
+			const
+				INDEX_TD_ID = 0,
+				INDEX_TYPE_ID = 1;
 
 			static const index[][] =
 			{
@@ -804,10 +809,11 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 							&& typeid != GUI_ATTACH_MENU_DELETE
 							&& typeid != GUI_ATTACH_MENU_PREV_SKIN
 							&& typeid != GUI_ATTACH_MENU_SKIN
-							&& typeid != GUI_ATTACH_MENU_NEXT_SKIN)
+							&& typeid != GUI_ATTACH_MENU_NEXT_SKIN
+							&& typeid != GUI_ATTACH_MENU_CAMERA_MOVE)
 						{
 
-							language_MessageError(playerid, MSG_NO_AVAILABLE_MULTIPLE_OBJ);
+							language_MessageError(playerid, "MSG_NO_AVAILABLE_MULTIPLE_OBJ");
 							return 0;
 						}
 					}
@@ -820,7 +826,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 					return 1;
 				}
 			}
-			return 1;
 		}
 	}
 #if defined guiatachmenu_OnClickTextDraw
@@ -883,6 +888,7 @@ stock gui_atatch_menu_ShowCursor(playerid)
 stock gui_atatch_menu_HideCursor(playerid)
 {
 	gui_AttachMenuActivePanel[playerid] = false;
+	attachcameramove_SetUseMove(playerid, false);
 	return 1;
 }
 
@@ -896,7 +902,7 @@ stock gui_atatch_menu_IsBannedPanel(playerid)
 	return gui_AttachMenuBannedPanel[playerid];
 }
 
-stock gui_atatch_menu_SetBannedPanel(playerid, bool: value)
+stock gui_atatch_menu_SetBannedPanel(playerid, bool:value)
 {
 	gui_AttachMenuBannedPanel[playerid] = value;
 	return 1;

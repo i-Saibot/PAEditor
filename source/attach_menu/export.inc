@@ -9,10 +9,10 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	{
 		if (Iter_Count(AttachObjectSlots[playerid]) == 0)
 		{
-			language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
+			language_MessageError(playerid, "MSG_PROCESS_START_PRESS_NEW");
 			return 0;
 		}
-		new bool: is_valid_export;
+		new bool:is_valid_export;
 		foreach (AttachObjectSlots[playerid], i)
 		{
 			if (attachmain_GetObjectSlotId(playerid, i) != CORE_INVALID_OBJECT_MODEL)
@@ -23,10 +23,10 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 		}
 		if (!is_valid_export)
 		{
-			language_MessageError(playerid, MSG_TO_SET_OBJECT_PRESS_OBJECTS);
+			language_MessageError(playerid, "MSG_TO_SET_OBJECT_PRESS_OBJECTS");
 			return 0;
 		}
-		if (attacheditbtn_IsStartEdit(playerid))
+		if (attach_unqedit_IsStartEdit(playerid))
 		{
 			return 0;
 		}
@@ -49,7 +49,7 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 	forward attachexport_OnGuiAttachMenu(playerid, typeid);
 #endif
 
-stock attachexport_Export(playerid, bool: is_show_dialog_info = true)
+stock attachexport_Export(playerid, bool:is_show_dialog_info = true)
 {
 	new
 		index,
@@ -172,19 +172,12 @@ stock attachexport_Export(playerid, bool: is_show_dialog_info = true)
 
 	if (is_show_dialog_info)
 	{
-		new str_dialog[LANGUAGE_MAX_LENGHT_STRING_DL + 1];
-
-		language_GetDialogString(
-			playerid,
-			DG_DATA_EXPORT_SUCCESS,
-			str_dialog
-		);
 		Dialog_Open(
 			playerid,
 			Dialog:dNone,
 			DIALOG_STYLE_MSGBOX,
 			name_dialog_header,
-			str_dialog,
+			"DG_DATA_EXPORT_SUCCESS",
 			"X",
 			""
 		);

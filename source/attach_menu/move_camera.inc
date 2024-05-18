@@ -3,14 +3,16 @@
 #endif
 #define _attach_move_camera_inc
 
-const Float: ATTACH_MCAMERA_DEFAULT_ZOOM				= 2.9;
-const Float: ATTACH_MCAMERA_DEFAULT_HIGHT				= 0.3;
+const
+	Float:ATTACH_MCAMERA_DEFAULT_ZOOM				= 2.9,
+	Float:ATTACH_MCAMERA_DEFAULT_HIGHT				= 0.3;
 
-static bool: gAttachCameraMoveBanned[MAX_PLAYERS];
-static Float: gAttachCameraAngle[MAX_PLAYERS];
-static Float: gAttachCameraZoom[MAX_PLAYERS] = {ATTACH_MCAMERA_DEFAULT_ZOOM, ...};
-static Float: gAttachCameraVertical[MAX_PLAYERS] = {ATTACH_MCAMERA_DEFAULT_HIGHT, ...};
-
+static
+	bool:gAttachCameraMoveBanned[MAX_PLAYERS],
+	Float:gAttachCameraAngle[MAX_PLAYERS],
+	Float:gAttachCameraZoom[MAX_PLAYERS] = {ATTACH_MCAMERA_DEFAULT_ZOOM, ...},
+	Float:gAttachCameraVertical[MAX_PLAYERS] = {ATTACH_MCAMERA_DEFAULT_HIGHT, ...},
+	bool:gAttachCameraUseMove[MAX_PLAYERS];
 
 public OnPlayerDisconnect(playerid, reason)
 {
@@ -42,18 +44,18 @@ public OnVirtualKeyPressed(playerid, key_vk)
 		&& !attachcameramove_IsBannedMove(playerid))
 	{
 		const
-			Float: CAMERA_STEP 		= 0.06,
-			Float: MIN_HIGHT		= -0.6,
-			Float: MAX_HIGHT		= 1.5,
-			Float: MIN_ZOOM			= 0.7,
-			Float: MAX_ZOOM			= 5.5;
+			Float:CAMERA_STEP 		= 0.06,
+			Float:MIN_HIGHT		= -0.6,
+			Float:MAX_HIGHT		= 1.5,
+			Float:MIN_ZOOM			= 0.7,
+			Float:MAX_ZOOM			= 5.5;
 
 		new
-			Float: x,
-			Float: y,
-			Float: z,
-			Float: angle,
-			bool: is_move_camera;
+			Float:x,
+			Float:y,
+			Float:z,
+			Float:angle,
+			bool:is_move_camera;
 
 		GetPlayerPos(playerid, x, y, z);
 		GetPlayerFacingAngle(playerid, angle);
@@ -62,8 +64,8 @@ public OnVirtualKeyPressed(playerid, key_vk)
 			(key_vk == VK_DOWN && gAttachCameraVertical[playerid] > MIN_HIGHT) ||
 			(key_vk == VK_LEFT) ||
 			(key_vk == VK_RIGHT) ||
-			(key_vk == VK_LSHIFT && gAttachCameraZoom[playerid] > MIN_ZOOM) ||
-			(key_vk == VK_LMENU && gAttachCameraZoom[playerid] < MAX_ZOOM))
+			(key_vk == VK_Q && gAttachCameraZoom[playerid] > MIN_ZOOM) ||
+			(key_vk == VK_E && gAttachCameraZoom[playerid] < MAX_ZOOM))
 		{
 			is_move_camera = true;
 
@@ -71,8 +73,8 @@ public OnVirtualKeyPressed(playerid, key_vk)
 			else if (key_vk == VK_DOWN) gAttachCameraVertical[playerid] -= CAMERA_STEP;
 			else if (key_vk == VK_LEFT) gAttachCameraAngle[playerid] -= CAMERA_STEP;
 			else if (key_vk == VK_RIGHT) gAttachCameraAngle[playerid] += CAMERA_STEP;
-			else if (key_vk == VK_LSHIFT) gAttachCameraZoom[playerid] -= CAMERA_STEP;
-			else if (key_vk == VK_LMENU) gAttachCameraZoom[playerid] += CAMERA_STEP;
+			else if (key_vk == VK_Q) gAttachCameraZoom[playerid] -= CAMERA_STEP;
+			else if (key_vk == VK_E) gAttachCameraZoom[playerid] += CAMERA_STEP;
 		}
 		if (is_move_camera)
 		{
@@ -85,6 +87,8 @@ public OnVirtualKeyPressed(playerid, key_vk)
 				z + gAttachCameraVertical[playerid]
 			);
 			SetPlayerCameraLookAt(playerid, x, y, z + gAttachCameraVertical[playerid]);
+
+			attachcameramove_SetUseMove(playerid, true);
 		}
 	}
 #if defined attachcmove_OnVirtualKeyPressed
@@ -137,4 +141,14 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 stock attachcameramove_IsBannedMove(playerid)
 {
 	return gAttachCameraMoveBanned[playerid];
+}
+
+stock attachcameramove_IsUseMove(playerid)
+{
+	return gAttachCameraUseMove[playerid];
+}
+stock attachcameramove_SetUseMove(playerid, bool:value)
+{
+	gAttachCameraUseMove[playerid] = value;
+	return 1;
 }

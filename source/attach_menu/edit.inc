@@ -3,39 +3,55 @@
 #endif
 #define _attach_edit_inc
 
-static bool: gAttachEditPlayerEditing[MAX_PLAYERS];
+const
+	Float:ATTACH_EDIT_COORD_BTN_MIN_X				= 0.5697,
+	Float:ATTACH_EDIT_COORD_BTN_MAX_X				= 0.6098,
+
+	Float:ATTACH_EDIT_COORD_BTN_MIN_Y				= 0.9268,
+	Float:ATTACH_EDIT_COORD_BTN_MAX_Y				= 0.9935;
+
+
+static bool:gAttachEditPlayerEditing[MAX_PLAYERS];
 
 
 public OnGuiAttachMenuClicked(playerid, typeid)
 {
 	if (typeid == GUI_ATTACH_MENU_EDIT)
 	{
+		if (gui_ath_uniqedit_IsShowTD(playerid))
+		{
+			return 0;
+		}
 		if (!attachmain_IsUseMultiObject(playerid))
 		{
 			if (!attachmain_IsCreateProcess(playerid))
 			{
-				language_MessageError(playerid, MSG_PROCESS_START_PRESS_NEW);
+				language_MessageError(playerid, "MSG_PROCESS_START_PRESS_NEW");
 				return 0;
 			}
 			if (!attachmain_IsValidObject(playerid))
 			{
-				language_MessageError(playerid, MSG_START_SELECT_OBJ_PRESS_OBJ);
+				language_MessageError(playerid, "MSG_START_SELECT_OBJ_PRESS_OBJ");
 				return 0;
 			}
 			CancelSelectTextDraw(playerid);
 
 			new slotid = attachmain_GetCurrentSlotId(playerid);
 
-			attachmain_SetMainAttachObject(playerid, slotid);
+			attachmain_ApplyMainAttach(playerid, slotid);
 			EditAttachedObject(playerid, slotid);
 
 			SendClientMessage(playerid, COLOR_WHITE, "");
 
-			language_MessageInfo(playerid, MSG_FREE_LOOK_HOLD_SPRINT_KEY);
-			language_MessageInfo(playerid, MSG_SAVE_PRESS_ICON_CNL_USE_ESC);
+			language_MessageInfo(playerid, "MSG_FREE_LOOK_HOLD_SPRINT_KEY");
+			language_MessageInfo(playerid, "MSG_SAVE_PRESS_ICON_CNL_USE_ESC");
 
 			gAttachEditPlayerEditing[playerid] = true;
 			return 1;
+		}
+		else
+		{
+			attach_unqedit_StartEdit(playerid);
 		}
 	}
 #if defined attachedit_OnGuiAttachMenu
@@ -77,8 +93,8 @@ public OnPlayerEditAttachedObject(
 
 	if (!response)
 	{
-		language_MessageInfo(playerid, MSG_NOT_SAVED_EDITING_CANCELLED);
-		attachmain_SetMainAttachObject(playerid, slotid);
+		language_MessageInfo(playerid, "MSG_NOT_SAVED_EDITING_CANCELLED");
+		attachmain_ApplyMainAttach(playerid, slotid);
 	}
 	else
 	{
@@ -95,7 +111,7 @@ public OnPlayerEditAttachedObject(
 			fScaleY,
 			fScaleZ
 		);
-		language_MessageInfo(playerid, MSG_CHANGES_SAVED_AFTER_EDIT);
+		language_MessageInfo(playerid, "MSG_CHANGES_SAVED_AFTER_EDIT");
 		project_JsonSaveAttach(playerid, slotid);
 	}
 	gui_atatch_menu_ShowCursor(playerid);
@@ -115,6 +131,52 @@ public OnPlayerEditAttachedObject(
 #define OnPlayerEditAttachedObject attachedit_OnEditAttachedObject
 #if defined attachedit_OnEditAttachedObject
 	forward attachedit_OnEditAttachedObject(playerid, typeid);
+#endif
+
+public OnVirtualKeyReleased(playerid, key_vk)
+{
+	if (key_vk == VK_RBUTTON)
+	{
+		if (attachmain_IsNoBannedClick(playerid))
+		{
+			new
+				Float:x,
+				Float:y;
+
+			GetMousePos(x, y);
+
+			if ((ATTACH_EDIT_COORD_BTN_MIN_X <= x <= ATTACH_EDIT_COORD_BTN_MAX_X)
+				&& (ATTACH_EDIT_COORD_BTN_MIN_Y <= y <= ATTACH_EDIT_COORD_BTN_MAX_Y))
+			{
+				if (!attachmain_IsCreateProcess(playerid))
+				{
+					language_MessageError(playerid, "MSG_PROCESS_START_PRESS_NEW");
+					return 0;
+				}
+				if (!attachmain_IsValidObject(playerid))
+				{
+					language_MessageError(playerid, "MSG_START_SELECT_OBJ_PRESS_OBJ");
+					return 0;
+				}
+				attach_unqedit_StartEdit(playerid);
+				return 1;
+			}
+		}
+	}
+#if defined attachedit_OnVirtualKeyReleased
+	return attachedit_OnVirtualKeyReleased(playerid, key_vk);
+#else
+	return 1;
+#endif
+}
+#if defined _ALS_OnVirtualKeyReleased
+	#undef OnVirtualKeyReleased
+#else
+	#define _ALS_OnVirtualKeyReleased
+#endif
+#define OnVirtualKeyReleased attachedit_OnVirtualKeyReleased
+#if defined attachedit_OnVirtualKeyReleased
+	forward attachedit_OnVirtualKeyReleased(playerid, key_vk);
 #endif
 
 stock attachedit_IsPlayerEditing(playerid)
