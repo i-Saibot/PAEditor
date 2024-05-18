@@ -54,6 +54,7 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 ```Edit```
 - Left mouse button click, edit object through the normal interface
 - Right mouse button click, edit object through the new interface
+- To move an object through the new interface, click on its icon with the left mouse button and hold it, then start moving the cursor in the desired direction: up, down, right, or left.
 - To manually set a value in the new interface, right-click on the shortcut
 
 ```Colors```
