@@ -7,24 +7,32 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 - ```Русский```
 - ```Українська```
 - ```Беларускі```
- 
+- ```Português```
 
 ---
 > Start:
 - ```To start working, you need to press the Y key.```
 - ```You can create a project and upload it. (The project is automatically saved.)```
 ---
+> Commands:
+- ```/headmove``` - enable/disable character's head rotation
+- ```/setweather``` - set weather
+- ```/settime``` - set time
+- ```/obj``` - create an object for viewing
+- ```/dellobj``` - delete the object for viewing
+---
 > Button:
 
 ```Manage```
-- Left-click: Choose a single attachment.
-- Right-click: Choose multiple attachments simultaneously.
+- Left mouse button click opens a dialog with created processes
+- Right mouse button click opens a dialog for selecting multiple processes simultaneously
 
 ```Export```
 - Exports your project to a file. Path: scriptfiles > project > export.
 
 ```New```
-- Create a process for attachment.
+- Left mouse button click creates a new process
+- Right mouse button click opens a menu for manual input of the process
 
 ```Delete```
 - Delete the current attachment.
@@ -36,14 +44,17 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 - Left-click: Enter, add, or open a list of objects (added objects are saved).
 - Right-click: Open the list of objects.
 
-```Bone```
-- Change bone for current attachment.
+```Bone/Note```
+- Left mouse button click changes bone for the current process
+- Right mouse button click changes comment for the current process
 
 ```Symmetry```
 - Mirror current object symmetrically and move to opposite bone.
 
 ```Edit```
-- Begin editing the attachment.
+- Left mouse button click, edit object through the normal interface
+- Right mouse button click, edit object through the new interface
+- To manually set a value in the new interface, right-click on the shortcut
 
 ```Colors```
 - Left-click: Enter, add, or open a list of colors (added colors are saved).
@@ -73,11 +84,12 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 <img src="https://i.imgur.com/k7AsLeR.png" width="100" height="80">
 <img src="https://i.imgur.com/PT9D3TU.png" width="100" height="80">
 <img src="https://i.imgur.com/gJkKEv7.png" width="100" height="80">
-<img src="https://i.imgur.com/yBbDjTW.png" width="100" height="80">
+<img src="https://i.imgur.com/dVDn74g.png" width="100" height="80">
 <img src="https://i.imgur.com/K4EO5VW.png" width="100" height="80">
 <img src="https://i.imgur.com/BuNrENW.png" width="100" height="80">
 <img src="https://i.imgur.com/BuNrENW.png" width="100" height="80">
 <img src="https://i.imgur.com/9jiURlQ.png" width="100" height="80">
 <img src="https://i.imgur.com/E1XuuaE.png" width="100" height="80">
-<img src="https://i.imgur.com/yOWYcsy.png" width="100" height="80">
+<img src="https://i.imgur.com/PtHTkHf.png" width="100" height="80">
 <img src="https://i.imgur.com/wLuEMlY.png" width="100" height="80">
+<img src="https://i.imgur.com/9fYuZ3Q.png" width="100" height="80">
