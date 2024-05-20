@@ -95,6 +95,11 @@ public OnVirtualKeyReleased(playerid, key_vk)
 			if ((ATTACH_NEW_COORD_BTN_MIN_X <= x <= ATTACH_NEW_COORD_BTN_MAX_X)
 				&& (ATTACH_NEW_COORD_BTN_MIN_Y <= y <= ATTACH_NEW_COORD_BTN_MAX_Y))
 			{
+				if (attachmain_GetFreeSlotId(playerid) == ITER_NONE)
+				{
+					language_MessageError(playerid, "MSG_NO_AVAILABLE_ATTACH_SLOTS");
+					return 0;
+				}
 				anew_Structure[playerid] = anew_DefaultValue;
 
 				Dialog_Show(playerid, "dAttachMenuNewSelectInput");
