@@ -78,19 +78,19 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 - Set a skin.
 ---
 
-<img src="https://i.imgur.com/FXN1u5c.png" width="100" height="80"><img src="https://i.imgur.com/REl3jcX.png" width="100" height="80">
-<img src="https://i.imgur.com/Ylx3cHn.png" width="100" height="80">
-<img src="https://i.imgur.com/IHiZg3p.png" width="100" height="80">
-<img src="https://i.imgur.com/tPRDh4h.png" width="100" height="80">
-<img src="https://i.imgur.com/k7AsLeR.png" width="100" height="80">
-<img src="https://i.imgur.com/PT9D3TU.png" width="100" height="80">
-<img src="https://i.imgur.com/gJkKEv7.png" width="100" height="80">
-<img src="https://i.imgur.com/dVDn74g.png" width="100" height="80">
-<img src="https://i.imgur.com/K4EO5VW.png" width="100" height="80">
-<img src="https://i.imgur.com/BuNrENW.png" width="100" height="80">
-<img src="https://i.imgur.com/BuNrENW.png" width="100" height="80">
-<img src="https://i.imgur.com/9jiURlQ.png" width="100" height="80">
-<img src="https://i.imgur.com/E1XuuaE.png" width="100" height="80">
-<img src="https://i.imgur.com/PtHTkHf.png" width="100" height="80">
-<img src="https://i.imgur.com/wLuEMlY.png" width="100" height="80">
-<img src="https://i.imgur.com/9fYuZ3Q.png" width="100" height="80">
+<img src="https://imgur.com/FXN1u5c.png" width="100" height="80"><img src="https://imgur.com/REl3jcX.png" width="100" height="80">
+<img src="https://imgur.com/Ylx3cHn.png" width="100" height="80">
+<img src="https://imgur.com/IHiZg3p.png" width="100" height="80">
+<img src="https://imgur.com/tPRDh4h.png" width="100" height="80">
+<img src="https://imgur.com/k7AsLeR.png" width="100" height="80">
+<img src="https://imgur.com/PT9D3TU.png" width="100" height="80">
+<img src="https://imgur.com/gJkKEv7.png" width="100" height="80">
+<img src="https://imgur.com/dVDn74g.png" width="100" height="80">
+<img src="https://imgur.com/K4EO5VW.png" width="100" height="80">
+<img src="https://imgur.com/BuNrENW.png" width="100" height="80">
+<img src="https://imgur.com/BuNrENW.png" width="100" height="80">
+<img src="https://imgur.com/9jiURlQ.png" width="100" height="80">
+<img src="https://imgur.com/E1XuuaE.png" width="100" height="80">
+<img src="https://imgur.com/PtHTkHf.png" width="100" height="80">
+<img src="https://imgur.com/wLuEMlY.png" width="100" height="80">
+<img src="https://imgur.com/9fYuZ3Q.png" width="100" height="80">
