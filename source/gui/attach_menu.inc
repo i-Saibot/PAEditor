@@ -513,7 +513,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[49], 1);
 	TextDrawSetShadow(gui_AttachMenu[49], 0);
 
-	gui_AttachMenu[50] = TextDrawCreate(370.2025, 418.0335, "<__>");
+	gui_AttachMenu[50] = TextDrawCreate(369.0, 418.0335, "<_>");
 	TextDrawLetterSize(gui_AttachMenu[50], 0.2806, 1.7632);
 	TextDrawAlignment(gui_AttachMenu[50], 1);
 	TextDrawColor(gui_AttachMenu[50], 950371583);
@@ -665,7 +665,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[65], 1);
 	TextDrawSetShadow(gui_AttachMenu[65], 0);
 
-	gui_AttachMenu[66] = TextDrawCreate(604.3046, 437.2296, "Next_skin");
+	gui_AttachMenu[66] = TextDrawCreate(603.0, 437.2296, "Next_skin");
 	TextDrawLetterSize(gui_AttachMenu[66], 0.1668, 0.8201);
 	TextDrawTextSize(gui_AttachMenu[66], 32.0000, 0.0000);
 	TextDrawAlignment(gui_AttachMenu[66], 1);
@@ -694,7 +694,7 @@ public OnGameModeInit()
 	TextDrawSetProportional(gui_AttachMenu[68], 0);
 	TextDrawSetShadow(gui_AttachMenu[68], 0);
 
-	gui_AttachMenu[69] = TextDrawCreate(450.0999, 420.8927, "<____>");
+	gui_AttachMenu[69] = TextDrawCreate(449.5, 420.8927, "<__>");
 	TextDrawLetterSize(gui_AttachMenu[69], 0.3123, 1.2764);
 	TextDrawAlignment(gui_AttachMenu[69], 1);
 	TextDrawColor(gui_AttachMenu[69], -1061109505);

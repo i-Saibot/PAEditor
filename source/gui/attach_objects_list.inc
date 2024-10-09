@@ -104,7 +104,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		}
 		const
 			INDEX_TD_ID = 0,
-			INDEX_TYPE_ID = 0;
+			INDEX_TYPE_ID = 1;
 
 		static const index[][] =
 		{

@@ -17,7 +17,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const Float:CURRENT_PAEDITOR_VERSION					= 1.39;
+const Float:CURRENT_PAEDITOR_VERSION					= 1.49;
 
 static http_address_available_version[]					= "https://pastebin.com/raw/xebukdmH";
 

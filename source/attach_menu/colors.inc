@@ -93,6 +93,11 @@ public OnVirtualKeyReleased(playerid, key_vk)
 					language_MessageError(playerid, "MSG_START_SELECT_OBJ_PRESS_OBJ");
 					return 0;
 				}
+				if (attachmain_IsUseMultiObject(playerid))
+				{
+					language_MessageError(playerid, "MSG_NO_AVAILABLE_MULTIPLE_OBJ");
+					return 0;
+				}
 				gAttachColorsSelectColorId[playerid] = 0;
 				gAttachColorsPage[playerid] = 0;
 				gAttachObjectOpenRmouse[playerid] = true;
@@ -110,6 +115,11 @@ public OnVirtualKeyReleased(playerid, key_vk)
 				if (!attachmain_IsValidObject(playerid))
 				{
 					language_MessageError(playerid, "MSG_START_SELECT_OBJ_PRESS_OBJ");
+					return 0;
+				}
+				if (attachmain_IsUseMultiObject(playerid))
+				{
+					language_MessageError(playerid, "MSG_NO_AVAILABLE_MULTIPLE_OBJ");
 					return 0;
 				}
 				gAttachColorsSelectColorId[playerid] = 1;

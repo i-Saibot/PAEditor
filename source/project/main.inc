@@ -135,6 +135,7 @@ DialogResponse:dProjectMainMenu(playerid, response, listitem, inputtext[])
 				Dialog_Show(playerid, "dProjectMainMenu");
 				return 0;
 			}
+			attachmain_ClearMultiObjSlots(playerid);
 			gui_atatch_menu_HideMenu(playerid);
 			gui_camera_rot_HideInfo(playerid);
 			attachmain_ClearArray(playerid);
