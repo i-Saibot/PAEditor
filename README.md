@@ -1,6 +1,7 @@
 [![release](https://img.shields.io/github/v/release/i-Saibot/PAEditor?include_prereleases)](https://github.com/i-Saibot/PAEditor/releases)
 [![downloads](https://img.shields.io/github/downloads/i-Saibot/PAEditor/total)](https://github.com/i-Saibot/PAEditor/releases)
 [![license](https://img.shields.io/github/license/i-Saibot/PAEditor)](LICENSE)
+![Stars](https://img.shields.io/github/stars/i-Saibot/PAEditor?style=social)
 
 ---
 # *PAEditor*
