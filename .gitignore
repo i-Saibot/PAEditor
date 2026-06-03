@@ -12,3 +12,4 @@ samp-server.exe
 *.exe
 pawno
 tde/
+.vscode/

@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"*.hxx": "pawn",
-		"*.inc": "pawn",
-		"automarket2": "cpp"
-	}
-}
