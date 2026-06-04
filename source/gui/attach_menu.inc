@@ -817,6 +817,8 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 							return 0;
 						}
 					}
+					color_HidePalette();
+					
 					CallRemoteFunction(
 						"OnGuiAttachMenuClicked",
 						"dd",

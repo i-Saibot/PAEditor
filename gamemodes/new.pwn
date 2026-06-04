@@ -17,8 +17,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const Float:CURRENT_PAEDITOR_VERSION					= 1.49;
-
+#define CURRENT_PAEDITOR_VERSION						"1.5"
 static http_address_available_version[]					= "https://pastebin.com/raw/xebukdmH";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -65,10 +64,7 @@ main(){}
 
 public OnGameModeInit()
 {
-	static const
-		fmt_str[] =
-			"Version: %.1f"
-	;
+	static const fmt_str[] = "Version: %s";
 	new string[sizeof(fmt_str) + (- 2 + 11)];
 
 	format(string, sizeof(string),
@@ -93,7 +89,7 @@ public OnGameModeInit()
 							"
 	);
 	print("\nAuthor: Saibot");
-	printf("Version %.1f\n", CURRENT_PAEDITOR_VERSION);
+	printf("Version %s\n", CURRENT_PAEDITOR_VERSION);
 
 	SetConsoleColors(backup_color, COLOR_TYPE_TXT);
 
@@ -123,16 +119,23 @@ public OnGameModeInit()
 @_OnCheckAvailableVersion(Request:id, E_HTTP_STATUS:status, data[], dataLen);
 @_OnCheckAvailableVersion(Request:id, E_HTTP_STATUS:status, data[], dataLen)
 {
-	new Float:version;
-	sscanf(data, "f", version);
+	new version[5],
+		download[256],
+		update[1000];
 
-	if (CURRENT_PAEDITOR_VERSION != version)
+	sscanf(data, "p<|>s[5]s[256]s[1000]", version, download, update);
+
+	if (strcmp(version, CURRENT_PAEDITOR_VERSION) != 0)
 	{
 		new backup_color = GetConsoleColors();
 		SetConsoleColors(TXT_LIGHTGREEN, COLOR_TYPE_TXT);
 
 		printf("\n\n");
-		printf("New version PAEditor available | https://github.com/i-Saibot/PAEditor/releases");
+		printf("New version PAEditor available | %s\n", download);
+
+		SetConsoleColors(TXT_GREY, COLOR_TYPE_TXT);
+
+		printf("%s", update);
 		printf("\n\n");
 		SetConsoleColors(backup_color, COLOR_TYPE_TXT);
 	}

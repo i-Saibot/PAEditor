@@ -4,8 +4,8 @@
 #define _attach_colors_inc
 
 const
-	ATTACH_COLOR_MAX_ROW_IN_PAGE							= 25,
-	ATTACH_COLOR_MAX_LNGT_HEX_CODE							= 6;
+	ATTACH_COLOR_MAX_ROW_IN_PAGE						= 25,
+	ATTACH_COLOR_MAX_LNGT_HEX_CODE						= 6;
 
 
 const
@@ -26,8 +26,33 @@ static
 
 	gAttachColorHexCode[MAX_PLAYERS][ATTACH_COLOR_MAX_ROW_IN_PAGE],
 	gAttachColorsArrayIndex[MAX_PLAYERS][ATTACH_COLOR_MAX_ROW_IN_PAGE],
-	bool:gAttachObjectOpenRmouse[MAX_PLAYERS];
+	bool:gAttachObjectOpenRmouse[MAX_PLAYERS],
+	bool:gAttachObjectOpenPalette[MAX_PLAYERS];
 
+
+
+public OnPlayerDisconnect(playerid, reason)
+{
+	if (gAttachObjectOpenPalette[playerid])
+	{
+		gAttachObjectOpenPalette[playerid] = false;
+		HidePalette();
+	}
+#if defined athcolor_OnPlayerDisconnect
+	return athcolor_OnPlayerDisconnect(playerid, reason);
+#else
+	return 1;
+#endif
+}
+#if defined _ALS_OnPlayerDisconnect
+	#undef OnPlayerDisconnect
+#else
+	#define _ALS_OnPlayerDisconnect
+#endif
+#define OnPlayerDisconnect athcolor_OnPlayerDisconnect
+#if defined    athcolor_OnPlayerDisconnect
+	forward athcolor_OnPlayerDisconnect(playerid, reason);
+#endif
 
 public OnGuiAttachMenuClicked(playerid, typeid)
 {
@@ -52,8 +77,8 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 		Dialog_Show(playerid, "dAttachColorMenu");
 		return 1;
 	}
-#if defined attachcolor_OnGuiAttachMenu
-	return attachcolor_OnGuiAttachMenu(playerid, typeid);
+#if defined athcolor_OnGuiAttachMenu
+	return athcolor_OnGuiAttachMenu(playerid, typeid);
 #else
 	return 1;
 #endif
@@ -63,9 +88,9 @@ public OnGuiAttachMenuClicked(playerid, typeid)
 #else
 	#define _ALS_OnGuiAttachMenu
 #endif
-#define OnGuiAttachMenuClicked attachcolor_OnGuiAttachMenu
-#if defined attachcolor_OnGuiAttachMenu
-	forward attachcolor_OnGuiAttachMenu(playerid, typeid);
+#define OnGuiAttachMenuClicked athcolor_OnGuiAttachMenu
+#if defined athcolor_OnGuiAttachMenu
+	forward athcolor_OnGuiAttachMenu(playerid, typeid);
 #endif
 
 public OnVirtualKeyReleased(playerid, key_vk)
@@ -130,8 +155,8 @@ public OnVirtualKeyReleased(playerid, key_vk)
 			}
 		}
 	}
-#if defined attachcolor_OnVirtualKeyRlsd
-	return attachcolor_OnVirtualKeyRlsd(playerid, key_vk);
+#if defined athcolor_OnVirtualKeyRlsd
+	return athcolor_OnVirtualKeyRlsd(playerid, key_vk);
 #else
 	return 1;
 #endif
@@ -141,10 +166,68 @@ public OnVirtualKeyReleased(playerid, key_vk)
 #else
 	#define _ALS_OnVirtualKeyReleased
 #endif
-#define OnVirtualKeyReleased attachcolor_OnVirtualKeyRlsd
-#if defined    attachcolor_OnVirtualKeyRlsd
-	forward attachcolor_OnVirtualKeyRlsd(playerid, key_vk);
+#define OnVirtualKeyReleased athcolor_OnVirtualKeyRlsd
+#if defined    athcolor_OnVirtualKeyRlsd
+	forward athcolor_OnVirtualKeyRlsd(playerid, key_vk);
 #endif
+
+
+public OnPlayerClickTextDraw(playerid, Text:clickedid)
+{
+	if (gAttachObjectOpenPalette[playerid])
+	{
+		if (clickedid == Text: INVALID_TEXT_DRAW)
+		{
+			gAttachObjectOpenPalette[playerid] = false;
+			HidePalette();
+		}
+	}
+#if defined athcolor_OnPlayerClickTextDraw
+	return athcolor_OnPlayerClickTextDraw(playerid, Text:clickedid);
+#else
+	return 1;
+#endif
+}
+#if defined _ALS_OnPlayerClickTextDraw
+	#undef OnPlayerClickTextDraw
+#else
+	#define _ALS_OnPlayerClickTextDraw
+#endif
+#define OnPlayerClickTextDraw athcolor_OnPlayerClickTextDraw
+#if defined    athcolor_OnPlayerClickTextDraw
+	forward athcolor_OnPlayerClickTextDraw(playerid, Text:clickedid);
+#endif
+
+public OnPaletteChange(color[])
+{
+	new
+		playerid = 0,
+		slotid = attachmain_GetCurrentSlotId(playerid),
+		colorid = gAttachColorsSelectColorId[playerid];
+
+	new hex_code;
+
+	HexToARGB(color, hex_code);
+
+	if (colorid == 0)
+	{
+		attachmain_SetMaterialColor1(playerid, slotid, hex_code);
+	}
+	else
+	{
+		attachmain_SetMaterialColor2(playerid, slotid, hex_code);
+	}
+	attachmain_ApplyMainAttach(playerid, slotid);
+	project_JsonSaveAttach(playerid, slotid);
+	return 1;
+}
+
+public OnPaletteClose()
+{
+	new playerid = 0;
+	gAttachObjectOpenPalette[playerid] = false;
+	return 1;
+}
 
 DialogCreate:dAttachColorMenu(playerid)
 {
@@ -180,7 +263,13 @@ DialogResponse:dAttachColorMenu(playerid, response, listitem, inputtext[])
 			gAttachObjectOpenRmouse[playerid] = false;
 			Dialog_Show(playerid, "dAttachColorList");
 		}
-		case 3:
+		case 2:
+		{
+			gAttachObjectOpenPalette[playerid] = true;
+			SelectTextDraw(playerid, COLOR_WHITE);
+			ShowPalette();
+		}
+		case 4:
 		{
 			new
 				slotid = attachmain_GetCurrentSlotId(playerid),
@@ -256,7 +345,6 @@ DialogResponse:dAttachColorInput(playerid, response, listitem, inputtext[])
 	language_MessageInfo(playerid, "MSG_COLOR_HEX_APPLIED_SUCCESS");
 	return 1;
 }
-
 
 DialogCreate:dAttachColorList(playerid)
 {
@@ -336,7 +424,6 @@ DialogCreate:dAttachColorList(playerid)
 	return 1;
 }
 
-
 DialogResponse:dAttachColorList(playerid, response, listitem, inputtext[])
 {
 	if (!response)
@@ -388,7 +475,6 @@ DialogResponse:dAttachColorList(playerid, response, listitem, inputtext[])
 	);
 	return 1;
 }
-
 
 DialogResponse:dAttachColorsAction(playerid, response, listitem, inputtext[])
 {
@@ -517,6 +603,14 @@ DialogResponse:dAttachColorsAddToList(playerid, response, listitem, inputtext[])
 	return 1;
 }
 
+stock color_HidePalette()
+{
+	if (gAttachObjectOpenPalette[0])
+	{
+		gAttachObjectOpenPalette[0] = false;
+		HidePalette();
+	}
+}
 
 stock IsValidHexCode(const hex_code[])
 {

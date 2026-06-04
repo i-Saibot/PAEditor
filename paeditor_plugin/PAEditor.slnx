@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="PAEditor/PAEditor.vcxproj" Id="1ff50f10-4ead-4eeb-ade0-3e9b0a25153c" />
+</Solution>
