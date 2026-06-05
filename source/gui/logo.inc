@@ -9,10 +9,7 @@ static Text:gui_Logo;
 
 public OnGameModeInit()
 {
-	static const
-		fmt_str[] =
-			"PAEditor:_v%.1f"
-	;
+	static const fmt_str[] = "PAEditor:_v%s";
 	new string[sizeof(fmt_str) + (- 2 + 11)];
 
 	format(string, sizeof(string),
