@@ -84,19 +84,20 @@ The goal was to develop an editor for attaching objects (PAEditor) with a user-f
 - Set a skin.
 ---
 
-<img src="https://i.imgur.com/FXN1u5c.png" width="100" height="80"><img src="https://i.imgur.com/REl3jcX.png" width="100" height="80">
-<img src="https://i.imgur.com/Ylx3cHn.png" width="100" height="80">
-<img src="https://i.imgur.com/IHiZg3p.png" width="100" height="80">
-<img src="https://i.imgur.com/tPRDh4h.png" width="100" height="80">
-<img src="https://i.imgur.com/k7AsLeR.png" width="100" height="80">
-<img src="https://i.imgur.com/PT9D3TU.png" width="100" height="80">
-<img src="https://i.imgur.com/gJkKEv7.png" width="100" height="80">
-<img src="https://i.imgur.com/dVDn74g.png" width="100" height="80">
-<img src="https://i.imgur.com/K4EO5VW.png" width="100" height="80">
-<img src="https://i.imgur.com/BuNrENW.png" width="100" height="80">
-<img src="https://i.imgur.com/BuNrENW.png" width="100" height="80">
-<img src="https://i.imgur.com/9jiURlQ.png" width="100" height="80">
-<img src="https://i.imgur.com/E1XuuaE.png" width="100" height="80">
-<img src="https://i.imgur.com/PtHTkHf.png" width="100" height="80">
-<img src="https://i.imgur.com/wLuEMlY.png" width="100" height="80">
-<img src="https://i.imgur.com/9fYuZ3Q.png" width="100" height="80">
+
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/9fYuZ3Q.png" width="100" height="80" alt="PAEditor Preview"/><img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/9jiURlQ.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/9sWAdxadf.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/9xwfwfZ2q.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/BuNrENW.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/E1XuuaE.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/FXN1u5c.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/IHiZg3p.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/K4EO5VW.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/PT9D3TU.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/PtHTkHf.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/Ylx3cHn.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/dVDn74g.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/gJkKEv7.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/k7AsLeR.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/tPRDh4h.png" width="100" height="80" alt="PAEditor Preview"/>
+<img src="https://raw.githubusercontent.com/i-Saibot/PAEditor/main/imgs/wLuEMlY.png" width="100" height="80" alt="PAEditor Preview"/>
